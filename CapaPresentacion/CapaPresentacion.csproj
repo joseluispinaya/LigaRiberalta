@@ -1,0 +1,1040 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DE9CDC87-E7FE-4A24-9F75-2116EBF8475A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CapaPresentacion</RootNamespace>
+    <AssemblyName>CapaPresentacion</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44388</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\css\default\app-rtl.min.css" />
+    <Content Include="assets\css\default\app.min.css" />
+    <Content Include="assets\css\default\images\bg-login-dark-mode.png" />
+    <Content Include="assets\css\default\images\bg-login.png" />
+    <Content Include="assets\css\default\images\coming-soon.jpg" />
+    <Content Include="assets\css\default\images\cover-pattern.png" />
+    <Content Include="assets\css\default\images\cover-sidebar-user.jpg" />
+    <Content Include="assets\css\default\images\cover-sidebar.jpg" />
+    <Content Include="assets\css\default\images\error-page-pattern.png" />
+    <Content Include="assets\css\default\images\profile-cover.jpg" />
+    <Content Include="assets\css\default\images\transparent\black-0.1.png" />
+    <Content Include="assets\css\default\images\transparent\black-0.2.png" />
+    <Content Include="assets\css\default\images\transparent\black-0.3.png" />
+    <Content Include="assets\css\default\images\transparent\black-0.4.png" />
+    <Content Include="assets\css\default\images\transparent\black-0.5.png" />
+    <Content Include="assets\css\default\images\transparent\black-0.6.png" />
+    <Content Include="assets\css\default\images\transparent\black-0.7.png" />
+    <Content Include="assets\css\default\images\transparent\black-0.8.png" />
+    <Content Include="assets\css\default\images\transparent\black-0.9.png" />
+    <Content Include="assets\css\default\images\transparent\white-0.1.png" />
+    <Content Include="assets\css\default\images\transparent\white-0.2.png" />
+    <Content Include="assets\css\default\images\transparent\white-0.3.png" />
+    <Content Include="assets\css\default\images\transparent\white-0.4.png" />
+    <Content Include="assets\css\default\images\transparent\white-0.5.png" />
+    <Content Include="assets\css\default\images\transparent\white-0.6.png" />
+    <Content Include="assets\css\default\images\transparent\white-0.7.png" />
+    <Content Include="assets\css\default\images\transparent\white-0.8.png" />
+    <Content Include="assets\css\default\images\transparent\white-0.9.png" />
+    <Content Include="assets\css\default\images\transparent\white-0.98.png" />
+    <Content Include="assets\css\default\images\ui-icons_444444_256x240.png" />
+    <Content Include="assets\css\default\images\ui-icons_555555_256x240.png" />
+    <Content Include="assets\css\default\images\ui-icons_777620_256x240.png" />
+    <Content Include="assets\css\default\images\ui-icons_777777_256x240.png" />
+    <Content Include="assets\css\default\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="assets\css\default\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="assets\css\material\app-rtl.min.css" />
+    <Content Include="assets\css\material\app.min.css" />
+    <Content Include="assets\css\material\images\bg-login-dark-mode.png" />
+    <Content Include="assets\css\material\images\bg-login.png" />
+    <Content Include="assets\css\material\images\coming-soon.jpg" />
+    <Content Include="assets\css\material\images\cover-pattern.png" />
+    <Content Include="assets\css\material\images\cover-sidebar-user.jpg" />
+    <Content Include="assets\css\material\images\cover-sidebar.jpg" />
+    <Content Include="assets\css\material\images\error-page-pattern.png" />
+    <Content Include="assets\css\material\images\profile-cover.jpg" />
+    <Content Include="assets\css\material\images\transparent\black-0.1.png" />
+    <Content Include="assets\css\material\images\transparent\black-0.2.png" />
+    <Content Include="assets\css\material\images\transparent\black-0.3.png" />
+    <Content Include="assets\css\material\images\transparent\black-0.4.png" />
+    <Content Include="assets\css\material\images\transparent\black-0.5.png" />
+    <Content Include="assets\css\material\images\transparent\black-0.6.png" />
+    <Content Include="assets\css\material\images\transparent\black-0.7.png" />
+    <Content Include="assets\css\material\images\transparent\black-0.8.png" />
+    <Content Include="assets\css\material\images\transparent\black-0.9.png" />
+    <Content Include="assets\css\material\images\transparent\white-0.1.png" />
+    <Content Include="assets\css\material\images\transparent\white-0.2.png" />
+    <Content Include="assets\css\material\images\transparent\white-0.3.png" />
+    <Content Include="assets\css\material\images\transparent\white-0.4.png" />
+    <Content Include="assets\css\material\images\transparent\white-0.5.png" />
+    <Content Include="assets\css\material\images\transparent\white-0.6.png" />
+    <Content Include="assets\css\material\images\transparent\white-0.7.png" />
+    <Content Include="assets\css\material\images\transparent\white-0.8.png" />
+    <Content Include="assets\css\material\images\transparent\white-0.9.png" />
+    <Content Include="assets\css\material\images\transparent\white-0.98.png" />
+    <Content Include="assets\css\material\images\ui-icons_444444_256x240.png" />
+    <Content Include="assets\css\material\images\ui-icons_555555_256x240.png" />
+    <Content Include="assets\css\material\images\ui-icons_777620_256x240.png" />
+    <Content Include="assets\css\material\images\ui-icons_777777_256x240.png" />
+    <Content Include="assets\css\material\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="assets\css\material\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="assets\css\transparent\app-rtl.min.css" />
+    <Content Include="assets\css\transparent\app.min.css" />
+    <Content Include="assets\css\transparent\images\bg-login-dark-mode.png" />
+    <Content Include="assets\css\transparent\images\bg-login.png" />
+    <Content Include="assets\css\transparent\images\coming-soon.jpg" />
+    <Content Include="assets\css\transparent\images\cover-pattern.png" />
+    <Content Include="assets\css\transparent\images\cover-sidebar-user.jpg" />
+    <Content Include="assets\css\transparent\images\cover-sidebar.jpg" />
+    <Content Include="assets\css\transparent\images\error-page-pattern.png" />
+    <Content Include="assets\css\transparent\images\page-cover-v2.jpg" />
+    <Content Include="assets\css\transparent\images\page-cover.jpg" />
+    <Content Include="assets\css\transparent\images\profile-cover.jpg" />
+    <Content Include="assets\css\transparent\images\transparent\black-0.1.png" />
+    <Content Include="assets\css\transparent\images\transparent\black-0.2.png" />
+    <Content Include="assets\css\transparent\images\transparent\black-0.3.png" />
+    <Content Include="assets\css\transparent\images\transparent\black-0.4.png" />
+    <Content Include="assets\css\transparent\images\transparent\black-0.5.png" />
+    <Content Include="assets\css\transparent\images\transparent\black-0.6.png" />
+    <Content Include="assets\css\transparent\images\transparent\black-0.7.png" />
+    <Content Include="assets\css\transparent\images\transparent\black-0.8.png" />
+    <Content Include="assets\css\transparent\images\transparent\black-0.9.png" />
+    <Content Include="assets\css\transparent\images\transparent\white-0.1.png" />
+    <Content Include="assets\css\transparent\images\transparent\white-0.2.png" />
+    <Content Include="assets\css\transparent\images\transparent\white-0.3.png" />
+    <Content Include="assets\css\transparent\images\transparent\white-0.4.png" />
+    <Content Include="assets\css\transparent\images\transparent\white-0.5.png" />
+    <Content Include="assets\css\transparent\images\transparent\white-0.6.png" />
+    <Content Include="assets\css\transparent\images\transparent\white-0.7.png" />
+    <Content Include="assets\css\transparent\images\transparent\white-0.8.png" />
+    <Content Include="assets\css\transparent\images\transparent\white-0.9.png" />
+    <Content Include="assets\css\transparent\images\transparent\white-0.98.png" />
+    <Content Include="assets\css\transparent\images\ui-icons_444444_256x240.png" />
+    <Content Include="assets\css\transparent\images\ui-icons_555555_256x240.png" />
+    <Content Include="assets\css\transparent\images\ui-icons_777620_256x240.png" />
+    <Content Include="assets\css\transparent\images\ui-icons_777777_256x240.png" />
+    <Content Include="assets\css\transparent\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="assets\css\transparent\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="assets\css\vendor.min.css" />
+    <Content Include="assets\img\coming-soon\coming-soon-1.jpg" />
+    <Content Include="assets\img\cover\cover-profile.jpg" />
+    <Content Include="assets\img\cover\cover-scrum-board.png" />
+    <Content Include="assets\img\flag\cn.jpg" />
+    <Content Include="assets\img\flag\de.jpg" />
+    <Content Include="assets\img\flag\fr.jpg" />
+    <Content Include="assets\img\flag\jp.jpg" />
+    <Content Include="assets\img\flag\us.jpg" />
+    <Content Include="assets\img\gallery\gallery-1-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-1.jpg" />
+    <Content Include="assets\img\gallery\gallery-10-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-10.jpg" />
+    <Content Include="assets\img\gallery\gallery-11-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-11.jpg" />
+    <Content Include="assets\img\gallery\gallery-12-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-12.jpg" />
+    <Content Include="assets\img\gallery\gallery-13-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-13.jpg" />
+    <Content Include="assets\img\gallery\gallery-14-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-14.jpg" />
+    <Content Include="assets\img\gallery\gallery-15-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-15.jpg" />
+    <Content Include="assets\img\gallery\gallery-16-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-16.jpg" />
+    <Content Include="assets\img\gallery\gallery-17-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-17.jpg" />
+    <Content Include="assets\img\gallery\gallery-18-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-18.jpg" />
+    <Content Include="assets\img\gallery\gallery-19-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-19.jpg" />
+    <Content Include="assets\img\gallery\gallery-2-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-2.jpg" />
+    <Content Include="assets\img\gallery\gallery-20-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-20.jpg" />
+    <Content Include="assets\img\gallery\gallery-21-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-21.jpg" />
+    <Content Include="assets\img\gallery\gallery-22-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-22.jpg" />
+    <Content Include="assets\img\gallery\gallery-23-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-23.jpg" />
+    <Content Include="assets\img\gallery\gallery-24-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-24.jpg" />
+    <Content Include="assets\img\gallery\gallery-25-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-25.jpg" />
+    <Content Include="assets\img\gallery\gallery-26-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-26.jpg" />
+    <Content Include="assets\img\gallery\gallery-27-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-27.jpg" />
+    <Content Include="assets\img\gallery\gallery-28-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-28.jpg" />
+    <Content Include="assets\img\gallery\gallery-29-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-29.jpg" />
+    <Content Include="assets\img\gallery\gallery-3-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-3.jpg" />
+    <Content Include="assets\img\gallery\gallery-30-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-30.jpg" />
+    <Content Include="assets\img\gallery\gallery-31-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-31.jpg" />
+    <Content Include="assets\img\gallery\gallery-32-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-32.jpg" />
+    <Content Include="assets\img\gallery\gallery-33-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-33.jpg" />
+    <Content Include="assets\img\gallery\gallery-34-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-34.jpg" />
+    <Content Include="assets\img\gallery\gallery-35-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-35.jpg" />
+    <Content Include="assets\img\gallery\gallery-36-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-36.jpg" />
+    <Content Include="assets\img\gallery\gallery-37-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-37.jpg" />
+    <Content Include="assets\img\gallery\gallery-38-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-38.jpg" />
+    <Content Include="assets\img\gallery\gallery-39-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-39.jpg" />
+    <Content Include="assets\img\gallery\gallery-4-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-4.jpg" />
+    <Content Include="assets\img\gallery\gallery-40-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-40.jpg" />
+    <Content Include="assets\img\gallery\gallery-41-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-41.jpg" />
+    <Content Include="assets\img\gallery\gallery-42-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-42.jpg" />
+    <Content Include="assets\img\gallery\gallery-43-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-43.jpg" />
+    <Content Include="assets\img\gallery\gallery-44-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-44.jpg" />
+    <Content Include="assets\img\gallery\gallery-45-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-45.jpg" />
+    <Content Include="assets\img\gallery\gallery-46-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-46.jpg" />
+    <Content Include="assets\img\gallery\gallery-47-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-47.jpg" />
+    <Content Include="assets\img\gallery\gallery-48-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-48.jpg" />
+    <Content Include="assets\img\gallery\gallery-49-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-49.jpg" />
+    <Content Include="assets\img\gallery\gallery-5-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-5.jpg" />
+    <Content Include="assets\img\gallery\gallery-50-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-50.jpg" />
+    <Content Include="assets\img\gallery\gallery-51-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-51.jpg" />
+    <Content Include="assets\img\gallery\gallery-52-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-52.jpg" />
+    <Content Include="assets\img\gallery\gallery-53-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-53.jpg" />
+    <Content Include="assets\img\gallery\gallery-54-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-54.jpg" />
+    <Content Include="assets\img\gallery\gallery-55-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-55.jpg" />
+    <Content Include="assets\img\gallery\gallery-56-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-56.jpg" />
+    <Content Include="assets\img\gallery\gallery-57-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-57.jpg" />
+    <Content Include="assets\img\gallery\gallery-58-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-58.jpg" />
+    <Content Include="assets\img\gallery\gallery-59-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-59.jpg" />
+    <Content Include="assets\img\gallery\gallery-6-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-6.jpg" />
+    <Content Include="assets\img\gallery\gallery-60-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-60.jpg" />
+    <Content Include="assets\img\gallery\gallery-61-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-61.jpg" />
+    <Content Include="assets\img\gallery\gallery-62-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-62.jpg" />
+    <Content Include="assets\img\gallery\gallery-63-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-63.jpg" />
+    <Content Include="assets\img\gallery\gallery-64-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-64.jpg" />
+    <Content Include="assets\img\gallery\gallery-65-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-65.jpg" />
+    <Content Include="assets\img\gallery\gallery-66-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-66.jpg" />
+    <Content Include="assets\img\gallery\gallery-67-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-67.jpg" />
+    <Content Include="assets\img\gallery\gallery-68-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-68.jpg" />
+    <Content Include="assets\img\gallery\gallery-69-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-69.jpg" />
+    <Content Include="assets\img\gallery\gallery-7-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-7.jpg" />
+    <Content Include="assets\img\gallery\gallery-70-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-70.jpg" />
+    <Content Include="assets\img\gallery\gallery-8-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-8.jpg" />
+    <Content Include="assets\img\gallery\gallery-9-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-9.jpg" />
+    <Content Include="assets\img\gallery\gallery-portrait-1.jpg" />
+    <Content Include="assets\img\gallery\gallery-portrait-10.jpg" />
+    <Content Include="assets\img\gallery\gallery-portrait-11-thumb.jpg" />
+    <Content Include="assets\img\gallery\gallery-portrait-11.jpg" />
+    <Content Include="assets\img\gallery\gallery-portrait-2.jpg" />
+    <Content Include="assets\img\gallery\gallery-portrait-3.jpg" />
+    <Content Include="assets\img\gallery\gallery-portrait-4.jpg" />
+    <Content Include="assets\img\gallery\gallery-portrait-5.jpg" />
+    <Content Include="assets\img\gallery\gallery-portrait-6.jpg" />
+    <Content Include="assets\img\gallery\gallery-portrait-7.jpg" />
+    <Content Include="assets\img\gallery\gallery-portrait-8.jpg" />
+    <Content Include="assets\img\gallery\gallery-portrait-9.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-1-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-1.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-10-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-10.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-11-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-11.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-12-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-12.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-13-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-13.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-14-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-14.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-15.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-16-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-16.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-17-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-17.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-18-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-18.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-2-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-2.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-3-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-3.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-4-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-4.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-5-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-5.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-6-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-6.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-7-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-7.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-8-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-8.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-9-thumb.jpg" />
+    <Content Include="assets\img\login-bg\login-bg-9.jpg" />
+    <Content Include="assets\img\logo\logo-admin-apple.png" />
+    <Content Include="assets\img\logo\logo-admin-facebook.png" />
+    <Content Include="assets\img\logo\logo-admin-google.png" />
+    <Content Include="assets\img\logo\logo-admin-transparent.png" />
+    <Content Include="assets\img\logo\logo-admin.png" />
+    <Content Include="assets\img\logo\logo-bs4.png" />
+    <Content Include="assets\img\logo\logo-bs5.png" />
+    <Content Include="assets\img\pos\icon-table-black.svg" />
+    <Content Include="assets\img\pos\icon-table.svg" />
+    <Content Include="assets\img\pos\logo-white.svg" />
+    <Content Include="assets\img\pos\logo.svg" />
+    <Content Include="assets\img\pos\product-1.jpg" />
+    <Content Include="assets\img\pos\product-10.jpg" />
+    <Content Include="assets\img\pos\product-11.jpg" />
+    <Content Include="assets\img\pos\product-12.jpg" />
+    <Content Include="assets\img\pos\product-13.jpg" />
+    <Content Include="assets\img\pos\product-14.jpg" />
+    <Content Include="assets\img\pos\product-15.jpg" />
+    <Content Include="assets\img\pos\product-16.jpg" />
+    <Content Include="assets\img\pos\product-17.jpg" />
+    <Content Include="assets\img\pos\product-2.jpg" />
+    <Content Include="assets\img\pos\product-3.jpg" />
+    <Content Include="assets\img\pos\product-4.jpg" />
+    <Content Include="assets\img\pos\product-5.jpg" />
+    <Content Include="assets\img\pos\product-6.jpg" />
+    <Content Include="assets\img\pos\product-7.jpg" />
+    <Content Include="assets\img\pos\product-8.jpg" />
+    <Content Include="assets\img\pos\product-9.jpg" />
+    <Content Include="assets\img\pricing\img-1.svg" />
+    <Content Include="assets\img\product\product-1.jpg" />
+    <Content Include="assets\img\product\product-1.png" />
+    <Content Include="assets\img\product\product-10.jpg" />
+    <Content Include="assets\img\product\product-11.jpg" />
+    <Content Include="assets\img\product\product-12.jpg" />
+    <Content Include="assets\img\product\product-13.jpg" />
+    <Content Include="assets\img\product\product-14.jpg" />
+    <Content Include="assets\img\product\product-15.jpg" />
+    <Content Include="assets\img\product\product-16.jpg" />
+    <Content Include="assets\img\product\product-2.jpg" />
+    <Content Include="assets\img\product\product-2.png" />
+    <Content Include="assets\img\product\product-3.jpg" />
+    <Content Include="assets\img\product\product-3.png" />
+    <Content Include="assets\img\product\product-4.jpg" />
+    <Content Include="assets\img\product\product-4.png" />
+    <Content Include="assets\img\product\product-5.jpg" />
+    <Content Include="assets\img\product\product-5.png" />
+    <Content Include="assets\img\product\product-6.jpg" />
+    <Content Include="assets\img\product\product-6.png" />
+    <Content Include="assets\img\product\product-7.jpg" />
+    <Content Include="assets\img\product\product-7.png" />
+    <Content Include="assets\img\product\product-8.jpg" />
+    <Content Include="assets\img\product\product-9.jpg" />
+    <Content Include="assets\img\product\product-preview-ipad.png" />
+    <Content Include="assets\img\product\product-preview-iphone.png" />
+    <Content Include="assets\img\product\product-preview-macbook.png" />
+    <Content Include="assets\img\product\product-preview-sm.jpg" />
+    <Content Include="assets\img\product\product-preview.jpg" />
+    <Content Include="assets\img\svg\img-1.svg" />
+    <Content Include="assets\img\svg\img-2.svg" />
+    <Content Include="assets\img\svg\img-3.svg" />
+    <Content Include="assets\img\svg\img-4.svg" />
+    <Content Include="assets\img\theme\apple.jpg" />
+    <Content Include="assets\img\theme\blog.jpg" />
+    <Content Include="assets\img\theme\corporate.jpg" />
+    <Content Include="assets\img\theme\default.jpg" />
+    <Content Include="assets\img\theme\e-commerce.jpg" />
+    <Content Include="assets\img\theme\facebook.jpg" />
+    <Content Include="assets\img\theme\forum.jpg" />
+    <Content Include="assets\img\theme\google.jpg" />
+    <Content Include="assets\img\theme\material.jpg" />
+    <Content Include="assets\img\theme\one-page-parallax.jpg" />
+    <Content Include="assets\img\theme\transparent.jpg" />
+    <Content Include="assets\img\transparent\black-0.1.png" />
+    <Content Include="assets\img\transparent\black-0.2.png" />
+    <Content Include="assets\img\transparent\black-0.3.png" />
+    <Content Include="assets\img\transparent\black-0.4.png" />
+    <Content Include="assets\img\transparent\black-0.5.png" />
+    <Content Include="assets\img\transparent\black-0.6.png" />
+    <Content Include="assets\img\transparent\black-0.7.png" />
+    <Content Include="assets\img\transparent\black-0.8.png" />
+    <Content Include="assets\img\transparent\black-0.9.png" />
+    <Content Include="assets\img\transparent\white-0.1.png" />
+    <Content Include="assets\img\transparent\white-0.2.png" />
+    <Content Include="assets\img\transparent\white-0.3.png" />
+    <Content Include="assets\img\transparent\white-0.4.png" />
+    <Content Include="assets\img\transparent\white-0.5.png" />
+    <Content Include="assets\img\transparent\white-0.6.png" />
+    <Content Include="assets\img\transparent\white-0.7.png" />
+    <Content Include="assets\img\transparent\white-0.8.png" />
+    <Content Include="assets\img\transparent\white-0.9.png" />
+    <Content Include="assets\img\transparent\white-0.98.png" />
+    <Content Include="assets\img\user\user-1.jpg" />
+    <Content Include="assets\img\user\user-10.jpg" />
+    <Content Include="assets\img\user\user-11.jpg" />
+    <Content Include="assets\img\user\user-12.jpg" />
+    <Content Include="assets\img\user\user-13.jpg" />
+    <Content Include="assets\img\user\user-14.jpg" />
+    <Content Include="assets\img\user\user-2.jpg" />
+    <Content Include="assets\img\user\user-3.jpg" />
+    <Content Include="assets\img\user\user-4.jpg" />
+    <Content Include="assets\img\user\user-5.jpg" />
+    <Content Include="assets\img\user\user-6.jpg" />
+    <Content Include="assets\img\user\user-7.jpg" />
+    <Content Include="assets\img\user\user-8.jpg" />
+    <Content Include="assets\img\user\user-9.jpg" />
+    <Content Include="assets\img\version\ajax.jpg" />
+    <Content Include="assets\img\version\angular10x.jpg" />
+    <Content Include="assets\img\version\angular1x.jpg" />
+    <Content Include="assets\img\version\django.jpg" />
+    <Content Include="assets\img\version\dotnet.jpg" />
+    <Content Include="assets\img\version\html.jpg" />
+    <Content Include="assets\img\version\laravel.jpg" />
+    <Content Include="assets\img\version\reactjs.jpg" />
+    <Content Include="assets\img\version\svelte.jpg" />
+    <Content Include="assets\img\version\vuejs.jpg" />
+    <Content Include="assets\js\app.min.js" />
+    <Content Include="assets\js\demo\form-editable.demo.js" />
+    <Content Include="assets\js\demo\form-multiple-upload.demo.js" />
+    <Content Include="assets\js\demo\form-plugins.demo.js" />
+    <Content Include="assets\js\demo\form-slider-switcher.demo.js" />
+    <Content Include="assets\js\demo\form-summernote.demo.js" />
+    <Content Include="assets\js\demo\form-wizards-validation.demo.js" />
+    <Content Include="assets\js\demo\form-wizards.demo.js" />
+    <Content Include="assets\js\demo\form-wysiwyg.demo.js" />
+    <Content Include="assets\js\demo\table-manage-default.demo.js" />
+    <Content Include="assets\js\demo\ui-modal-notification.demo.js" />
+    <Content Include="assets\js\vendor.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\css\bootstrap-datepicker.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\css\bootstrap-datepicker.min.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\css\bootstrap-datepicker.standalone.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\css\bootstrap-datepicker.standalone.min.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\css\bootstrap-datepicker3.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\css\bootstrap-datepicker3.min.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\css\bootstrap-datepicker3.standalone.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\css\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\js\bootstrap-datepicker.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\js\bootstrap-datepicker.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker-en-CA.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.ar-DZ.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.ar-tn.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.ar.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.az.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.bg.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.bm.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.bn.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.br.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.bs.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.ca.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.cs.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.cy.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.da.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.de.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.el.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.en-AU.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.en-CA.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.en-GB.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.en-IE.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.en-NZ.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.en-US.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.en-ZA.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.eo.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.es.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.et.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.eu.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.fa.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.fi.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.fo.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.fr-CH.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.fr.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.gl.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.he.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.hi.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.hr.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.hu.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.hy.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.id.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.is.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.it-CH.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.it.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.ja.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.ka.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.kh.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.kk.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.km.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.ko.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.kr.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.lt.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.lv.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.me.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.mk.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.mn.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.mr.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.ms.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.nl-BE.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.nl.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.no.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.oc.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.pl.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.pt-BR.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.pt.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.ro.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.rs-latin.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.rs.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.ru.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.si.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.sk.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.sl.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.sq.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.sr-latin.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.sr.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.sv.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.sw.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.ta.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.tg.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.th.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.tk.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.tr.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.uk.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.uz-cyrl.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.uz-latn.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.vi.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.zh-CN.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\locales\bootstrap-datepicker.zh-TW.min.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker-en-CA.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.ar-DZ.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.ar-tn.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.ar.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.az.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.bg.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.bm.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.bn.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.br.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.bs.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.ca.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.cs.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.cy.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.da.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.de.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.el.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.en-AU.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.en-CA.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.en-GB.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.en-IE.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.en-NZ.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.en-US.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.en-ZA.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.eo.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.es.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.et.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.eu.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.fa.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.fi.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.fo.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.fr-CH.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.fr.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.gl.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.he.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.hi.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.hr.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.hu.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.hy.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.id.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.is.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.it-CH.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.it.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.ja.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.ka.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.kh.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.kk.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.km.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.ko.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.kr.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.lt.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.lv.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.me.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.mk.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.mn.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.mr.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.ms.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.nl-BE.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.nl.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.no.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.oc.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.pl.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.pt-BR.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.pt.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.ro.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.rs-latin.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.rs.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.ru.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.si.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.sk.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.sl.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.sq.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.sr-latin.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.sr.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.sv.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.sw.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.ta.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.tg.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.th.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.tk.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.tr.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.uk.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.uz-cyrl.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.uz-latn.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.vi.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.zh-CN.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\locales\bootstrap-datepicker.zh-TW.js" />
+    <Content Include="assets\plugins\bootstrap-filestyle\js\bootstrap-filestyle.js" />
+    <Content Include="assets\plugins\bootstrap-filestyle\js\bootstrap-filestyle.min.js" />
+    <Content Include="assets\plugins\bootstrap-timepicker\css\bootstrap-timepicker.css" />
+    <Content Include="assets\plugins\bootstrap-timepicker\css\bootstrap-timepicker.min.css" />
+    <Content Include="assets\plugins\bootstrap-timepicker\js\bootstrap-timepicker.js" />
+    <Content Include="assets\plugins\bootstrap-timepicker\js\bootstrap-timepicker.min.js" />
+    <Content Include="assets\plugins\datatables.net-bs5\css\dataTables.bootstrap5.css" />
+    <Content Include="assets\plugins\datatables.net-bs5\css\dataTables.bootstrap5.min.css" />
+    <Content Include="assets\plugins\datatables.net-bs5\js\dataTables.bootstrap5.js" />
+    <Content Include="assets\plugins\datatables.net-bs5\js\dataTables.bootstrap5.min.js" />
+    <Content Include="assets\plugins\datatables.net-bs5\js\dataTables.bootstrap5.min.mjs" />
+    <Content Include="assets\plugins\datatables.net-bs5\js\dataTables.bootstrap5.mjs" />
+    <Content Include="assets\plugins\datatables.net-bs5\License.txt" />
+    <Content Include="assets\plugins\datatables.net-responsive-bs5\css\responsive.bootstrap5.css" />
+    <Content Include="assets\plugins\datatables.net-responsive-bs5\css\responsive.bootstrap5.min.css" />
+    <Content Include="assets\plugins\datatables.net-responsive-bs5\js\responsive.bootstrap5.js" />
+    <Content Include="assets\plugins\datatables.net-responsive-bs5\js\responsive.bootstrap5.min.js" />
+    <Content Include="assets\plugins\datatables.net-responsive-bs5\js\responsive.bootstrap5.min.mjs" />
+    <Content Include="assets\plugins\datatables.net-responsive-bs5\js\responsive.bootstrap5.mjs" />
+    <Content Include="assets\plugins\datatables.net-responsive-bs5\License.txt" />
+    <Content Include="assets\plugins\datatables.net-responsive\js\dataTables.responsive.js" />
+    <Content Include="assets\plugins\datatables.net-responsive\js\dataTables.responsive.min.js" />
+    <Content Include="assets\plugins\datatables.net-responsive\js\dataTables.responsive.min.mjs" />
+    <Content Include="assets\plugins\datatables.net-responsive\js\dataTables.responsive.mjs" />
+    <Content Include="assets\plugins\datatables.net-responsive\License.txt" />
+    <Content Include="assets\plugins\datatables.net\js\dataTables.js" />
+    <Content Include="assets\plugins\datatables.net\js\dataTables.min.js" />
+    <Content Include="assets\plugins\datatables.net\js\dataTables.min.mjs" />
+    <Content Include="assets\plugins\datatables.net\js\dataTables.mjs" />
+    <Content Include="assets\plugins\datatables.net\License.txt" />
+    <Content Include="assets\plugins\gritter\css\jquery.gritter.css" />
+    <Content Include="assets\plugins\gritter\images\gritter-light.png" />
+    <Content Include="assets\plugins\gritter\images\gritter-long.png" />
+    <Content Include="assets\plugins\gritter\images\gritter.png" />
+    <Content Include="assets\plugins\gritter\images\ie-spacer.gif" />
+    <Content Include="assets\plugins\gritter\images\trees.jpg" />
+    <Content Include="assets\plugins\gritter\index.html" />
+    <Content Include="assets\plugins\gritter\js\jquery.gritter.js" />
+    <Content Include="assets\plugins\gritter\js\jquery.gritter.min.js" />
+    <Content Include="assets\plugins\jquery-ui\jquery-ui.min.css" />
+    <Content Include="assets\plugins\jquery-ui\jquery-ui.min.js" />
+    <Content Include="assets\plugins\loadingoverlay\loadingoverlay.js" />
+    <Content Include="assets\plugins\loadingoverlay\loadingoverlay.min.js" />
+    <Content Include="assets\plugins\select2ori\dist\css\select2.css" />
+    <Content Include="assets\plugins\select2ori\dist\css\select2.min.css" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\af.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\ar.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\az.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\bg.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\bn.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\bs.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\build.txt" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\ca.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\cs.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\da.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\de.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\dsb.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\el.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\en.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\es.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\et.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\eu.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\fa.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\fi.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\fr.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\gl.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\he.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\hi.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\hr.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\hsb.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\hu.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\hy.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\id.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\is.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\it.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\ja.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\ka.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\km.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\ko.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\lt.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\lv.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\mk.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\ms.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\nb.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\ne.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\nl.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\pl.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\ps.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\pt-BR.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\pt.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\ro.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\ru.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\sk.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\sl.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\sq.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\sr-Cyrl.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\sr.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\sv.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\th.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\tk.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\tr.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\uk.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\vi.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\zh-CN.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\i18n\zh-TW.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\select2.full.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\select2.full.min.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\select2.js" />
+    <Content Include="assets\plugins\select2ori\dist\js\select2.min.js" />
+    <Content Include="assets\plugins\select2ori\src\js\banner.end.js" />
+    <Content Include="assets\plugins\select2ori\src\js\banner.start.js" />
+    <Content Include="assets\plugins\select2ori\src\js\jquery.mousewheel.shim.js" />
+    <Content Include="assets\plugins\select2ori\src\js\jquery.select2.js" />
+    <Content Include="assets\plugins\select2ori\src\js\jquery.shim.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\compat\containerCss.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\compat\dropdownCss.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\compat\initSelection.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\compat\inputData.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\compat\matcher.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\compat\query.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\compat\utils.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\core.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\data\ajax.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\data\array.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\data\base.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\data\maximumInputLength.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\data\maximumSelectionLength.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\data\minimumInputLength.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\data\select.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\data\tags.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\data\tokenizer.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\defaults.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\diacritics.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\dropdown.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\dropdown\attachBody.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\dropdown\attachContainer.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\dropdown\closeOnSelect.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\dropdown\hidePlaceholder.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\dropdown\infiniteScroll.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\dropdown\minimumResultsForSearch.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\dropdown\search.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\dropdown\selectOnClose.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\dropdown\stopPropagation.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\af.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\ar.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\az.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\bg.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\bn.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\bs.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\ca.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\cs.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\da.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\de.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\dsb.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\el.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\en.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\es.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\et.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\eu.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\fa.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\fi.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\fr.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\gl.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\he.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\hi.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\hr.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\hsb.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\hu.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\hy.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\id.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\is.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\it.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\ja.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\ka.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\km.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\ko.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\lt.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\lv.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\mk.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\ms.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\nb.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\ne.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\nl.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\pl.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\ps.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\pt-BR.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\pt.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\ro.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\ru.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\sk.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\sl.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\sq.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\sr-Cyrl.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\sr.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\sv.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\th.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\tk.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\tr.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\uk.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\vi.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\zh-CN.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\i18n\zh-TW.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\keys.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\options.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\results.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\selection\allowClear.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\selection\base.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\selection\clickMask.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\selection\eventRelay.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\selection\multiple.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\selection\placeholder.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\selection\search.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\selection\single.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\selection\stopPropagation.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\translation.js" />
+    <Content Include="assets\plugins\select2ori\src\js\select2\utils.js" />
+    <Content Include="assets\plugins\select2ori\src\js\wrapper.end.js" />
+    <Content Include="assets\plugins\select2ori\src\js\wrapper.start.js" />
+    <Content Include="assets\plugins\select2\es.min.js" />
+    <Content Include="assets\plugins\select2\select2.min.css" />
+    <Content Include="assets\plugins\select2\select2.min.js" />
+    <Content Include="assets\plugins\sweetalert\sweetalert.min.js" />
+    <Content Include="assets\plugins\toastr\toastr.min.css" />
+    <Content Include="assets\plugins\toastr\toastr.min.js" />
+    <Content Include="Inicio.aspx" />
+    <Content Include="js\Torneos.js" />
+    <Content Include="Torneos.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Inicio.aspx.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inicio.aspx.designer.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PageMaster.Master.cs">
+      <DependentUpon>PageMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PageMaster.Master.designer.cs">
+      <DependentUpon>PageMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Torneos.aspx.cs">
+      <DependentUpon>Torneos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Torneos.aspx.designer.cs">
+      <DependentUpon>Torneos.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\css\.DS_Store" />
+    <Content Include="assets\css\fonts\bootstrap-icons.woff" />
+    <Content Include="assets\css\fonts\bootstrap-icons.woff2" />
+    <Content Include="assets\img\.DS_Store" />
+    <Content Include="assets\img\pricing\.DS_Store" />
+    <Content Include="assets\img\svg\.DS_Store" />
+    <Content Include="assets\img\theme\.DS_Store" />
+    <Content Include="assets\img\version\.DS_Store" />
+    <Content Include="assets\plugins\bootstrap-datepicker\build\build.less" />
+    <Content Include="assets\plugins\bootstrap-datepicker\build\build3.less" />
+    <Content Include="assets\plugins\bootstrap-datepicker\build\build_standalone.less" />
+    <Content Include="assets\plugins\bootstrap-datepicker\build\build_standalone3.less" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\css\bootstrap-datepicker.css.map" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\css\bootstrap-datepicker.standalone.css.map" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\css\bootstrap-datepicker3.css.map" />
+    <Content Include="assets\plugins\bootstrap-datepicker\dist\css\bootstrap-datepicker3.standalone.css.map" />
+    <Content Include="assets\plugins\bootstrap-datepicker\less\datepicker.less" />
+    <Content Include="assets\plugins\bootstrap-datepicker\less\datepicker3.less" />
+    <Content Include="assets\plugins\bootstrap-datepicker\LICENSE" />
+    <Content Include="assets\plugins\bootstrap-timepicker\css\timepicker.less" />
+    <Content Include="assets\plugins\bootstrap-timepicker\LICENSE" />
+    <Content Include="assets\plugins\datatables.net-bs5\package.json" />
+    <Content Include="assets\plugins\datatables.net-bs5\Readme.md" />
+    <Content Include="assets\plugins\datatables.net-responsive-bs5\package.json" />
+    <Content Include="assets\plugins\datatables.net-responsive-bs5\Readme.md" />
+    <Content Include="assets\plugins\datatables.net-responsive\package.json" />
+    <Content Include="assets\plugins\datatables.net-responsive\Readme.md" />
+    <Content Include="assets\plugins\datatables.net\package.json" />
+    <Content Include="assets\plugins\datatables.net\Readme.md" />
+    <Content Include="assets\plugins\gritter\bower.json" />
+    <Content Include="assets\plugins\gritter\package.json" />
+    <Content Include="assets\plugins\gritter\README.markdown" />
+    <Content Include="assets\plugins\select2ori\CHANGELOG.md" />
+    <Content Include="assets\plugins\select2ori\LICENSE.md" />
+    <Content Include="assets\plugins\select2ori\package.json" />
+    <Content Include="assets\plugins\select2ori\README.md" />
+    <Content Include="assets\plugins\select2ori\src\scss\core.scss" />
+    <Content Include="assets\plugins\select2ori\src\scss\mixins\_gradients.scss" />
+    <Content Include="assets\plugins\select2ori\src\scss\theme\classic\layout.scss" />
+    <Content Include="assets\plugins\select2ori\src\scss\theme\classic\_defaults.scss" />
+    <Content Include="assets\plugins\select2ori\src\scss\theme\classic\_multiple.scss" />
+    <Content Include="assets\plugins\select2ori\src\scss\theme\classic\_single.scss" />
+    <Content Include="assets\plugins\select2ori\src\scss\theme\default\layout.scss" />
+    <Content Include="assets\plugins\select2ori\src\scss\theme\default\_multiple.scss" />
+    <Content Include="assets\plugins\select2ori\src\scss\theme\default\_single.scss" />
+    <Content Include="assets\plugins\select2ori\src\scss\_dropdown.scss" />
+    <Content Include="assets\plugins\select2ori\src\scss\_multiple.scss" />
+    <Content Include="assets\plugins\select2ori\src\scss\_single.scss" />
+    <Content Include="assets\webfonts\fa-brands-400.ttf" />
+    <Content Include="assets\webfonts\fa-brands-400.woff2" />
+    <Content Include="assets\webfonts\fa-regular-400.ttf" />
+    <Content Include="assets\webfonts\fa-regular-400.woff2" />
+    <Content Include="assets\webfonts\fa-solid-900.ttf" />
+    <Content Include="assets\webfonts\fa-solid-900.woff2" />
+    <Content Include="assets\webfonts\fa-v4compatibility.ttf" />
+    <Content Include="assets\webfonts\fa-v4compatibility.woff2" />
+    <None Include="packages.config" />
+    <Content Include="PageMaster.Master" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57522</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44388/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
