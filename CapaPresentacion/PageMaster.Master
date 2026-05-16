@@ -37,7 +37,7 @@
 		<div id="header" class="app-header">
 			<!-- BEGIN navbar-header -->
 			<div class="navbar-header">
-				<a href="#" class="navbar-brand"><span class="navbar-logo"></span> <b class="me-3px">EMI</b>RIB</a>
+				<a href="#" class="navbar-brand"><span class="navbar-logo"></span> <b class="me-3px">FC-</b>RIB</a>
 				<button type="button" class="navbar-mobile-toggler" data-toggle="app-sidebar-mobile">
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -131,54 +131,45 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a href="CarrerasPage.aspx" class="menu-link">
-                                    <div class="menu-text">Carreras</div>
+                                <a href="Categorias.aspx" class="menu-link">
+                                    <div class="menu-text">Categorias</div>
                                 </a>
                             </div>
                             <div class="menu-item">
                                 <a href="#" class="menu-link">
-                                    <div class="menu-text">Socios</div>
+                                    <div class="menu-text">Esperando</div>
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="menu-item">
-                        <a href="EstudiantesPage.aspx" class="menu-link">
+                    <%--<div class="menu-item">
+                        <a href="Clubes.aspx" class="menu-link">
                             <div class="menu-icon">
-                                <i class="fas fa-user-gear"></i>
+                                <i class="fas fa-house-crack"></i>
                             </div>
-                            <div class="menu-text">Estudiantes </div>
+                            <div class="menu-text">Clubes </div>
                         </a>
-                    </div>
+                    </div>--%>
 
-
-                    <div class="menu-item">
-                        <a href="ListaDocentesPage.aspx" class="menu-link">
-                            <div class="menu-icon">
-                                <i class="fas fa-money-check-dollar"></i>
-                            </div>
-                            <div class="menu-text">Docentes</div>
-                        </a>
-                    </div>
 
                     <div class="menu-item has-sub">
                         <a href="javascript:;" class="menu-link">
                             <div class="menu-icon">
-                                <i class="fas fa-folder-open"></i>
+                                <i class="fas fa-house-crack"></i>
                             </div>
-                            <div class="menu-text">Proyectos de Grado</div>
+                            <div class="menu-text">Panel Clubes</div>
                             <div class="menu-caret"></div>
                         </a>
                         <div class="menu-submenu">
                             <div class="menu-item">
-                                <a href="ProyectosPage.aspx" class="menu-link">
-                                    <div class="menu-text">Lista de proyectos</div>
+                                <a href="Clubes.aspx" class="menu-link">
+                                    <div class="menu-text">Clubes</div>
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div class="menu-text">Asociaciones</div>
+                                <a href="Jugadores.aspx" class="menu-link">
+                                    <div class="menu-text">Jugadores</div>
                                 </a>
                             </div>
                         </div>
@@ -207,6 +198,33 @@
 		<!-- END #content -->
 		
 		<!-- BEGIN theme-panel -->
+        <div class="theme-panel">
+            <a href="javascript:;" data-toggle="theme-panel-expand" class="theme-collapse-btn"><i class="fa fa-cog"></i></a>
+            <div class="theme-panel-content" data-scrollbar="true" data-height="100%">
+                <h5>Ajustes Temas</h5>
+
+                <div class="row mt-10px">
+                    <div class="col-8 control-label text-body fw-bold">
+                        <div>Modo Oscuro <span class="badge bg-primary ms-1 py-2px position-relative" style="top: -1px;">VER</span></div>
+                        <div class="lh-14">
+                            <small class="text-body opacity-50">Ajuste de apariencia para el sistema.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex">
+                        <div class="form-check form-switch ms-auto mb-0">
+                            <input type="checkbox" class="form-check-input" name="app-theme-dark-mode" id="appThemeDarkMode" value="1" />
+                            <label class="form-check-label" for="appThemeDarkMode">&nbsp;</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="theme-panel-divider"></div>
+
+
+                <a href="javascript:;" class="btn btn-dark d-block w-100 rounded-pill" data-toggle="reset-local-storage"><b>Recargar Sistema</b></a>
+            </div>
+        </div>
 		<!-- END theme-panel -->
 		<!-- BEGIN scroll-top-btn -->
 		<a href="javascript:;" class="btn btn-icon btn-circle btn-theme btn-scroll-to-top" data-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a>
@@ -228,6 +246,7 @@
 	<script src="assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
 	<script src="assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 	<script src="assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+    <script src="js/Masterpa.js?v=<%= DateTime.Now.ToString("yyyyMMddHHmmss") %>" type="text/javascript"></script>
 
     <asp:ContentPlaceHolder ID="footer" runat="server"></asp:ContentPlaceHolder>
 </body>

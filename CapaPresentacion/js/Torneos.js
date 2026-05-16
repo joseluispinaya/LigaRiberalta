@@ -9,32 +9,6 @@ function ObtenerFecha() {
     return `${day}/${month}/${d.getFullYear()}`;
 }
 
-function mostrarAlerta(titulo, mensaje, tipo) {
-
-    let btnClass = 'btn-default';
-
-    // Asignamos el color del botón según el estilo de Color Admin
-    if (tipo === 'success') btnClass = 'btn-success';
-    else if (tipo === 'warning') btnClass = 'btn-warning';
-    else if (tipo === 'error') btnClass = 'btn-danger';
-    else if (tipo === 'info') btnClass = 'btn-info';
-
-    swal({
-        title: titulo,
-        text: mensaje,
-        icon: tipo,
-        buttons: {
-            confirm: {
-                text: 'Aceptar',
-                value: true,
-                visible: true,
-                className: 'btn ' + btnClass, // Estilo Color Admin
-                closeModal: true
-            }
-        }
-    });
-}
-
 $(document).ready(function () {
     $("#txtFecha").datepicker({
         todayHighlight: true,
