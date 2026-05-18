@@ -909,11 +909,17 @@
     <Content Include="Clubes.aspx" />
     <Content Include="Imagen\sinimagen.png" />
     <Content Include="Inicio.aspx" />
+    <Content Include="Inscripciones.aspx" />
     <Content Include="js\Categorias.js" />
     <Content Include="js\Clubes.js" />
+    <Content Include="js\Inscripciones.js" />
+    <Content Include="js\Jugadores.js" />
     <Content Include="js\Masterpa.js" />
+    <Content Include="js\Plantillas.js" />
     <Content Include="js\Torneos.js" />
     <Content Include="Jugadores.aspx" />
+    <Content Include="Partidos.aspx" />
+    <Content Include="Plantillas.aspx" />
     <Content Include="Torneos.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -939,6 +945,13 @@
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Inscripciones.aspx.cs">
+      <DependentUpon>Inscripciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inscripciones.aspx.designer.cs">
+      <DependentUpon>Inscripciones.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Jugadores.aspx.cs">
       <DependentUpon>Jugadores.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -952,6 +965,20 @@
     </Compile>
     <Compile Include="PageMaster.Master.designer.cs">
       <DependentUpon>PageMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Partidos.aspx.cs">
+      <DependentUpon>Partidos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Partidos.aspx.designer.cs">
+      <DependentUpon>Partidos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Plantillas.aspx.cs">
+      <DependentUpon>Plantillas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Plantillas.aspx.designer.cs">
+      <DependentUpon>Plantillas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Torneos.aspx.cs">

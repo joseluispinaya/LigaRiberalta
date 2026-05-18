@@ -11,7 +11,7 @@ namespace CapaPresentacion
 {
 
 
-    public partial class Jugadores
+    public partial class Plantillas
     {
     }
 }

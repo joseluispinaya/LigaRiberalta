@@ -136,8 +136,8 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a href="#" class="menu-link">
-                                    <div class="menu-text">Esperando</div>
+                                <a href="Partidos.aspx" class="menu-link">
+                                    <div class="menu-text">Partidos</div>
                                 </a>
                             </div>
                         </div>
@@ -174,6 +174,34 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="menu-item has-sub">
+                        <a href="javascript:;" class="menu-link">
+                            <div class="menu-icon">
+                                <i class="fa fa-file-signature"></i>
+                            </div>
+                            <div class="menu-text">Inscripciones</div>
+                            <div class="menu-caret"></div>
+                        </a>
+                        <div class="menu-submenu">
+                            <div class="menu-item">
+                                <a href="Inscripciones.aspx" class="menu-link">
+                                    <div class="menu-text">Registro</div>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a href="Plantillas.aspx" class="menu-link">
+                                    <div class="menu-text">Plantillas</div>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a href="#" class="menu-link">
+                                    <div class="menu-text">Esperando</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- BEGIN minify-button -->
                     <div class="menu-item d-flex">
                         <a href="javascript:;" class="app-sidebar-minify-btn ms-auto d-flex align-items-center text-decoration-none" data-toggle="app-sidebar-minify"><i class="fa fa-angle-double-left"></i></a>

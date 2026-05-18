@@ -87,16 +87,16 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="form-label" for="txtEdad">Edad Maxima</label>
+                        <%--<label class="form-label" for="txtEdad">Edad Maxima</label>--%>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text input-group-addon"><i class="fa fa-calendar"></i></span>
+                            <span class="input-group-text input-group-addon"><i class="fa fa-calendar me-2"></i>Edad Maxima</span>
                             <input type="number" class="form-control" id="txtEdad" />
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label" for="cboEstado">Estado</label>
+                        <%--<label class="form-label" for="cboEstado">Estado</label>--%>
                         <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text"><i class="fas fa-plug"></i></span>
+                            <span class="input-group-text"><i class="fas fa-plug me-2"></i>Estado</span>
                             <select class="form-select" id="cboEstado">
                                 <option value="1">Activo</option>
                                 <option value="0">Inactivo</option>
