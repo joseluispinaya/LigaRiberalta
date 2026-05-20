@@ -15,14 +15,14 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div class="alert alert-blue alert-dismissible fade show mb-4 rounded-3 shadow-sm">
+                    <div class="alert alert-blue alert-dismissible fade show mb-4 rounded-3 shadow-sm border-0">
                         <div class="d-flex align-items-center mb-2">
-                            <div class="w-40px h-40px bg-white bg-opacity-25 d-flex align-items-center justify-content-center rounded-3 fs-20px text-white me-3">
+                            <div class="w-40px h-40px bg-white bg-opacity-25 d-flex align-items-center justify-content-center rounded-3 fs-20px text-success me-3">
                                 <i class="fa fa-lightbulb"></i>
                             </div>
-                            <h5 class="mb-0 text-white">Directorio Oficial</h5>
+                            <h5 class="mb-0">Directorio Oficial</h5>
                         </div>
-                        <p class="mb-0 text-white text-opacity-80 fs-13px">
+                        <p class="mb-0 text-opacity-80 fs-13px">
                             Gestione las categorias deportivas afiliadas a la asociación. Un club debe estar registrado y <b>Activo</b> para poder inscribir equipos y jugadores en los torneos.
                         </p>
                     </div>
@@ -136,7 +136,7 @@
                         <%--<label class="form-label" for="txtEdad">Edad Maxima</label>--%>
                         <div class="input-group input-group-sm mb-3">
                             <span class="input-group-text input-group-addon"><i class="fa fa-calendar me-2"></i>Edad Maxima</span>
-                            <input type="number" class="form-control" id="txtEdad" />
+                            <input type="number" class="form-control" id="txtEdad" value="0" min="0" />
                         </div>
                     </div>
                     <div class="col-md-6">

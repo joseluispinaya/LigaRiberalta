@@ -32,12 +32,12 @@
                 <div class="panel-body">
                     <div class="alert alert-blue alert-dismissible fade show mb-4 rounded-3 shadow-sm">
                         <div class="d-flex align-items-center mb-2">
-                            <div class="w-40px h-40px bg-white bg-opacity-25 d-flex align-items-center justify-content-center rounded-3 fs-20px text-white me-3">
+                            <div class="w-40px h-40px bg-warning bg-opacity-25 d-flex align-items-center justify-content-center rounded-3 fs-20px me-3">
                                 <i class="fa fa-lightbulb"></i>
                             </div>
-                            <h5 class="mb-0 text-white">Directorio Oficial</h5>
+                            <h5 class="mb-0">Directorio Oficial</h5>
                         </div>
-                        <p class="mb-0 text-white text-opacity-80 fs-13px">
+                        <p class="mb-0 text-opacity-80 fs-13px">
                             Gestione las instituciones deportivas afiliadas a la asociación. Un club debe estar registrado y <b>Activo</b> para poder inscribir equipos y jugadores en los torneos.
                         </p>
                     </div>
@@ -46,19 +46,19 @@
                         <h6 class="mb-3 text-body"><i class="fa fa-check-circle text-success me-2"></i>Consideraciones Importantes:</h6>
                         <div class="d-flex mb-3">
                             <div class="w-30px text-center text-primary fs-16px me-2"><i class="fa fa-image"></i></div>
-                            <div class="text-gray-500 fs-13px">
+                            <div class="text-gray-600 fs-13px">
                                 Se recomienda que el <b>Logo del Club</b> tenga formato PNG con fondo transparente para un mejor diseño en las tablas.
                             </div>
                         </div>
                         <div class="d-flex mb-3">
                             <div class="w-30px text-center text-warning fs-16px me-2"><i class="fa fa-calendar-alt"></i></div>
-                            <div class="text-gray-500 fs-13px">
+                            <div class="text-gray-600 fs-13px">
                                 La <b>Fecha de Fundación</b> es útil para mostrar aniversarios en el panel principal del sistema.
                             </div>
                         </div>
                         <div class="d-flex">
                             <div class="w-30px text-center text-danger fs-16px me-2"><i class="fa fa-ban"></i></div>
-                            <div class="text-gray-500 fs-13px">
+                            <div class="text-gray-600 fs-13px">
                                 Si cambia el estado de un club a <b>Inactivo</b>, sus jugadores no podrán participar en la gestión actual.
                             </div>
                         </div>

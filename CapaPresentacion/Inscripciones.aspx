@@ -42,7 +42,6 @@
                                 <i class="fa fa-trophy text-warning me-1"></i>Seleccione un Torneo:
                             </label>
                             <select id="cboFiltroTorneo" class="form-select form-select-sm">
-                                <option value="">-- Todos los Torneos --</option>
                             </select>
                         </div>
 
@@ -51,7 +50,6 @@
                                 <i class="fa fa-layer-group text-info me-1"></i>Seleccione una Categoría:
                             </label>
                             <select id="cboFiltroCategoria" class="form-select form-select-sm">
-                                <option value="">-- Todas las Categorías --</option>
                             </select>
                         </div>
 
@@ -99,7 +97,6 @@
                                 <i class="fa fa-trophy text-warning me-1"></i>Torneo
                             </label>
                             <select id="cboTorneo" class="form-select form-select-sm">
-                                <option value="">-- Seleccione --</option>
                             </select>
                         </div>
 
@@ -108,7 +105,6 @@
                                 <i class="fa fa-layer-group text-info me-1"></i>Categoría
                             </label>
                             <select id="cboCategoria" class="form-select form-select-sm">
-                                <option value="">-- Seleccione --</option>
                             </select>
                         </div>
                     </div>
@@ -119,7 +115,6 @@
                                 <i class="fa fa-shield-halved text-indigo me-1"></i>Club a Inscribir
                             </label>
                             <select id="cboClub" class="form-select form-select-sm">
-                                <option value="">-- Seleccione --</option>
                             </select>
                         </div>
 
@@ -128,7 +123,6 @@
                                 <i class="fa fa-sitemap text-primary me-1"></i>Serie / Grupo
                             </label>
                             <select id="cboSerie" class="form-select form-select-sm">
-                                <option value="">-- Seleccione --</option>
                             </select>
                         </div>
                     </div>

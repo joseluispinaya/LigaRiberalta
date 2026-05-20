@@ -1,14 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PageMaster.Master" AutoEventWireup="true" CodeBehind="Jugadores.aspx.cs" Inherits="CapaPresentacion.Jugadores" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="assets/plugins/select2ori/dist/css/select2.min.css" rel="stylesheet" />
     <link href="assets/css/mifileinp.css" rel="stylesheet"/>
     <style>
         .est-perfil {
             width: 120px;
             height: 120px;
-            border-radius: 50%;
-            object-fit: cover; /* Evita que la imagen se estire o aplaste */
-            object-position: center; /* Asegura que se vea el centro de la foto */
+            /* border-radius: 50%; */
+            object-fit: contain; /* EL CAMBIO MÁGICO: Evita recortes */
+            object-position: center; /* Centra el logo en la caja */
+            /* Opcional pero recomendado para logos: un fondito muy tenue */
+            background-color: #f8f9fa;
+            padding: 5px;
+            border-radius: 8px; /* Un ligero borde redondeado a la caja */
         }
     </style>
 </asp:Content>
@@ -42,7 +47,6 @@
                         <div class="input-group input-group-sm ms-3" style="max-width: 280px;">
                             <span class="input-group-text"><i class="fa fa-shield-halved text-indigo me-1"></i>Club</span>
                             <select class="form-select" id="cboClubFiltro">
-                                <option value="">-- Todos los Clubs --</option>
                             </select>
                         </div>
 
@@ -57,12 +61,11 @@
                         <table id="tbData" width="100%" class="table table-striped table-bordered align-middle text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>Foto</th>
-                                    <th>Nombre</th>
-                                    <th>Fecha Nacimiento</th>
-                                    <th>Nro Ci</th>
-                                    <th>Estado</th>
-                                    <th>Opciones</th>
+                                    <th>Id</th>
+                                    <th>Jugador</th>
+                                    <th>Demografía</th>
+                                    <th>Nro CI</th>
+                                    <th class="text-center">Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -99,39 +102,51 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <label class="form-label" for="txtFechaNacido">Nacido el:</label>
                                     <div class="input-group input-group-sm mb-3">
-                                        <span class="input-group-text input-group-addon"><i class="fa fa-id-card me-2"></i>Nro CI</span>
-                                        <input type="text" class="form-control model" id="txtCI" />
+                                        <span class="input-group-text input-group-addon"><i class="fa fa-calendar"></i></span>
+                                        <input type="text" class="form-control text-center" id="txtFechaNacido" readonly style="cursor: pointer;" />
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
+                                    <label class="form-label" for="txtCI">Nro CI:</label>
                                     <div class="input-group input-group-sm mb-3">
-                                        <span class="input-group-text input-group-addon"><i class="fa fa-id-card me-2"></i>Credencial</span>
-                                        <input type="text" class="form-control model" id="txtCredencial" />
+                                        <span class="input-group-text input-group-addon"><i class="fa fa-id-card"></i></span>
+                                        <input type="text" class="form-control model" id="txtCI" name="Nro CI" />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label" for="txtCredencial">Credencial:</label>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <span class="input-group-text input-group-addon"><i class="fa fa-id-card"></i></span>
+                                        <input type="text" class="form-control model" id="txtCredencial" name="Credencial" />
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="input-group input-group-sm mb-3">
-                                        <span class="input-group-text input-group-addon"><i class="fa fa-calendar me-2"></i>Fecha Nacido</span>
-                                        <input type="text" class="form-control" id="txtFechaNacido" readonly style="cursor: pointer;" />
+                                <div class="col-md-4">
+                                    <label class="form-label" for="cboGenero">Genero</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text"><i class="fas fa-futbol"></i></span>
+                                        <select class="form-select" id="cboGenero">
+                                            <option value="1">Masculino</option>
+                                            <option value="0">Femenino</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="input-group input-group-sm mb-3">
-                                        <span class="input-group-text"><i class="fas fa-plug me-2"></i>Club</span>
-                                        <select class="form-select" id="cboClub">
-                                            <option value="1">Activo</option>
-                                            <option value="0">Inactivo</option>
+                                <div class="col-md-8">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="cboClub">Seleccione Club</label>
+                                        <select class="form-select form-select-sm" id="cboClub">
                                         </select>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
+
+                            <%--<div class="row">
                                 <div class="col-md-4">
                                     <div class="input-group input-group-sm mb-3">
                                         <span class="input-group-text"><i class="fas fa-futbol"></i></span>
@@ -152,22 +167,23 @@
                                         <input type="text" class="form-control custom-file-text" id="txtFotoName" placeholder="Ningún arc... seleccionado" readonly onclick="document.getElementById('txtFoto').click();" />
                                     </div>
                                 </div>
-                            </div>
+                            </div>--%>
 
-                            <%--<div class="mt-1">
+                            
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
                                 <input type="file" id="txtFoto" accept="image/*" class="d-none" />
 
                                 <div class="input-group input-group-sm">
                                     <label class="input-group-text custom-file-button" for="txtFoto">
-                                        <i class="fas fa-image me-2"></i>Seleccionar
+                                        <i class="fas fa-image me-2"></i>Foto
                                     </label>
 
                                     <input type="text" class="form-control custom-file-text" id="txtFotoName" placeholder="Ningún arc... seleccionado" readonly onclick="document.getElementById('txtFoto').click();" />
                                 </div>
-                            </div>--%>
-
-                        </div>
-                        <div class="col-md-4">
+                            </div>
                             <div class="mb-2 text-center">
                                 <p class="mb-0">Imagen del Jugador</p>
                             </div>
@@ -180,7 +196,7 @@
                 </div>
                 <div class="modal-footer">
                     <a href="javascript:;" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cancelar</a>
-                    <button id="btnGuardarReg" type="button" class="btn btn-sm btn-lime">Guardar Cambios</button>
+                    <button id="btnGuardarCambios" type="button" class="btn btn-sm btn-lime">Guardar Cambios</button>
                 </div>
             </div>
         </div>
@@ -190,5 +206,6 @@
     <script src="assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
 
     <script src="assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js"></script>
+    <script src="assets/plugins/select2ori/dist/js/select2.min.js"></script>
     <script src="js/Jugadores.js?v=<%= DateTime.Now.ToString("yyyyMMddHHmmss") %>" type="text/javascript"></script>
 </asp:Content>
