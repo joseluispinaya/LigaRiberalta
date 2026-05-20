@@ -918,6 +918,7 @@
     <Content Include="js\Plantillas.js" />
     <Content Include="js\Torneos.js" />
     <Content Include="Jugadores.aspx" />
+    <Content Include="Logos\sinLogo.png" />
     <Content Include="Partidos.aspx" />
     <Content Include="Plantillas.aspx" />
     <Content Include="Torneos.aspx" />
@@ -988,6 +989,7 @@
     <Compile Include="Torneos.aspx.designer.cs">
       <DependentUpon>Torneos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\.DS_Store" />
@@ -1054,6 +1056,16 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CapaEntidad\CapaEntidad.csproj">
+      <Project>{9190c076-f45b-49c9-8097-0fcfadad0c4d}</Project>
+      <Name>CapaEntidad</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CapaNegocio\CapaNegocio.csproj">
+      <Project>{fb8e0dea-7d08-471d-86a3-dfebbcbde288}</Project>
+      <Name>CapaNegocio</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -3,12 +3,16 @@
     <link href="assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
     <link href="assets/css/mifileinp.css" rel="stylesheet"/>
     <style>
-        .est-perfil {
+        .logo-club {
             width: 120px;
             height: 120px;
-            border-radius: 50%;
-            object-fit: cover; /* Evita que la imagen se estire o aplaste */
-            object-position: center; /* Asegura que se vea el centro de la foto */
+            /* border-radius: 50%; */
+            object-fit: contain; /* EL CAMBIO MÁGICO: Evita recortes */
+            object-position: center; /* Centra el logo en la caja */
+            /* Opcional pero recomendado para logos: un fondito muy tenue */
+            background-color: #f8f9fa;
+            padding: 5px;
+            border-radius: 8px; /* Un ligero borde redondeado a la caja */
         }
     </style>
 </asp:Content>
@@ -16,7 +20,54 @@
     <h1 class="page-header">CLUBES <small>Modulo para Clubes...</small></h1>
 
     <div class="row">
-        <div class="col-xl-12">
+        <div class="col-xl-4 col-lg-5 mb-3">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="fa fa-info-circle me-1"></i>Guía de Administración</h4>
+                    <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="alert alert-blue alert-dismissible fade show mb-4 rounded-3 shadow-sm">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="w-40px h-40px bg-white bg-opacity-25 d-flex align-items-center justify-content-center rounded-3 fs-20px text-white me-3">
+                                <i class="fa fa-lightbulb"></i>
+                            </div>
+                            <h5 class="mb-0 text-white">Directorio Oficial</h5>
+                        </div>
+                        <p class="mb-0 text-white text-opacity-80 fs-13px">
+                            Gestione las instituciones deportivas afiliadas a la asociación. Un club debe estar registrado y <b>Activo</b> para poder inscribir equipos y jugadores en los torneos.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h6 class="mb-3 text-body"><i class="fa fa-check-circle text-success me-2"></i>Consideraciones Importantes:</h6>
+                        <div class="d-flex mb-3">
+                            <div class="w-30px text-center text-primary fs-16px me-2"><i class="fa fa-image"></i></div>
+                            <div class="text-gray-500 fs-13px">
+                                Se recomienda que el <b>Logo del Club</b> tenga formato PNG con fondo transparente para un mejor diseño en las tablas.
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <div class="w-30px text-center text-warning fs-16px me-2"><i class="fa fa-calendar-alt"></i></div>
+                            <div class="text-gray-500 fs-13px">
+                                La <b>Fecha de Fundación</b> es útil para mostrar aniversarios en el panel principal del sistema.
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="w-30px text-center text-danger fs-16px me-2"><i class="fa fa-ban"></i></div>
+                            <div class="text-gray-500 fs-13px">
+                                Si cambia el estado de un club a <b>Inactivo</b>, sus jugadores no podrán participar en la gestión actual.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-8 col-lg-7">
             <div class="panel panel-inverse">
                 <div class="panel-heading">
                     <h4 class="panel-title">Directorio de Clubes</h4>
@@ -35,13 +86,13 @@
                         <div class="flex-fill">
                             <h5 class="mb-1">Administración de Clubes</h5>
                             <p class="mb-0 text-gray-500 fs-13px">
-                                Gestiona las instituciones afiliadas a la asociación, sus datos de fundación y estado.
+                                Lista completa de clubes inscritos en la asociación.
                             </p>
                         </div>
 
                         <div class="ms-3">
-                            <button id="btnNuevoReg" type="button" class="btn btn-indigo px-4 fw-bold rounded-pill shadow-sm">
-                                <i class="fa fa-plus me-2"></i>Nuevo Registro
+                            <button id="btnNuevoReg" type="button" class="btn btn-indigo btn-sm px-3 fw-bold rounded-pill shadow-sm d-flex align-items-center">
+                                <i class="fa fa-plus me-1"></i>Nuevo Registro
                             </button>
                         </div>
                     </div>
@@ -50,18 +101,17 @@
                         <table id="tbData" width="100%" class="table table-striped table-bordered align-middle text-nowrap">
                             <thead>
                                 <tr>
-                                    <th width="5%">Logo</th>
-                                    <th>Nombre Club</th>
-                                    <th width="15%">Fundación</th>
-                                    <th width="10%">Estado</th>
-                                    <th width="10%">Opciones</th>
+                                    <th>Id</th>
+                                    <th>Club</th>
+                                    <th>Estado</th>
+                                    <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
@@ -124,7 +174,7 @@
                                 <p class="mb-0">Logo del Club</p>
                             </div>
                             <div class="mb-1 text-center">
-                                <img id="imgLogo" src="Imagen/sinimagen.png" alt="Foto est" class="est-perfil">
+                                <img id="imgLogo" src="Logos/sinLogo.png" alt="Foto est" class="logo-club">
                             </div>
                         </div>
                     </div>
@@ -132,7 +182,7 @@
                 </div>
                 <div class="modal-footer">
                     <a href="javascript:;" class="btn btn-sm btn-danger" data-bs-dismiss="modal">Cancelar</a>
-                    <button id="btnGuardarReg" type="button" class="btn btn-sm btn-lime">Guardar Cambios</button>
+                    <button id="btnGuardarCambios" type="button" class="btn btn-sm btn-lime">Guardar Cambios</button>
                 </div>
             </div>
         </div>

@@ -131,7 +131,30 @@
                                 </div>
                             </div>
 
-                            <div class="mt-1">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="input-group input-group-sm mb-3">
+                                        <span class="input-group-text"><i class="fas fa-futbol"></i></span>
+                                        <select class="form-select" id="cboGenero">
+                                            <option value="1">Masculino</option>
+                                            <option value="0">Femenino</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="file" id="txtFoto" accept="image/*" class="d-none" />
+
+                                    <div class="input-group input-group-sm">
+                                        <label class="input-group-text custom-file-button" for="txtFoto">
+                                            <i class="fas fa-image me-2"></i>Seleccionar
+                                        </label>
+
+                                        <input type="text" class="form-control custom-file-text" id="txtFotoName" placeholder="Ningún arc... seleccionado" readonly onclick="document.getElementById('txtFoto').click();" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <%--<div class="mt-1">
                                 <input type="file" id="txtFoto" accept="image/*" class="d-none" />
 
                                 <div class="input-group input-group-sm">
@@ -141,7 +164,7 @@
 
                                     <input type="text" class="form-control custom-file-text" id="txtFotoName" placeholder="Ningún arc... seleccionado" readonly onclick="document.getElementById('txtFoto').click();" />
                                 </div>
-                            </div>
+                            </div>--%>
 
                         </div>
                         <div class="col-md-4">

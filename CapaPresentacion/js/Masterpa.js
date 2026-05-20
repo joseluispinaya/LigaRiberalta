@@ -95,6 +95,33 @@ function mostrarAlerta(titulo, mensaje, tipo) {
     });
 }
 
+function alertaTimer(titulo, mensaje, tipo, tiempo = 3000) {
+
+    let btnClass = 'btn-default';
+
+    // Asignamos el color del botón según el estilo de Color Admin
+    if (tipo === 'success') btnClass = 'btn-success';
+    else if (tipo === 'warning') btnClass = 'btn-warning';
+    else if (tipo === 'error') btnClass = 'btn-danger';
+    else if (tipo === 'info') btnClass = 'btn-info';
+
+    swal({
+        title: titulo,
+        text: mensaje,
+        icon: tipo,
+        timer: tiempo,
+        buttons: {
+            confirm: {
+                text: 'Aceptar',
+                value: true,
+                visible: true,
+                className: 'btn btn-sm ' + btnClass, // Estilo Color Admin
+                closeModal: true
+            }
+        }
+    });
+}
+
 /* ==========================================================
    HELPER GLOBAL PARA TOASTR
    Uso: MensajeToast("Título Opcional", "Mensaje del cuerpo", "success");

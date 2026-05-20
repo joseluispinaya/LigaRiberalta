@@ -1,7 +1,11 @@
-﻿using System;
+﻿using CapaEntidad.Entidades;
+using CapaEntidad.Responses;
+using CapaNegocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -12,6 +16,18 @@ namespace CapaPresentacion
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        [WebMethod]
+        public static Respuesta<List<ECategoria>> ListaCategorias()
+        {
+            return NCategoria.GetInstance().ListaCategorias();
+        }
+
+        [WebMethod]
+        public static Respuesta<int> GuardarOrEditCategorias(ECategoria objeto)
+        {
+            return NCategoria.GetInstance().GuardarOrEditCategorias(objeto);
         }
     }
 }

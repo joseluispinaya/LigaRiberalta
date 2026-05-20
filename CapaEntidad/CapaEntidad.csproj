@@ -41,7 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entidades\ECategoria.cs" />
+    <Compile Include="Entidades\EClub.cs" />
+    <Compile Include="Entidades\EInscripcion.cs" />
+    <Compile Include="Entidades\EJugador.cs" />
+    <Compile Include="Entidades\ESerie.cs" />
+    <Compile Include="Entidades\ETorneo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Responses\Respuesta.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

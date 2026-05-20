@@ -18,26 +18,114 @@ $(document).ready(function () {
     });
 
     $("#txtFecha").val(ObtenerFecha());
+    listaClubes();
 });
 
-$("#btnNuevoReg").on("click", function () {
+function listaClubes() {
+    //if ($.fn.DataTable.isDataTable("#tbData")) {
+    //    $("#tbData").DataTable().destroy();
+    //    $('#tbData tbody').empty();
+    //}
 
-    idEditar = 0;
-    $("#txtNombreClub").val("");
-    $("#txtFecha").val(ObtenerFecha());
-    $("#cboEstado").val(1).prop("disabled", true);
-    $('#imgLogo').attr('src', "Imagen/sinimagen.png");
+    tablaData = $("#tbData").DataTable({
+        responsive: true,
+        "ajax": {
+            "url": 'Clubes.aspx/ListaClubes',
+            "type": "POST",
+            "contentType": "application/json; charset=utf-8",
+            "dataType": "json",
+            "data": function (d) {
+                return JSON.stringify(d);
+            },
+            "dataSrc": function (json) {
+                if (json.d.Estado) {
+                    return json.d.Data;
+                } else {
+                    return [];
+                }
+            }
+        },
+        "columns": [
+            { "data": "IdClub", "visible": false, "searchable": false },
+            {
+                "data": "LogoUrl",
+                "orderable": false,
+                "searchable": false,
+                render: function (data, type, row) {
+                    let logo = row.LogoUrl ? row.LogoUrl : 'Logos/sinLogo.png';
+                    return `
+                        <div class="d-flex align-items-center">
+                            <div class="w-40px h-40px rounded-circle d-flex align-items-center justify-content-center bg-light overflow-hidden shadow-sm me-3">
+                                <img src="${logo}" alt="" class="mw-100 mh-100" />
+                            </div>
+                            <div>
+                                <div class="fw-bold fs-14px text-body">${row.NombreClub}</div>
+                                <div class="fs-12px text-gray-500">Fundado: ${row.FechaFundacion}</div>
+                            </div>
+                        </div>
+                    `;
+                }
+            },
+            {
+                "data": "Estado", "className": "text-center", render: function (data) {
+                    if (data === true)
+                        return '<span class="badge bg-yellow text-black fs-12px">Activo</span>';
+                    else
+                        return '<span class="badge bg-danger fs-12px">Inactivo</span>';
+                }
+            },
+            {
+                "defaultContent": '<button class="btn btn-lime btn-editar btn-sm me-2"><i class="fas fa-pencil-alt"></i></button>' +
+                    '<button class="btn btn-info btn-detalle btn-sm"><i class="fas fa-eye"></i></button>',
+                "orderable": false,
+                "searchable": false,
+                "className": "text-center"
+            }
+        ],
+        "order": [[0, "desc"]],
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+        }
+    });
+}
+
+$('#tbData tbody').on('click', '.btn-editar', function () {
+
+    let fila = $(this).closest('tr');
+    if (fila.hasClass('child')) {
+        fila = fila.prev();
+    }
+
+    let data = tablaData.row(fila).data();
+    idEditar = data.IdClub;
+
+    $("#txtNombreClub").val(data.NombreClub);
+    $("#txtFecha").val(data.FechaFundacion);
+    $("#cboEstado").val(data.Estado ? 1 : 0).prop("disabled", false);
+
+    $("#imgLogo").attr("src", data.LogoUrl || "Logos/sinLogo.png");
     $("#txtFoto").val("");
 
     // NUEVO: Limpiamos el texto falso al abrir modal
-    $("#txtFotoName").val(""); 
+    $("#txtFotoName").val("");
 
-    $("#modalLabeldetalle").text("Nuevo Registro");
-
+    $("#modalLabeldetalle").text("Editar Registro");
     $("#modalAdd").modal("show");
-})
+});
 
+$('#tbData tbody').on('click', '.btn-detalle', function () {
 
+    let fila = $(this).closest('tr');
+
+    if (fila.hasClass('child')) {
+        fila = fila.prev();
+    }
+
+    let data = tablaData.row(fila).data();
+    const textoSms = `Detalles del Club: ${data.NombreClub}.`;
+    mostrarAlerta("¡Mensaje!", textoSms, "info");
+
+});
 
 const TAMANO_MAXIMO = 2 * 1024 * 1024; // 2 MB en bytes
 
@@ -76,7 +164,7 @@ function esImagen(file) {
 }
 
 function resetearVistaFoto(input) {
-    $('#imgLogo').attr('src', "Imagen/sinimagen.png");
+    $('#imgLogo').attr('src', "Logos/sinLogo.png");
     input.value = ""; // Limpia el input file real
     $('#txtFotoName').val(""); // NUEVO: Limpia el texto de nuestra interfaz
 }
@@ -96,7 +184,113 @@ $('#txtFoto').change(function () {
     }
 });
 
-$("#btnGuardarReg").on("click", function () {
+$("#btnNuevoReg").on("click", function () {
+
+    idEditar = 0;
+    $("#txtNombreClub").val("");
+    $("#txtFecha").val(ObtenerFecha());
+    $("#cboEstado").val(1).prop("disabled", true);
+    $('#imgLogo').attr('src', "Logos/sinLogo.png");
+    $("#txtFoto").val("");
+
+    // NUEVO: Limpiamos el texto falso al abrir modal
+    $("#txtFotoName").val("");
+
+    $("#modalLabeldetalle").text("Nuevo Registro");
+
+    $("#modalAdd").modal("show");
 })
+
+function habilitarBoton() {
+    $('#btnGuardarCambios').prop('disabled', false);
+}
+
+$("#btnGuardarCambios").on("click", function () {
+    // Bloqueo inmediato
+    $('#btnGuardarCambios').prop('disabled', true);
+
+    let fechaStr = $("#txtFecha").val().trim();
+
+    if (fechaStr === "") {
+        MensajeToast("Campo incompleto", "Por favor, ingrese una fecha.", "warning");
+        $("#txtFecha").focus();
+        habilitarBoton();
+        return;
+    }
+
+    if ($("#txtNombreClub").val().trim() === "") {
+        MensajeToast("Campo incompleto", "Por favor, ingrese el nombre del Club.", "warning");
+        $("#txtNombreClub").focus();
+        habilitarBoton();
+        return;
+    }
+
+    // 2. ARMAR EL OBJETO
+    const objeto = {
+        IdClub: idEditar,
+        NombreClub: $("#txtNombreClub").val().trim(),
+        FechaFundacion: fechaStr,
+        Estado: ($("#cboEstado").val() === "1" ? true : false),
+        LogoUrl: "" // Lo enviamos siempre vacío. Si hay foto nueva, el Base64 la reemplazará en C#.
+    };
+
+    //let ver = objeto.IdRegional;
+
+    // 3. PROCESAR EL INPUT FILE
+    const fileInput = document.getElementById('txtFoto');
+    const file = fileInput.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            // Extraemos solo el texto Base64, quitando la cabecera (data:image/jpeg;base64,)
+            const base64String = e.target.result.split(',')[1];
+
+            // Disparamos el AJAX enviando la imagen
+            enviarAjaxClub(objeto, base64String);
+        };
+        reader.readAsDataURL(file);
+    } else {
+        // Si no hay foto, disparamos el AJAX mandando el base64 vacío
+        enviarAjaxClub(objeto, "");
+    }
+});
+
+function enviarAjaxClub(objeto, base64String) {
+    $("#modalAdd").find("div.modal-content").LoadingOverlay("show");
+
+    $.ajax({
+        type: "POST",
+        url: "Clubes.aspx/GuardarOrEditClub",
+        data: JSON.stringify({ objeto: objeto, base64Image: base64String }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#modalAdd").find("div.modal-content").LoadingOverlay("hide");
+
+            alertaTimer(
+                response.d.Estado ? '¡Excelente!' : 'Atención', // Título dinámico
+                response.d.Mensaje, // Texto del servidor
+                response.d.Valor // Icono (success/error/warning) 
+            );
+
+            if (response.d.Estado) {
+                $("#modalAdd").modal("hide");
+                if (tablaData) {
+                    tablaData.ajax.reload(null, false);
+                }
+                idEditar = 0;
+            }
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+            $("#modalAdd").find("div.modal-content").LoadingOverlay("hide");
+            MensajeToast("Error Crítico", "No se pudo conectar con el servidor.", "error");
+        },
+        complete: function () {
+            habilitarBoton();
+        }
+    });
+}
 
 // fin
