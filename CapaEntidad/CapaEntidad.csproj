@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\InscritosDTO.cs" />
+    <Compile Include="DTOs\JugadorPlantillaDTO.cs" />
+    <Compile Include="DTOs\PlantelJugadoresDTO.cs" />
     <Compile Include="Entidades\ECategoria.cs" />
     <Compile Include="Entidades\EClub.cs" />
     <Compile Include="Entidades\EInscripcion.cs" />

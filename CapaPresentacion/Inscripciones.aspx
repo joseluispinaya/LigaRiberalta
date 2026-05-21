@@ -63,12 +63,12 @@
                         <table id="tbData" width="100%" class="table table-striped table-bordered align-middle text-nowrap">
                             <thead>
                                 <tr>
-                                    <th width="5%">ID</th>
+                                    <th>Id</th>
                                     <th>Club Inscrito</th>
-                                    <th width="15%">Serie</th>
-                                    <th width="15%" class="text-center">Penalización</th>
-                                    <th width="15%" class="text-center">Pago Inscripción</th>
-                                    <th width="10%" class="text-center">Opciones</th>
+                                    <th>Serie</th>
+                                    <th>Penalización</th>
+                                    <th>Pago Inscripción</th>
+                                    <th class="text-center">Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>

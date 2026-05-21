@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="NCategoria.cs" />
     <Compile Include="NClub.cs" />
+    <Compile Include="NInscripcion.cs" />
     <Compile Include="NJugador.cs" />
     <Compile Include="NTorneo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

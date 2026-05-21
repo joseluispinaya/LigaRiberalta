@@ -44,6 +44,7 @@
     <Compile Include="ConexionBD.cs" />
     <Compile Include="DCategoria.cs" />
     <Compile Include="DClub.cs" />
+    <Compile Include="DInscripcion.cs" />
     <Compile Include="DJugador.cs" />
     <Compile Include="DTorneo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
