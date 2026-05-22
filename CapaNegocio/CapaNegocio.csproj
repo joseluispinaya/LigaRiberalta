@@ -45,6 +45,7 @@
     <Compile Include="NClub.cs" />
     <Compile Include="NInscripcion.cs" />
     <Compile Include="NJugador.cs" />
+    <Compile Include="NPartido.cs" />
     <Compile Include="NTorneo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

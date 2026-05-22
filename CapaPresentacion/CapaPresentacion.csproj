@@ -938,12 +938,14 @@
     <Content Include="assets\plugins\toastr\toastr.min.js" />
     <Content Include="Categorias.aspx" />
     <Content Include="Clubes.aspx" />
+    <Content Include="DetallesSerie.aspx" />
     <Content Include="Imagen\sinimagen.png" />
     <Content Include="ImgJugadores\sinimagen.png" />
     <Content Include="Inicio.aspx" />
     <Content Include="Inscripciones.aspx" />
     <Content Include="js\Categorias.js" />
     <Content Include="js\Clubes.js" />
+    <Content Include="js\DetalleSeries.js" />
     <Content Include="js\Inscripciones.js" />
     <Content Include="js\Jugadores.js" />
     <Content Include="js\Masterpa.js" />
@@ -973,6 +975,13 @@
     </Compile>
     <Compile Include="Clubes.aspx.designer.cs">
       <DependentUpon>Clubes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DetallesSerie.aspx.cs">
+      <DependentUpon>DetallesSerie.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetallesSerie.aspx.designer.cs">
+      <DependentUpon>DetallesSerie.aspx</DependentUpon>
     </Compile>
     <Compile Include="Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>

@@ -41,11 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOs\ComboEquipoDTO.cs" />
     <Compile Include="DTOs\InscritosDTO.cs" />
     <Compile Include="DTOs\JugadorPlantillaDTO.cs" />
+    <Compile Include="DTOs\PartidoSerieDTO.cs" />
     <Compile Include="DTOs\PlantelJugadoresDTO.cs" />
+    <Compile Include="DTOs\PosicionDTO.cs" />
+    <Compile Include="DTOs\ProgramarPartidoDTO.cs" />
+    <Compile Include="DTOs\ResumenSerieDTO.cs" />
     <Compile Include="Entidades\ECategoria.cs" />
     <Compile Include="Entidades\EClub.cs" />
+    <Compile Include="Entidades\EFasesTorneo.cs" />
     <Compile Include="Entidades\EInscripcion.cs" />
     <Compile Include="Entidades\EJugador.cs" />
     <Compile Include="Entidades\ESerie.cs" />

@@ -216,12 +216,50 @@ $("#btnGuardarPlantilla").on("click", function () {
     $btnGuardar.prop("disabled", true).html('<i class="fa fa-spinner fa-spin me-2"></i>Guardando...');
     $(".panel-body").LoadingOverlay("show");
 
-    console.log(listaSeleccionados);
-    setTimeout(function () {
-        $(".panel-body").LoadingOverlay("hide");
-        MensajeToast("Éxito", "Plantilla guardada correctamente.", "success");
-        $btnGuardar.prop("disabled", false).html('<i class="fa fa-save me-2"></i>Guardar Plantilla');
-    }, 3000);
+    // 3. Petición AJAX enviando el Array directo
+    $.ajax({
+        type: "POST",
+        url: "PlantelEquipo.aspx/GuardarPlantillaMasiva", // Ajusta a tu página
+        data: JSON.stringify({
+            IdEquipo: parseInt(idEquipo),
+            listaJugadores: listaSeleccionados
+        }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $(".panel-body").LoadingOverlay("hide");
+
+            alertaTimer(
+                response.d.Estado ? '¡Excelente!' : 'Atención',
+                response.d.Mensaje,
+                response.d.Valor
+            );
+
+            if (response.d.Estado) {
+                // Opcional: Redirigir o recargar la tabla después de un guardado exitoso
+                setTimeout(() => {
+                    window.location.href = 'Inscripciones.aspx';
+                    //cargarJugadoresElegibles(idEquipo);
+                }, 1500);
+            }
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+            $(".panel-body").LoadingOverlay("hide");
+            MensajeToast("¡Atención!", "Error de comunicación con el servidor.", "error");
+        },
+        complete: function () {
+            // Restauramos el botón
+            $btnGuardar.prop("disabled", false).html('<i class="fa fa-save me-2"></i>Guardar Plantilla');
+        }
+    });
+
+    //console.log(listaSeleccionados);
+    //setTimeout(function () {
+    //    $(".panel-body").LoadingOverlay("hide");
+    //    MensajeToast("Éxito", "Plantilla guardada correctamente.", "success");
+    //    $btnGuardar.prop("disabled", false).html('<i class="fa fa-save me-2"></i>Guardar Plantilla');
+    //}, 3000);
 
 });
 
