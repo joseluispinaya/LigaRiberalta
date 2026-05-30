@@ -1,4 +1,12 @@
 ﻿
+// VARIABLES GLOBALES
+
+const API_BASE_URL = "https://localhost:44383/api";
+
+const API_BASE_URL2 = "https://localhost:44378/api";
+
+const BASE_URL_IMG = "https://localhost:44383";
+
 /* ==========================================================
    HELPER PARA NOTIFICACIONES GRITTER (TOASTS)
    Uso: MensajeGritter("Título", "Mensaje de texto", "success");
@@ -62,6 +70,43 @@ function MensajeSweet(titulo, mensaje, tipo, callbackConfirm) {
         }
     }).then((valor) => {
         // Si el usuario da click en Aceptar y hay una función callback, la ejecutamos
+        if (valor && callbackConfirm) {
+            callbackConfirm();
+        }
+    });
+}
+
+function ConfirmarSweet(titulo, mensaje, tipo, textoConfirmar, callbackConfirm) {
+    let btnClass = 'btn-primary';
+
+    // Asignamos el color del botón de confirmación según el tipo
+    if (tipo === 'success') btnClass = 'btn-success';
+    else if (tipo === 'warning') btnClass = 'btn-warning';
+    else if (tipo === 'error') btnClass = 'btn-danger';
+    else if (tipo === 'info') btnClass = 'btn-info';
+
+    swal({
+        title: titulo,
+        text: mensaje,
+        icon: tipo,
+        buttons: {
+            cancel: {
+                text: 'Cancelar',
+                value: null,
+                visible: true,
+                className: 'btn btn-default', // Estilo neutro para cancelar
+                closeModal: true,
+            },
+            confirm: {
+                text: textoConfirmar || 'Aceptar',
+                value: true,
+                visible: true,
+                className: 'btn ' + btnClass,
+                closeModal: true
+            }
+        }
+    }).then((valor) => {
+        // 'valor' será true si presiona el botón de confirmación, null si presiona cancelar
         if (valor && callbackConfirm) {
             callbackConfirm();
         }
@@ -164,4 +209,48 @@ function MensajeToast(titulo, mensaje, tipo) {
             toastr.info(mensaje, titulo || "Información");
             break;
     }
+}
+
+$(document).ready(function () {
+    const usuarioAdmin = sessionStorage.getItem('userLog');
+
+    if (!usuarioAdmin) {
+        window.location.replace('Login.aspx');
+        return;
+    }
+
+    try {
+        //const usua = JSON.parse(usuarioAdmin);
+        // mostrar la imagen y nombre del usuairo 
+        //$(".imgAdminVo").attr("src", usua.ImagenUser || "images/sinimagen.png");
+
+        $(".texApellidosAdm").text("Cuani Nay");
+        $("#lblDatosAd").text("Administrador");
+    } catch (error) {
+        console.error("Error leyendo sesión", error);
+        sessionStorage.clear();
+        window.location.replace('Login.aspx');
+    }
+});
+
+$('#salirsis').on('click', function (e) {
+    e.preventDefault();
+
+    ConfirmarSweet(
+        "¿Cerrar Sesión?",
+        "¿Estás seguro que deseas salir del sistema?",
+        "warning",
+        "Sí, salir", // Texto personalizado para el botón
+        function () {
+            // Esta función solo se ejecuta si el usuario hace clic en "Sí, salir"
+            EjecutarCierreSesion();
+        }
+    );
+});
+
+// Tu función original (a modo de ejemplo)
+
+function EjecutarCierreSesion() {
+    sessionStorage.clear();
+    window.location.replace('Login.aspx');
 }

@@ -22,6 +22,79 @@ $(document).ready(function () {
 });
 
 function listaClubes() {
+
+    tablaData = $("#tbData").DataTable({
+        responsive: true,
+        "ajax": {
+            "url": `${API_BASE_URL}/clubes/listaClubes`,
+            "type": "GET",
+            "dataType": "json",
+            "dataSrc": function (json) {
+                if (json.Estado) {
+                    return json.Data;
+                } else {
+                    mostrarAlerta("Mensaje", json.Mensaje, "warning");
+                    return [];
+                }
+            },
+            "error": function (xhr, error, thrown) {
+                // Captura si la API se cae, no está disponible o da error 500/404
+                console.log("Error status:", xhr.status, "Detalles:", thrown);
+                mostrarAlerta("¡Atención!", "Error de comunicación con el servidor.", "error");
+
+                // 1. Ocultar forzosamente el mensaje de "Cargando..."
+                $("#tbData_processing").hide();
+
+                // 2. Colocar un mensaje manual en el cuerpo de la tabla (usamos colspan="4" porque tienes 4 columnas visibles)
+                $("#tbData tbody").html('<tr><td colspan="4" class="text-center text-muted">No se pudieron cargar los datos debido a un error de conexión.</td></tr>');
+            }
+        },
+        "columns": [
+            { "data": "IdClub", "visible": false, "searchable": false },
+            {
+                "data": "LogoUrl",
+                "orderable": false,
+                "searchable": false,
+                render: function (data, type, row) {
+                    let logo = row.LogoUrl ? row.LogoUrl : 'Logos/sinLogo.png';
+                    //let logo = row.LogoUrl ? `${BASE_URL_IMG}${row.LogoUrl}` : 'Logos/sinLogo.png';
+                    return `
+                        <div class="d-flex align-items-center">
+                            <div class="w-40px h-40px rounded-circle d-flex align-items-center justify-content-center bg-light overflow-hidden shadow-sm me-3">
+                                <img src="${logo}" alt="" class="mw-100 mh-100" />
+                            </div>
+                            <div>
+                                <div class="fw-bold fs-14px text-body">${row.NombreClub}</div>
+                                <div class="fs-12px text-gray-500">Fundado: ${row.FechaFundacion}</div>
+                            </div>
+                        </div>
+                    `;
+                }
+            },
+            {
+                "data": "Estado", "className": "text-center", render: function (data) {
+                    if (data === true)
+                        return '<span class="badge bg-yellow text-black fs-12px">Activo</span>';
+                    else
+                        return '<span class="badge bg-danger fs-12px">Inactivo</span>';
+                }
+            },
+            {
+                "defaultContent": '<button class="btn btn-lime btn-editar btn-sm me-2"><i class="fas fa-pencil-alt"></i></button>' +
+                    '<button class="btn btn-info btn-detalle btn-sm"><i class="fas fa-eye"></i></button>',
+                "orderable": false,
+                "searchable": false,
+                "className": "text-center"
+            }
+        ],
+        "order": [[0, "desc"]],
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+        }
+    });
+}
+
+function listaClubesOriginal() {
     //if ($.fn.DataTable.isDataTable("#tbData")) {
     //    $("#tbData").DataTable().destroy();
     //    $('#tbData tbody').empty();
@@ -102,6 +175,12 @@ $('#tbData tbody').on('click', '.btn-editar', function () {
     $("#txtNombreClub").val(data.NombreClub);
     $("#txtFecha").val(data.FechaFundacion);
     $("#cboEstado").val(data.Estado ? 1 : 0).prop("disabled", false);
+
+    // 1. Evaluamos y concatenamos la ruta del logo
+    //let logoUrl = data.LogoUrl ? `${BASE_URL_IMG}${data.LogoUrl}` : 'Logos/sinLogo.png';
+
+    // 2. Asignamos la ruta final al atributo src de la imagen
+    //$("#imgLogo").attr("src", logoUrl);
 
     $("#imgLogo").attr("src", data.LogoUrl || "Logos/sinLogo.png");
     $("#txtFoto").val("");
@@ -257,6 +336,59 @@ $("#btnGuardarCambios").on("click", function () {
 });
 
 function enviarAjaxClub(objeto, base64String) {
+    $("#modalAdd").find("div.modal-content").LoadingOverlay("show");
+
+    // INCORPORAMOS LA IMAGEN DIRECTAMENTE AL OBJETO
+    // Esto hace "match" con tu nueva propiedad public string Base64Image { get; set; } en C#
+    objeto.Base64Image = base64String;
+
+    $.ajax({
+        type: "POST",
+        // Ajusta "/clubes" si tu RoutePrefix en el controlador es diferente
+        url: `${API_BASE_URL}/clubes/registroNuevoClub`,
+
+        // Enviamos el objeto plano
+        data: JSON.stringify(objeto),
+
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#modalAdd").find("div.modal-content").LoadingOverlay("hide");
+
+            // Quitamos el .d
+            alertaTimer(
+                response.Estado ? '¡Excelente!' : 'Atención',
+                response.Mensaje,
+                response.Valor
+            );
+
+            if (response.Estado) {
+                $("#modalAdd").modal("hide");
+                //if (tablaData) {
+                //    tablaData.ajax.reload(null, false);
+                //}
+
+                // if (typeof tablaData !== 'undefined' && tablaData) {
+                //     tablaData.ajax.reload(null, false);
+                // }
+                idEditar = 0;
+            }
+        },
+        error: function (xhr, status, error) {
+            // Captura de errores optimizada
+            console.log("Estado HTTP:", xhr.status, "Error:", error);
+            console.log("Respuesta servidor:", xhr.responseText);
+
+            $("#modalAdd").find("div.modal-content").LoadingOverlay("hide");
+            MensajeToast("Error Crítico", "No se pudo conectar con el servidor.", "error");
+        },
+        complete: function () {
+            habilitarBoton(); // Asumo que es tu función global para desbloquear botones
+        }
+    });
+}
+
+function enviarAjaxClubOriginal(objeto, base64String) {
     $("#modalAdd").find("div.modal-content").LoadingOverlay("show");
 
     $.ajax({

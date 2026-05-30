@@ -1,0 +1,142 @@
+﻿/* ESTILOS PERSONALIZADOS (Evitando conflictos con Bootstrap) */
+:root {
+    --futsal-dark: #0a0e17;
+    /* Fondo principal oscuro */
+    --futsal-red: #e60000;
+    --futsal-blue: #0044ff;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--futsal-dark);
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* NAVBAR PERSONALIZADA */
+.navbar-futsal {
+    background-color: rgba(10, 14, 23, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.btn-login {
+    background: linear-gradient(45deg, var(--futsal-red), #ff4d4d);
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 8px 25px;
+    border-radius: 50px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(230, 0, 0, 0.4);
+        color: white;
+    }
+
+/* SECCIÓN HERO (BANNER) */
+.hero-section {
+    padding-top: 80px;
+    /* Espacio para el navbar */
+    background-color: var(--futsal-dark);
+    position: relative;
+}
+
+.hero-banner-img {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: cover;
+    /* Mantiene la proporción sin deformar */
+    object-position: center;
+    border-bottom: 3px solid var(--futsal-blue);
+    box-shadow: 0 10px 30px rgba(0, 68, 255, 0.2);
+}
+
+/* SECCIÓN INFORMACIÓN */
+.info-section {
+    padding: 5rem 0;
+    background: radial-gradient(circle at center, #111827 0%, var(--futsal-dark) 100%);
+}
+
+.glow-image-container {
+    position: relative;
+    display: inline-block;
+}
+
+    /* Efecto de luz detrás del logo redondo */
+    .glow-image-container::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 105%;
+        height: 105%;
+        border-radius: 50%;
+        background: linear-gradient(45deg, var(--futsal-red), var(--futsal-blue));
+        z-index: 0;
+        filter: blur(20px);
+        opacity: 0.7;
+        animation: pulseGlow 3s infinite alternate;
+    }
+
+.info-image {
+    position: relative;
+    z-index: 1;
+    border-radius: 50%;
+    /* Hace la imagen redonda */
+    border: 4px solid #1f2937;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes pulseGlow {
+    0% {
+        opacity: 0.5;
+        filter: blur(15px);
+    }
+
+    100% {
+        opacity: 0.9;
+        filter: blur(25px);
+    }
+}
+
+/* SECCIÓN DE CLUBES (GLASSMORPHISM) */
+.clubs-section {
+    padding: 4rem 0 6rem;
+    background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%231f2937" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+}
+
+.club-card {
+    background: rgba(31, 41, 55, 0.6);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+    .club-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--futsal-blue);
+        box-shadow: 0 10px 20px rgba(0, 68, 255, 0.15);
+    }
+
+.club-logo {
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.5));
+}
+
+/* FOOTER */
+.footer-futsal {
+    background-color: #05070a;
+    border-top: 2px solid var(--futsal-red);
+    padding: 2rem 0;
+    text-align: center;
+}

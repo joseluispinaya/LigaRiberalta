@@ -1,0 +1,168 @@
+﻿/* ESTILOS BASE (Consistentes con la página de inicio) */
+:root {
+    --futsal-dark: #0a0e17;
+    --futsal-red: #e60000;
+    --futsal-blue: #0044ff;
+    --glass-bg: rgba(15, 23, 42, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--futsal-dark);
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Usamos la imagen del banner como fondo opacado */
+    background-image: linear-gradient(rgba(10, 14, 23, 0.85), rgba(10, 14, 23, 0.95)), url('../../img/baner-futsal2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* TARJETA DE LOGIN (Glassmorphism) */
+.login-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    width: 100%;
+    max-width: 900px; /* Ancho máximo para pantallas grandes */
+}
+
+.login-left-side {
+    background: radial-gradient(circle at center, #111827 0%, var(--futsal-dark) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    border-right: 1px solid var(--glass-border);
+}
+
+.login-right-side {
+    padding: 3rem;
+}
+
+.login-logo {
+    max-width: 250px;
+    filter: drop-shadow(0 0 15px rgba(230, 0, 0, 0.3));
+    animation: floatLogo 4s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* INPUTS PERSONALIZADOS */
+.form-control-futsal {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 0.8rem 1rem 0.8rem 2.5rem; /* Espacio para el ícono */
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+    .form-control-futsal:focus {
+        background-color: rgba(0, 0, 0, 0.4);
+        border-color: var(--futsal-blue);
+        color: white;
+        box-shadow: 0 0 0 0.25rem rgba(0, 68, 255, 0.25);
+    }
+
+    .form-control-futsal::placeholder {
+        color: #9ca3af;
+    }
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+    z-index: 10;
+}
+
+/* BOTÓN PRINCIPAL */
+.btn-login {
+    background: linear-gradient(45deg, var(--futsal-red), #ff4d4d);
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 10px;
+    width: 100%;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(230, 0, 0, 0.4);
+        color: white;
+    }
+
+/* ENLACES Y TEXTOS */
+.link-futsal {
+    color: #60a5fa;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.9rem;
+}
+
+    .link-futsal:hover {
+        color: var(--futsal-blue);
+        text-decoration: underline;
+    }
+
+/* ESTILOS DEL MODAL (Glassmorphism para SweetAlert) */
+div:where(.swal2-container) div:where(.swal2-popup) {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    color: white;
+    border-radius: 15px;
+}
+
+div:where(.swal2-container) .swal2-title,
+div:where(.swal2-container) .swal2-html-container {
+    color: white !important;
+}
+
+div:where(.swal2-container) .swal2-input {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid var(--glass-border) !important;
+    color: white !important;
+}
+
+    div:where(.swal2-container) .swal2-input:focus {
+        border-color: var(--futsal-blue) !important;
+        box-shadow: 0 0 0 0.25rem rgba(0, 68, 255, 0.25) !important;
+    }
+
+/* Ocultar el panel izquierdo en móviles */
+@media (max-width: 767.98px) {
+    .login-left-side {
+        display: none !important;
+    }
+
+    .login-right-side {
+        padding: 2rem;
+    }
+}

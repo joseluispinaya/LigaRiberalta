@@ -98,6 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\defaultpage.css" />
     <Content Include="assets\css\default\app-rtl.min.css" />
     <Content Include="assets\css\default\app.min.css" />
     <Content Include="assets\css\default\images\bg-login-dark-mode.png" />
@@ -105,6 +106,7 @@
     <Content Include="assets\css\default\images\coming-soon.jpg" />
     <Content Include="assets\css\default\images\cover-pattern.png" />
     <Content Include="assets\css\default\images\cover-sidebar-user.jpg" />
+    <Content Include="assets\css\default\images\cover-sidebar-user2.jpg" />
     <Content Include="assets\css\default\images\cover-sidebar.jpg" />
     <Content Include="assets\css\default\images\error-page-pattern.png" />
     <Content Include="assets\css\default\images\profile-cover.jpg" />
@@ -133,6 +135,8 @@
     <Content Include="assets\css\default\images\ui-icons_777777_256x240.png" />
     <Content Include="assets\css\default\images\ui-icons_cc0000_256x240.png" />
     <Content Include="assets\css\default\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="assets\css\futsal-custom.css" />
+    <Content Include="assets\css\login.css" />
     <Content Include="assets\css\material\app-rtl.min.css" />
     <Content Include="assets\css\material\app.min.css" />
     <Content Include="assets\css\material\images\bg-login-dark-mode.png" />
@@ -938,9 +942,17 @@
     <Content Include="assets\plugins\toastr\toastr.min.js" />
     <Content Include="Categorias.aspx" />
     <Content Include="Clubes.aspx" />
+    <Content Include="Default.aspx" />
     <Content Include="DetallesSerie.aspx" />
     <Content Include="Imagen\sinimagen.png" />
     <Content Include="ImgJugadores\sinimagen.png" />
+    <Content Include="img\baner-futsal2.jpg" />
+    <Content Include="img\cover-sidebar-user2.jpg" />
+    <Content Include="img\futsal-banner.jpg" />
+    <Content Include="img\logo1.jpg" />
+    <Content Include="img\logo2.jpg" />
+    <Content Include="img\logo3.jpg" />
+    <Content Include="img\logo4.jpeg" />
     <Content Include="Inicio.aspx" />
     <Content Include="Inscripciones.aspx" />
     <Content Include="js\Categorias.js" />
@@ -948,12 +960,14 @@
     <Content Include="js\DetalleSeries.js" />
     <Content Include="js\Inscripciones.js" />
     <Content Include="js\Jugadores.js" />
+    <Content Include="js\Login.js" />
     <Content Include="js\Masterpa.js" />
     <Content Include="js\Partidos.js" />
     <Content Include="js\PlantelEquipo.js" />
     <Content Include="js\Plantillas.js" />
     <Content Include="js\Torneos.js" />
     <Content Include="Jugadores.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="Logos\sinLogo.png" />
     <Content Include="Partidos.aspx" />
     <Content Include="PlantelEquipo.aspx" />
@@ -975,6 +989,13 @@
     </Compile>
     <Compile Include="Clubes.aspx.designer.cs">
       <DependentUpon>Clubes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="DetallesSerie.aspx.cs">
       <DependentUpon>DetallesSerie.aspx</DependentUpon>
@@ -1003,6 +1024,13 @@
     </Compile>
     <Compile Include="Jugadores.aspx.designer.cs">
       <DependentUpon>Jugadores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="PageMaster.Master.cs">
       <DependentUpon>PageMaster.Master</DependentUpon>
