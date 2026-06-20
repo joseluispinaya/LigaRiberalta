@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="DTOs\ComboEquipoDTO.cs" />
     <Compile Include="DTOs\InscritosDTO.cs" />
+    <Compile Include="DTOs\JugadoresDTO.cs" />
     <Compile Include="DTOs\JugadorPlantillaDTO.cs" />
     <Compile Include="DTOs\PartidoSerieDTO.cs" />
     <Compile Include="DTOs\PlantelJugadoresDTO.cs" />

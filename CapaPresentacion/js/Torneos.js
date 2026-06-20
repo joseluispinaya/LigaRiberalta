@@ -40,7 +40,7 @@ function listaTorneos() {
                 $("#tbData_processing").hide();
 
                 // 2. Colocar un mensaje manual en el cuerpo de la tabla (usamos colspan="4" porque tienes 4 columnas visibles)
-                $("#tbData tbody").html('<tr><td colspan="4" class="text-center text-muted">No se pudieron cargar los datos debido a un error de conexión.</td></tr>');
+                $("#tbData tbody").html('<tr><td colspan="4" class="text-center text-muted">No se pudieron cargar los datos debido a un error de conexión con la API.</td></tr>');
             }
         },
         "columns": [

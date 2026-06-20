@@ -42,12 +42,12 @@
 
                         <div class="mb-3 position-relative">
                             <i class="fa-solid fa-envelope input-icon"></i>
-                            <input type="email" class="form-control form-control-futsal w-100" id="txtCorreo" placeholder="Correo electrónico" autocomplete="off">
+                            <input type="email" class="form-control form-control-futsal w-100" id="txtCorreo" placeholder="Correo electrónico" autocomplete="off" value="adminDev@gmail.com">
                         </div>
 
                         <div class="mb-4 position-relative">
                             <i class="fa-solid fa-lock input-icon"></i>
-                            <input type="password" class="form-control form-control-futsal w-100" id="txtPassword" placeholder="Contraseña">
+                            <input type="password" class="form-control form-control-futsal w-100" id="txtPassword" placeholder="Contraseña" value="123456">
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mb-4">

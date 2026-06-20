@@ -172,6 +172,11 @@
                                     <div class="menu-text">Jugadores</div>
                                 </a>
                             </div>
+                            <div class="menu-item">
+                                <a href="ExcelJugadores.aspx" class="menu-link">
+                                    <div class="menu-text">Registro Excel</div>
+                                </a>
+                            </div>
                         </div>
                     </div>
 

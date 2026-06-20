@@ -3,6 +3,7 @@ using CapaEntidad.Entidades;
 using CapaEntidad.Responses;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,11 @@ namespace CapaNegocio
         public Respuesta<List<EJugador>> ListaJugadoresIdClub(int IdClub)
         {
             return DJugador.GetInstance().ListaJugadoresIdClub(IdClub);
+        }
+
+        public Respuesta<int> GuardarJugadoresMasiva(DataTable dtDetalles)
+        {
+            return DJugador.GetInstance().GuardarJugadoresMasiva(dtDetalles);
         }
     }
 }

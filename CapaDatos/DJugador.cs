@@ -155,5 +155,83 @@ namespace CapaDatos
             }
         }
 
+        public Respuesta<int> GuardarJugadoresMasiva(DataTable dtDetalles)
+        {
+            Respuesta<int> response = new Respuesta<int>();
+            int resultadoCodigo = 0;
+            int totalEnviados = dtDetalles.Rows.Count; // Cantidad total que intentamos registrar
+
+            try
+            {
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_GuardarJugadoresMasiva", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        SqlParameter tvpParam = new SqlParameter("@ListaJugadores", SqlDbType.Structured)
+                        {
+                            TypeName = "dbo.Type_ListaJugadores",
+                            Value = dtDetalles
+                        };
+                        cmd.Parameters.Add(tvpParam);
+
+                        // Parámetro de Salida
+                        SqlParameter outputParam = new SqlParameter("@FilasInsertadas", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outputParam);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+                        resultadoCodigo = Convert.ToInt32(outputParam.Value);
+                    }
+                }
+
+                response.Data = resultadoCodigo;
+
+                // EVALUACIÓN BASADA EN CANTIDAD DE FILAS INSERTADAS
+                if (resultadoCodigo == totalEnviados)
+                {
+                    // Éxito Total: Se insertaron todos los registros del Excel
+                    response.Estado = true;
+                    response.Valor = "success";
+                    response.Mensaje = $"Se registraron correctamente los {resultadoCodigo} jugadores.";
+                }
+                else if (resultadoCodigo > 0 && resultadoCodigo < totalEnviados)
+                {
+                    // Éxito Parcial: Se insertaron algunos, pero otros fueron ignorados (duplicados)
+                    int duplicados = totalEnviados - resultadoCodigo;
+                    response.Estado = true; // Sigue siendo true porque la transacción en sí no falló
+                    response.Valor = "info";
+                    response.Mensaje = $"Se registraron {resultadoCodigo} jugadores nuevos. Se omitieron {duplicados} registros porque el Nro. C.I. o Comet ya existían.";
+                }
+                else if (resultadoCodigo == 0)
+                {
+                    // Advertencia: El SP se ejecutó bien, pero ningún jugador era nuevo
+                    response.Estado = false;
+                    response.Valor = "warning";
+                    response.Mensaje = "No se registró ningún jugador. Todos los registros del archivo ya existen en la base de datos.";
+                }
+                else
+                {
+                    // Error: El SP devolvió -1 (Cayó en el CATCH de SQL)
+                    response.Estado = false;
+                    response.Valor = "error";
+                    response.Mensaje = "Ocurrió un error interno en la base de datos al procesar el archivo masivo.";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Estado = false;
+                response.Valor = "error";
+                response.Mensaje = "Error de conexión o ejecución: " + ex.Message;
+            }
+
+            return response;
+        }
+
     }
 }
