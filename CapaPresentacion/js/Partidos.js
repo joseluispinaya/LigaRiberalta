@@ -97,10 +97,11 @@ $("#btnBuscarFiltro").on("click", function () {
     if ($.fn.DataTable.isDataTable("#tbData")) {
         tablaData.ajax.reload();
     } else {
-        listarSeriesResumen();
+        listarSeriesResumenOriginal();
     }
 });
 
+// consume el microservicio
 function listarSeriesResumen() {
     tablaData = $("#tbData").DataTable({
         responsive: true,

@@ -515,4 +515,109 @@ function ejecutarGuardadoAJAX(objeto) {
     });
 }
 
+
+$('#tbPartidos tbody').on('click', '.btn-resultado', function () {
+
+    let fila = $(this).closest('tr');
+    if (fila.hasClass('child')) {
+        fila = fila.prev();
+    }
+
+    let data = tablaPartidos.row(fila).data();
+
+    $("#txtIdPartidoRe").val(data.IdPartido);
+
+    $("#txtGolLocal").val("0");
+    $("#txtGolVisitante").val("0");
+
+    $("#txtGolPenalLocal").val("0");
+    $("#txtGolPenalVisitante").val("0");
+
+    $("#lblEquipoLocal").text(data.ClubLocal);
+    $("#lblEquipoVisitante").text(data.ClubVisitante);
+
+    $("#imgLocalResu").attr("src", data.LogoLocal || "Logos/sinLogo.png");
+    $("#imgVisitanteResu").attr("src", data.LogoVisitante || "Logos/sinLogo.png");
+    $("#modalResultados").modal("show");
+});
+
+function habilitarBoton() {
+    $('#btnGuardarResultados').prop('disabled', false);
+}
+
+$("#btnGuardarResultados").on("click", function () {
+    // Bloqueo inmediato
+    $('#btnGuardarResultados').prop('disabled', true);
+
+    let idPartido = $("#txtIdPartidoRe").val();
+
+    if (idPartido === "" || idPartido === "0") {
+        MensajeToast("Campo incompleto", "Por favor, seleccione un Partido.", "warning");
+        habilitarBoton();
+        return;
+    }
+
+    const golLocal = parseInt($("#txtGolLocal").val()) || 0;
+    const golVisitante = parseInt($("#txtGolVisitante").val()) || 0;
+
+    const golPenalLocal = parseInt($("#txtGolPenalLocal").val()) || 0;
+    const golPenalVisitante = parseInt($("#txtGolPenalVisitante").val()) || 0;
+
+    if (golPenalLocal < 0) {
+        MensajeToast("Valor inválido", "Los goles de penal del equipo local no pueden ser números negativos.", "warning");
+        $("#txtGolPenalLocal").focus();
+        habilitarBoton();
+        return;
+    }
+
+    if (golPenalVisitante < 0) {
+        MensajeToast("Valor inválido", "Los goles de penal del equipo visitante no pueden ser números negativos.", "warning");
+        $("#txtGolPenalVisitante").focus();
+        habilitarBoton();
+        return;
+    }
+
+    if (golLocal < 0) {
+        MensajeToast("Valor inválido", "Los goles del equipo local no pueden ser números negativos.", "warning");
+        $("#txtGolLocal").focus();
+        habilitarBoton();
+        return;
+    }
+
+    if (golVisitante < 0) {
+        MensajeToast("Valor inválido", "Los goles del equipo visitante no pueden ser números negativos.", "warning");
+        $("#txtGolVisitante").focus();
+        habilitarBoton();
+        return;
+    }
+
+    let arbitrajePagoLocal = $("#chkPagadoLocal").is(":checked");
+    let arbitrajePagoVisitante = $("#chkPagadoVisitante").is(":checked");
+
+    // 2. ARMAR EL OBJETO
+    const objeto = {
+        IdPartido: parseInt(idPartido),
+        GolesLocal: golLocal,
+        GolesVisitante: golVisitante,
+        GolesPenalesLocal: golPenalLocal,
+        GolesPenalesVisitante: golPenalVisitante,
+        PagoArbitrajeLocal: arbitrajePagoLocal,
+        PagoArbitrajeVisitante: arbitrajePagoVisitante
+    };
+
+    console.log("Objeto a enviar:", objeto);
+
+    $("#modalResultados").find("div.modal-content").LoadingOverlay("show");
+
+    setTimeout(function () {
+        $("#modalResultados").find("div.modal-content").LoadingOverlay("hide");
+
+        $("#modalResultados").modal("hide");
+
+        MensajeToast("¡Atención!", "Prueba de datos.", "success", 2000);
+
+        habilitarBoton();
+    }, 2200);
+});
+
 // fin

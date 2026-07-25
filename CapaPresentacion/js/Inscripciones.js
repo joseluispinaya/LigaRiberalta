@@ -268,8 +268,8 @@ function listaEquiposInscritos() {
             // Columna 5: OPCIONES
             {
                 "defaultContent": '<button class="btn btn-lime btn-editar btn-sm me-2" title="Editar"><i class="fas fa-pencil-alt"></i></button>' +
-                    '<button class="btn btn-info btn-detalle btn-sm me-2" title="Detalles"><i class="fas fa-eye"></i></button>' +
-                    '<button class="btn btn-danger btn-addplantilla btn-sm" title="Plantilla"><i class="fas fa-futbol"></i></button>',
+                    '<button class="btn btn-info btn-cuerpotecn btn-sm me-2" title="Cuerpo Tecnico"><i class="fas fa-house-user"></i></button>' +
+                    '<button class="btn btn-danger btn-addplantilla btn-sm" title="Plantilla Equipo"><i class="fas fa-futbol"></i></button>',
                 "orderable": false,
                 "searchable": false,
                 "className": "text-center align-middle"
@@ -310,7 +310,7 @@ $('#tbData tbody').on('click', '.btn-editar', function () {
     $("#modalAdd").modal("show");
 });
 
-$('#tbData tbody').on('click', '.btn-detalle', function () {
+$('#tbData tbody').on('click', '.btn-cuerpotecn', function () {
 
     let fila = $(this).closest('tr');
     if (fila.hasClass('child')) {
@@ -318,8 +318,8 @@ $('#tbData tbody').on('click', '.btn-detalle', function () {
     }
 
     let data = tablaData.row(fila).data();
-    const textoSms = `El club ${data.NombreClub} está asignado a la serie ${data.NombreSerie}. Actualmente tiene ${data.PuntosPenalizacion} puntos de penalización.`;
-    mostrarAlerta("Detalles de Inscripción", textoSms, "info");
+    var url = 'Plantillas.aspx?id=' + data.IdEquipo;
+    window.location.href = url;
 
 });
 

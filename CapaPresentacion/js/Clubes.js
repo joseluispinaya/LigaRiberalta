@@ -18,9 +18,10 @@ $(document).ready(function () {
     });
 
     $("#txtFecha").val(ObtenerFecha());
-    listaClubes();
+    listaClubesOriginal();
 });
 
+// consume microservicio
 function listaClubes() {
 
     tablaData = $("#tbData").DataTable({
@@ -80,8 +81,7 @@ function listaClubes() {
                 }
             },
             {
-                "defaultContent": '<button class="btn btn-lime btn-editar btn-sm me-2"><i class="fas fa-pencil-alt"></i></button>' +
-                    '<button class="btn btn-info btn-detalle btn-sm"><i class="fas fa-eye"></i></button>',
+                "defaultContent": '<button class="btn btn-lime btn-editar btn-sm"><i class="fas fa-pencil-alt"></i></button>',
                 "orderable": false,
                 "searchable": false,
                 "className": "text-center"
@@ -148,8 +148,7 @@ function listaClubesOriginal() {
                 }
             },
             {
-                "defaultContent": '<button class="btn btn-lime btn-editar btn-sm me-2"><i class="fas fa-pencil-alt"></i></button>' +
-                    '<button class="btn btn-info btn-detalle btn-sm"><i class="fas fa-eye"></i></button>',
+                "defaultContent": '<button class="btn btn-lime btn-editar btn-sm"><i class="fas fa-pencil-alt"></i></button>',
                 "orderable": false,
                 "searchable": false,
                 "className": "text-center"
@@ -364,13 +363,10 @@ function enviarAjaxClub(objeto, base64String) {
 
             if (response.Estado) {
                 $("#modalAdd").modal("hide");
-                //if (tablaData) {
-                //    tablaData.ajax.reload(null, false);
-                //}
+                if (tablaData) {
+                    tablaData.ajax.reload(null, false);
+                }
 
-                // if (typeof tablaData !== 'undefined' && tablaData) {
-                //     tablaData.ajax.reload(null, false);
-                // }
                 idEditar = 0;
             }
         },

@@ -142,5 +142,48 @@ namespace CapaDatos
                 };
             }
         }
+
+        public Respuesta<List<ECargosTec>> ListaCargosTecnicos()
+        {
+            try
+            {
+                List<ECargosTec> rptLista = new List<ECargosTec>();
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand comando = new SqlCommand("usp_ListaCargoTecnicos", con))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        using (SqlDataReader dr = comando.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                rptLista.Add(new ECargosTec
+                                {
+                                    IdCargo = Convert.ToInt32(dr["IdCargo"]),
+                                    Cargo = dr["Cargo"].ToString()
+                                });
+                            }
+                        }
+                    }
+                }
+                return new Respuesta<List<ECargosTec>>()
+                {
+                    Estado = true,
+                    Data = rptLista,
+                    Mensaje = "Lista obtenida correctamente"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<List<ECargosTec>>()
+                {
+                    Estado = false,
+                    Data = null,
+                    Mensaje = $"Error al obtener la lista: {ex.Message}"
+                };
+            }
+        }
+
     }
 }

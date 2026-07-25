@@ -1,8 +1,10 @@
 ﻿
 // VARIABLES GLOBALES
 
+// apiwebliga1
 const API_BASE_URL = "https://localhost:44383/api";
 
+// weapiinscripciones
 const API_BASE_URL2 = "https://localhost:44378/api";
 
 const BASE_URL_IMG = "https://localhost:44383";

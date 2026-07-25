@@ -24,10 +24,10 @@
         <a href="Partidos.aspx" class="btn btn-white shadow-sm me-3 px-3 fw-bold text-body">
             <i class="fa fa-arrow-left me-2"></i>Volver a Series
         </a>
-        <div>
+        <%--<div>
             <h2 class="page-header mb-0" id="lblTituloSerie">Cargando Serie...</h2>
             <span class="fs-13px text-gray-500 fw-semibold" id="lblSubtituloCompeticion">Torneo - Categoría</span>
-        </div>
+        </div>--%>
     </div>
 
     <div class="row">
@@ -166,6 +166,107 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalResultados" tabindex="-1" role="dialog" data-bs-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-inverse text-white">
+                    <h5 class="modal-title"><i class="fa fa-calendar-plus me-2 text-success"></i>Resultados</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <input id="txtIdPartidoRe" value="0" type="hidden" />
+
+                    <h6 class="text-warning mb-3 border-bottom pb-2"><i class="fa fa-users me-2"></i>Enfrentamiento</h6>
+                    <div class="row align-items-center bg-light bg-opacity-50 p-3 rounded-3 border">
+                        <div class="col-md-5">
+                            <div class="mb-2 text-center">
+                                <label class="form-label fw-bold text-primary fs-14px">
+                                    <i class="fa fa-home me-1"></i><span id="lblEquipoLocal"></span>
+                                </label>
+                            </div>
+                            <div class="mb-1 text-center">
+                                <img id="imgLocalResu" src="Logos/sinLogo.png" alt="Logo Local" class="logo-club">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="txtGolLocal">Gol Local:</label>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <span class="input-group-text input-group-addon"><i class="fas fa-baseball"></i></span>
+                                        <input type="number" class="form-control model" id="txtGolLocal" name="Gol Local" value="0" min="0" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="txtGolPenalLocal">Gol Penal:</label>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <span class="input-group-text input-group-addon"><i class="fas fa-baseball"></i></span>
+                                        <input type="number" class="form-control model" id="txtGolPenalLocal" name="Gol Penal Local" value="0" min="0" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-check form-switch ms-md-3">
+                                <input class="form-check-input cursor-pointer" type="checkbox" id="chkPagadoLocal">
+                                <label class="form-check-label fw-bold ms-2 cursor-pointer" for="chkPagadoLocal">
+                                    <i class="fa fa-money-bill-wave text-danger me-1"></i>Arbitraje Pagada
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 text-center">
+                            <div class="w-40px h-40px bg-dark text-white rounded-circle d-flex align-items-center justify-content-center mx-auto fw-bold fs-5 shadow-sm">
+                                VS
+                            </div>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="mb-2 text-center">
+                                <label class="form-label fw-bold text-danger fs-14px">
+                                    <i class="fa fa-plane me-1"></i><span id="lblEquipoVisitante"></span>
+                                </label>
+                            </div>
+                            <div class="mb-1 text-center">
+                                <img id="imgVisitanteResu" src="Logos/sinLogo.png" alt="Logo Visitante" class="logo-club">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="txtGolVisitante">Gol Visitante:</label>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <span class="input-group-text input-group-addon"><i class="fas fa-baseball"></i></span>
+                                        <input type="number" class="form-control model" id="txtGolVisitante" name="Gol Visitante" value="0" min="0" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="txtGolPenalVisitante">Gol Penal:</label>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <span class="input-group-text input-group-addon"><i class="fas fa-baseball"></i></span>
+                                        <input type="number" class="form-control model" id="txtGolPenalVisitante" name="Gol Penal Visitante" value="0" min="0" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-check form-switch ms-md-3">
+                                <input class="form-check-input cursor-pointer" type="checkbox" id="chkPagadoVisitante">
+                                <label class="form-check-label fw-bold ms-2 cursor-pointer" for="chkPagadoVisitante">
+                                    <i class="fa fa-money-bill-wave text-danger me-1"></i>Arbitraje Pagada
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-sm btn-white" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btnGuardarResultados" type="button" class="btn btn-sm btn-success px-4 fw-bold">
+                        <i class="fa fa-save me-1"></i>Guardar Resultado
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="footer" runat="server">
     <script src="assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>

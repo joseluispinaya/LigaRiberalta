@@ -61,9 +61,7 @@ function datosEquipoInscrito(idEquipo) {
     });
 }
 
-// ==========================================
 // 2. CARGAR JUGADORES (Panel Derecho)
-// ==========================================
 function cargarJugadoresElegibles(idEquipo) {
     // Mensaje de carga en la tabla
     $("#tbData tbody").html('<tr><td colspan="3" class="text-center py-4"><div class="spinner-border text-primary spinner-border-sm me-2"></div> Cargando jugadores elegibles...</td></tr>');

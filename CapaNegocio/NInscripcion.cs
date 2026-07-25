@@ -4,6 +4,7 @@ using CapaEntidad.Entidades;
 using CapaEntidad.Responses;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,6 +49,16 @@ namespace CapaNegocio
         public Respuesta<int> GuardarPlantillaMasiva(int idEquipo, string jsonJugadores)
         {
             return DInscripcion.GetInstance().GuardarPlantillaMasiva(idEquipo, jsonJugadores);
+        }
+
+        public Respuesta<int> GuardarCuerpoTecnicoMasiva(DataTable dtDetalles)
+        {
+            return DInscripcion.GetInstance().GuardarCuerpoTecnicoMasiva(dtDetalles);
+        }
+
+        public Respuesta<List<ListCuerpoTecnicoDTO>> ListaCuerpoTecnico(int IdEquipo)
+        {
+            return DInscripcion.GetInstance().ListaCuerpoTecnico(IdEquipo);
         }
 
     }

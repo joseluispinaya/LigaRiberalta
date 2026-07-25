@@ -33,5 +33,10 @@ namespace CapaNegocio
         {
             return DCategoria.GetInstance().ListaCategorias();
         }
+
+        public Respuesta<List<ECargosTec>> ListaCargosTecnicos()
+        {
+            return DCategoria.GetInstance().ListaCargosTecnicos();
+        }
     }
 }

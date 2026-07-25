@@ -327,5 +327,129 @@ namespace CapaDatos
             return response;
         }
 
+        public Respuesta<int> GuardarCuerpoTecnicoMasiva(DataTable dtDetalles)
+        {
+            Respuesta<int> response = new Respuesta<int>();
+            int resultadoCodigo = 0;
+            int totalEnviados = dtDetalles.Rows.Count;
+
+            try
+            {
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_GuardarCuerpoTecnicoMasiva", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        SqlParameter tvpParam = new SqlParameter("@ListaCuerpoTecnico", SqlDbType.Structured)
+                        {
+                            TypeName = "dbo.Type_ListaCuerpoTecnico",
+                            Value = dtDetalles
+                        };
+                        cmd.Parameters.Add(tvpParam);
+
+                        SqlParameter outputParam = new SqlParameter("@FilasInsertadas", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outputParam);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+                        resultadoCodigo = Convert.ToInt32(outputParam.Value);
+                    }
+                }
+
+                response.Data = resultadoCodigo;
+
+                // EVALUACIÓN BASADA EN CANTIDAD DE FILAS INSERTADAS
+                if (resultadoCodigo == totalEnviados)
+                {
+                    response.Estado = true;
+                    response.Valor = "success";
+                    response.Mensaje = $"Se registraron correctamente los {resultadoCodigo} miembros del cuerpo técnico.";
+                }
+                else if (resultadoCodigo > 0 && resultadoCodigo < totalEnviados)
+                {
+                    int duplicados = totalEnviados - resultadoCodigo;
+                    response.Estado = true;
+                    response.Valor = "info";
+                    response.Mensaje = $"Se registraron {resultadoCodigo} miembros. Se omitieron {duplicados} registros porque el C.I. ya estaba registrado en este equipo.";
+                }
+                else if (resultadoCodigo == 0)
+                {
+                    response.Estado = false;
+                    response.Valor = "warning";
+                    response.Mensaje = "No se registró a nadie. Todos los miembros del archivo ya existen en este equipo.";
+                }
+                else
+                {
+                    response.Estado = false;
+                    response.Valor = "error";
+                    response.Mensaje = "Ocurrió un error interno en la base de datos al procesar el archivo.";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Estado = false;
+                response.Valor = "error";
+                response.Mensaje = "Error de conexión o ejecución: " + ex.Message;
+            }
+
+            return response;
+        }
+
+        public Respuesta<List<ListCuerpoTecnicoDTO>> ListaCuerpoTecnico(int IdEquipo)
+        {
+            try
+            {
+                List<ListCuerpoTecnicoDTO> rptLista = new List<ListCuerpoTecnicoDTO>();
+
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand comando = new SqlCommand("usp_ObtenerCuerpoTecnicoList", con))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("@IdEquipo", IdEquipo);
+                        con.Open();
+
+                        using (SqlDataReader dr = comando.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                rptLista.Add(new ListCuerpoTecnicoDTO
+                                {
+                                    IdMiembro = Convert.ToInt32(dr["IdMiembro"]),
+                                    IdEquipo = Convert.ToInt32(dr["IdEquipo"]),
+                                    Nombres = dr["Nombres"].ToString(),
+                                    Apellidos = dr["Apellidos"].ToString(),
+                                    IdCargo = Convert.ToInt32(dr["IdCargo"]),
+                                    CI = dr["CI"].ToString(),
+                                    Cargo = dr["Cargo"].ToString()
+                                });
+                            }
+                        }
+                    }
+                }
+                return new Respuesta<List<ListCuerpoTecnicoDTO>>()
+                {
+                    Estado = true,
+                    Data = rptLista,
+                    Mensaje = "Lista obtenidos correctamente"
+                };
+            }
+            catch (Exception ex)
+            {
+                // Maneja cualquier error inesperado
+                return new Respuesta<List<ListCuerpoTecnicoDTO>>()
+                {
+                    Estado = false,
+                    Mensaje = "Ocurrió un error: " + ex.Message,
+                    Data = null
+                };
+            }
+        }
+
     }
 }

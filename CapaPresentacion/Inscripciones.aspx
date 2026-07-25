@@ -67,7 +67,7 @@
                                     <th>Club Inscrito</th>
                                     <th>Serie</th>
                                     <th>Penalización</th>
-                                    <th>Pago Inscripción</th>
+                                    <th>Inscripción</th>
                                     <th class="text-center">Opciones</th>
                                 </tr>
                             </thead>

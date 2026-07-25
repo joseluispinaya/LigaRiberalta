@@ -6,6 +6,7 @@ $(document).ready(function () {
     listaTorneos();
 });
 
+// consume microservicio
 function listaTorneos() {
     // Si decides descomentar la destrucción de la tabla, mantenlo aquí
     // if ($.fn.DataTable.isDataTable("#tbData")) {

@@ -162,8 +162,7 @@ function listaJugadores() {
 
             // Columna 4: OPCIONES
             {
-                "defaultContent": '<button class="btn btn-lime btn-editar btn-sm me-2"><i class="fas fa-pencil-alt"></i></button>' +
-                    '<button class="btn btn-info btn-detalle btn-sm"><i class="fas fa-eye"></i></button>',
+                "defaultContent": '<button class="btn btn-lime btn-editar btn-sm"><i class="fas fa-pencil-alt"></i></button>',
                 "orderable": false,
                 "searchable": false,
                 "className": "text-center align-middle"

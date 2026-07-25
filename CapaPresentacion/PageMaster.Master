@@ -194,11 +194,11 @@
                                     <div class="menu-text">Registro</div>
                                 </a>
                             </div>
-                            <div class="menu-item">
+                            <%--<div class="menu-item">
                                 <a href="Plantillas.aspx" class="menu-link">
                                     <div class="menu-text">Plantillas</div>
                                 </a>
-                            </div>
+                            </div>--%>
                             <div class="menu-item">
                                 <a href="#" class="menu-link">
                                     <div class="menu-text">Esperando</div>
