@@ -315,7 +315,8 @@ function ejecutarGuardadoMasivoCT(idEquipo) {
             Nombres: item.Nombres,
             Apellidos: item.Apellidos,
             IdCargo: parseInt(item.IdCargo),
-            CI: item.CI
+            CI: item.CI,
+            ClaveHash: item.ClaveHash || ""
         };
     });
 

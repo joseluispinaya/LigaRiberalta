@@ -8,5 +8,6 @@
         public string Apellidos { get; set; }
         public int IdCargo { get; set; }
         public string CI { get; set; }
+        public string ClaveHash { get; set; }
     }
 }

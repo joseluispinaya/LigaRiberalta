@@ -10,5 +10,7 @@
         public char Genero { get; set; }
         public string FechaNacimiento { get; set; }
         public string FotografiaUrl { get; set; }
+        // NUEVO CAMPO
+        public string ClaveHash { get; set; }
     }
 }

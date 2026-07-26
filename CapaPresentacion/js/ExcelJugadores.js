@@ -1,17 +1,164 @@
 ﻿
+
+let listaJugadoresExcel = [];
+
 $(document).ready(function () {
 
     // Inicializar Select2 para Club
     $("#cboClub").select2({
-        //dropdownParent: $('#modalAdd'),
         width: '100%',
         placeholder: "-- Seleccione un Club --",
-        templateResult: formatoResultadosClub,  // Cambiamos el nombre de la función
-        templateSelection: formatoSeleccionClub // Cambiamos el nombre de la función
+        templateResult: formatoResultadosClub,
+        templateSelection: formatoSeleccionClub
     });
 
     cargarClubes();
+
+    // ==========================================
+    // EVENTO 1: LEER EXCEL Y PREVISUALIZAR
+    // ==========================================
+    $("#btnVerArchivo").on("click", function () {
+        var fileUpload = $("#txtarchivo").get(0);
+        var files = fileUpload.files;
+
+        if (files.length === 0) {
+            MensajeToast("Atención", "Debe seleccionar un archivo Excel.", "warning");
+            return;
+        }
+
+        var file = files[0];
+
+        // --- VALIDACIÓN DE EXTENSIÓN ---
+        var extension = file.name.split('.').pop().toLowerCase();
+        if (extension !== "xlsx" && extension !== "xls") {
+            MensajeToast("Atención", "Formato no válido. Seleccione un archivo .xls o .xlsx", "warning");
+            $("#txtarchivo").val('');
+            return;
+        }
+
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            var base64String = e.target.result.split(',')[1];
+
+            $.ajax({
+                url: "ExcelJugadores.aspx/ProcesarExcelJugadores",
+                type: "POST",
+                data: JSON.stringify({ archivoBase64: base64String }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d.Estado) {
+                        listaJugadoresExcel = response.d.Data;
+                        mostrarVistaPrevia(listaJugadoresExcel);
+                    } else {
+                        alertaTimer("Atención", response.d.Mensaje, "warning");
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
+                    MensajeToast("Error Crítico", "No se pudo conectar con el servidor.", "error");
+                }
+            });
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+    // ==========================================
+    // EVENTO 2: ELIMINAR FILA DE LA PREVISUALIZACIÓN
+    // ==========================================
+    $("#tbData tbody").on("click", ".btn-delete-row", function () {
+        let index = $(this).data("index");
+
+        // Eliminamos al jugador problemático del array en memoria
+        listaJugadoresExcel.splice(index, 1);
+
+        // Redibujamos la tabla
+        mostrarVistaPrevia(listaJugadoresExcel);
+    });
+
+    // ==========================================
+    // EVENTO 3: GUARDAR REGISTROS
+    // ==========================================
+    $("#btnRegistroMasivo").on("click", function () {
+        if (listaJugadoresExcel.length === 0) {
+            MensajeToast("Atención", "No hay datos para el registro de jugadores.", "warning");
+            return;
+        }
+
+        let idClubSeleccionado = $("#cboClub").val();
+
+        if (idClubSeleccionado === "") {
+            MensajeToast("Campo incompleto", "Debe seleccionar un club.", "warning");
+            $("#cboClub").select2('open');
+            return;
+        }
+
+        ConfirmarSweet(
+            "¿Guardar Jugadores?",
+            `Se guardará la lista con ${listaJugadoresExcel.length} registros de jugadores.`,
+            "warning",
+            "Sí, Guardar",
+            function () {
+                $("#btnRegistroMasivo").prop("disabled", true).html('<i class="fa fa-spinner fa-spin me-1"></i>PROCESANDO...');
+                ejecutarGuardadoAJAX();
+            }
+        );
+    });
+
 });
+
+// ==========================================
+// FUNCIONES GLOBALES
+// ==========================================
+
+function mostrarVistaPrevia(data) {
+    if ($.fn.DataTable.isDataTable("#tbData")) {
+        $("#tbData").DataTable().destroy();
+    }
+
+    $("#tbData").DataTable({
+        data: data,
+        responsive: true,
+        // Limpiamos la interfaz para que sea una tabla de revisión limpia
+        searching: false,
+        paging: false,
+        info: false,
+        columns: [
+            { "data": "Nombres" },
+            { "data": "Apellidos" },
+            { "data": "NroComet" },
+            { "data": "CI" },
+            {
+                "data": "Genero",
+                "className": "text-center"
+            },
+            { "data": "FechaNacimiento" },
+            {
+                "data": null,
+                "orderable": false,  // Clave: desactiva el ordenamiento en esta columna
+                "searchable": false, // Excluye esta columna de búsquedas
+                "render": function (data, type, row, meta) {
+                    return `<button class="btn btn-danger btn-sm btn-delete-row" data-index="${meta.row}">
+                                <i class="fa fa-trash"></i>
+                            </button>`;
+                },
+                "className": "text-center"
+            }
+        ],
+        language: {
+            "url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
+        }
+    });
+
+    // Controlamos el botón de guardado según haya o no datos en el array
+    if (data.length > 0) {
+        $("#btnRegistroMasivo").prop("disabled", false);
+    } else {
+        $("#btnRegistroMasivo").prop("disabled", true);
+    }
+}
 
 function formatoResultadosClub(estado) {
     // Si no tiene id (es el placeholder vacío), devolvemos el texto normal
@@ -98,117 +245,6 @@ function cargarClubes() {
     });
 }
 
-let listaJugadoresExcel = [];
-
-$("#btnVerArchivo").on("click", function () {
-    var fileUpload = $("#txtarchivo").get(0);
-    var files = fileUpload.files;
-
-    if (files.length === 0) {
-        MensajeToast("Atención", "Debe seleccionar un archivo Excel.", "warning");
-        return;
-    }
-
-    var file = files[0];
-    var reader = new FileReader();
-
-    // Cuando termine de leer el archivo en el navegador...
-    reader.onload = function (e) {
-        // Obtenemos solo la cadena Base64 pura (quitando la cabecera 'data:...')
-        var base64String = e.target.result.split(',')[1];
-
-        $.ajax({
-            url: "ExcelJugadores.aspx/ProcesarExcelJugadores",
-            type: "POST",
-            data: JSON.stringify({
-                archivoBase64: base64String
-            }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-
-                if (response.d.Estado) {
-                    // response.d.Data tiene tu lista de JugadoresDTO
-                    listaJugadoresExcel = response.d.Data;
-                    mostrarVistaPrevia(listaJugadoresExcel);
-                } else {
-                    alertaTimer("Atención", response.d.Mensaje, "warning");
-                }
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
-                MensajeToast("Error Crítico", "No se pudo conectar con el servidor.", "error");
-            }
-        });
-    };
-
-    // Le indicamos al navegador que lea el archivo como un DataURL (Base64)
-    reader.readAsDataURL(file);
-});
-
-function mostrarVistaPrevia(data) {
-    // Si la tabla ya está inicializada, la destruimos para volver a cargarla
-    if ($.fn.DataTable.isDataTable("#tbData")) {
-        $("#tbData").DataTable().destroy();
-    }
-
-    $("#tbData").DataTable({
-        data: data,
-        responsive: true,
-        // No enviamos a buscar datos por AJAX porque ya los tenemos en memoria
-        "columns": [
-            { "data": "Nombres" },
-            { "data": "Apellidos" },
-            { "data": "NroComet" },
-            { "data": "CI" },
-            {
-                "data": "Genero",
-                "className": "text-center" // Para centrar la M o F
-            },
-            { "data": "FechaNacimiento" }
-        ],
-        "language": {
-            "url": "https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json"
-        }
-    });
-
-    // Habilitar botón de guardado si hay datos
-    if (data.length > 0) {
-        $("#btnRegistroMasivo").prop("disabled", false);
-    }
-}
-
-$("#btnRegistroMasivo").on("click", function () {
-
-    // Validamos que haya datos en la variable global
-    if (listaJugadoresExcel.length === 0) {
-        MensajeToast("Atención", "No hay datos para el registro de jugadores.", "warning");
-        return;
-    }
-
-    let idClubSeleccionado = $("#cboClub").val();
-
-    if (idClubSeleccionado === "") {
-        MensajeToast("Campo incompleto", "Debe seleccionar un club.", "warning");
-        $("#cboClub").select2('open');
-        return;
-    }
-
-    ConfirmarSweet(
-        "¿Guardar Jugadores?",
-        `Se guardará la lista con ${listaJugadoresExcel.length} registros de jugadores.`,
-        "warning",
-        "Sí, Guardar", // Texto personalizado para el botón
-        function () {
-
-            $("#btnRegistroMasivo").prop("disabled", true).html('<i class="fa fa-spinner fa-spin me-1"></i>PROCESANDO...');
-            // Llama a la función solo si el usuario hace clic en "Sí, Guardar"
-            ejecutarGuardadoAJAX();
-        }
-    );
-
-})
-
 function ejecutarGuardadoAJAX() {
 
     $("#cargann").LoadingOverlay("show");
@@ -224,7 +260,8 @@ function ejecutarGuardadoAJAX() {
             CI: item.CI,
             Genero: item.Genero,
             FechaNacimiento: item.FechaNacimiento,
-            FotografiaUrl: item.FotografiaUrl || ""
+            FotografiaUrl: item.FotografiaUrl || "",
+            ClaveHash: item.ClaveHash || ""
         };
     });
 
@@ -254,18 +291,6 @@ function ejecutarGuardadoAJAX() {
                 }, 3200);
 
             }
-
-            //if (response.d.Estado) {
-
-            //    alertaTimer('¡Operación Exitosa!', response.d.Mensaje, "success", 2000);
-
-            //    setTimeout(function () {
-            //        location.reload();
-            //    }, 2200);
-
-            //} else {
-            //    alertaTimer("Atención", response.d.Mensaje, "warning");
-            //}
         },
         error: function (xhr) {
             console.log(xhr.responseText);
@@ -277,34 +302,6 @@ function ejecutarGuardadoAJAX() {
         }
     });
 
-}
-
-function ejecutarGuardadoAJAXPrueba() {
-
-    $("#cargann").LoadingOverlay("show");
-
-    let idClubSeleccionado = $("#cboClub").val();
-
-    let listaLimpiaParaCsharp = listaJugadoresExcel.map(function (item) {
-        return {
-            IdClubActual: parseInt(idClubSeleccionado),
-            Nombres: item.Nombres,
-            Apellidos: item.Apellidos,
-            NroComet: item.NroComet,
-            CI: item.CI,
-            Genero: item.Genero,
-            FechaNacimiento: item.FechaNacimiento,
-            FotografiaUrl: item.FotografiaUrl || ""
-        };
-    });
-
-    console.log("Lista a enviar:", listaLimpiaParaCsharp);
-
-    setTimeout(function () {
-        $("#cargann").LoadingOverlay("hide");
-        alertaTimer("Excelente", "Prueba realizada con exito", "success");
-        $("#btnRegistroMasivo").prop("disabled", false).html('<i class="fa fa-save me-1"></i>Guardar Registro');
-    }, 2000);
 }
 
 // fin

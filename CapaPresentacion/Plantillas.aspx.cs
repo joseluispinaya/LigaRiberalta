@@ -66,7 +66,8 @@ namespace CapaPresentacion
                             CI = row.Cell(3).GetString().Trim(),               // Columna C
                             IdCargo = 0,                                       // 0 por defecto, lo asignarán en la web
                             IdEquipo = 0,                                      // Se asignará al guardar en BD
-                            IdMiembro = 0
+                            IdMiembro = 0,
+                            ClaveHash = ""
                         };
 
                         listaCuerpoTecPreViz.Add(fila);
@@ -103,6 +104,7 @@ namespace CapaPresentacion
                 dtDetalles.Columns.Add("Apellidos", typeof(string));
                 dtDetalles.Columns.Add("IdCargo", typeof(int));
                 dtDetalles.Columns.Add("CI", typeof(string));
+                dtDetalles.Columns.Add("ClaveHash", typeof(string));
 
                 // 2. ITERAMOS Y LLENAMOS LA TABLA
                 foreach (var item in listaCuerpoTecnico)
@@ -113,12 +115,15 @@ namespace CapaPresentacion
                         return new Respuesta<int> { Estado = false, Valor = "warning", Mensaje = $"Debe seleccionar un cargo para {item.Nombres} {item.Apellidos}." };
                     }
 
+                    item.ClaveHash = Utilidades.GetInstance().Hash(item.CI);
+
                     dtDetalles.Rows.Add(
                         item.IdEquipo,
                         item.Nombres,
                         item.Apellidos,
                         item.IdCargo,
-                        item.CI
+                        item.CI,
+                        item.ClaveHash
                     );
                 }
 
