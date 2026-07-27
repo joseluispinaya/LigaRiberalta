@@ -176,8 +176,20 @@
                 </div>
                 <div class="modal-body">
                     <input id="txtIdPartidoRe" value="0" type="hidden" />
+                    <div class="row align-items-center bg-opacity-10 rounded-3 p-2">
+                        <div class="col-md-8">
+                            <h6 class="text-warning"><i class="fa fa-users me-2"></i>Enfrentamiento</h6>
+                        </div>
 
-                    <h6 class="text-warning mb-3 border-bottom pb-2"><i class="fa fa-users me-2"></i>Enfrentamiento</h6>
+                        <div class="col-md-4 mb-3 mb-md-0">
+                            <label class="form-label fw-bold" for="cboEstPart">
+                                <i class="fa fa-trophy text-warning me-1"></i>Estado Partido
+                            </label>
+                            <select id="cboEstPart" class="form-select form-select-sm">
+                            </select>
+                        </div>
+                    </div>
+                    <%--<h6 class="text-warning mb-3 border-bottom pb-2"><i class="fa fa-users me-2"></i>Enfrentamiento</h6>--%>
                     <div class="row align-items-center bg-light bg-opacity-50 p-3 rounded-3 border">
                         <div class="col-md-5">
                             <div class="mb-2 text-center">

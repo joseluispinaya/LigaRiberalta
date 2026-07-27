@@ -60,5 +60,49 @@ namespace CapaPresentacion
                 return new Respuesta<int> { Estado = false, Valor = "error", Mensaje = "Error en el servidor: " + ex.Message };
             }
         }
+
+        [WebMethod]
+        public static Respuesta<List<EstadoPartido>> ListaEstadosPartido()
+        {
+            return NPartido.GetInstance().ListaEstadosPartido();
+        }
+
+        [WebMethod]
+        public static Respuesta<int> ResultadoPartido(ResultadosPartidoDTO objeto)
+        {
+            try
+            {
+                return NPartido.GetInstance().ResultadoPartido(objeto);
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<int> { Estado = false, Valor = "error", Mensaje = "Error en el servidor: " + ex.Message };
+            }
+        }
+
+        [WebMethod]
+        public static Respuesta<int> ResultadoPartidoPrueba(ResultadosPartidoDTO objeto)
+        {
+            try
+            {
+                if (objeto == null)
+                {
+                    return new Respuesta<int> { Estado = false, Valor = "warning", Mensaje = "No puede ser vacio los datos" };
+                }
+
+                return new Respuesta<int>
+                {
+                    Estado = true,
+                    Data = 1,
+                    Valor = "success",
+                    Mensaje = "Prueba realiza con exito"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<int> { Estado = false, Valor = "error", Mensaje = "Error en el servidor: " + ex.Message };
+            }
+        }
+
     }
 }

@@ -1,7 +1,10 @@
-﻿using System;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 
 namespace CapaPresentacion
@@ -25,6 +28,51 @@ namespace CapaPresentacion
             return _instancia;
         }
         #endregion
+
+        public string UploadPhotoToCloud(MemoryStream stream, string fileName)
+        {
+            string imageUrl = "";
+
+            try
+            {
+                // 1. Configurar las credenciales (Lo ideal es leer esto del Web.config)
+                Account account = new Account(
+                    "dupdrwi6v",
+                    "187386244599952",
+                    "R7_JBor5u_7zJFBm1ULTWqLfA9E"
+                );
+
+                Cloudinary cloudinary = new Cloudinary(account);
+
+                // 2. Asegurar que el stream esté al inicio
+                stream.Position = 0;
+
+                // 3. Configurar los parámetros de subida
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(fileName, stream),
+                    Folder = "FutsalRiberalta/Jugadores", // Crea carpetas ordenadas en tu nube
+                    Overwrite = true
+                };
+
+                // 4. Ejecutar la subida
+                var uploadResult = cloudinary.Upload(uploadParams);
+
+                // 5. Verificar si fue exitoso
+                if (uploadResult.StatusCode == HttpStatusCode.OK)
+                {
+                    // Devolvemos la URL segura (https) generada por Cloudinary
+                    imageUrl = uploadResult.SecureUrl.ToString();
+                }
+            }
+            catch (Exception)
+            {
+                // Opcional: Loguear el error
+                imageUrl = "";
+            }
+
+            return imageUrl;
+        }
 
         public string UploadPhoto(MemoryStream stream, string folder)
         {

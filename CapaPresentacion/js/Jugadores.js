@@ -467,7 +467,7 @@ function enviarAjaxJugador(objeto, base64String) {
 
     $.ajax({
         type: "POST",
-        url: "Jugadores.aspx/GuardarOrEditJugadores",
+        url: "Jugadores.aspx/GuardarOrEditJugadoresNew",
         data: JSON.stringify({ objeto: objeto, base64Image: base64String }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",

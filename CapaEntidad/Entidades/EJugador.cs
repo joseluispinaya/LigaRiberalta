@@ -14,6 +14,7 @@ namespace CapaEntidad.Entidades
         public string FechaNacimiento { get; set; } // Ej: "03/05/2016" para mostrar en el frontend
         public DateTime VFechaNacimiento { get; set; } // Para manejar internamente como DateTime
         public string FotografiaUrl { get; set; }
+        public string ClaveHash { get; set; }
         // NUEVA PROPIEDAD DE LECTURA: Edad Deportiva
         public string Edad
         {

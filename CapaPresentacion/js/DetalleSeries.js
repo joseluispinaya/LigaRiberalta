@@ -51,9 +51,44 @@ $(document).ready(function () {
         cargarTablaPosiciones();
         cargarFixture();
         cargarCombosModal();
+        cargarEstadosPartido();
     }
     
 });
+
+function cargarEstadosPartido() {
+
+    $("#cboEstPart").html('<option value="">Cargando...</option>');
+
+    $.ajax({
+        url: "DetallesSerie.aspx/ListaEstadosPartido",
+        type: "POST",
+        data: "{}",
+        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        success: function (response) {
+            if (response.d.Estado) {
+
+                // 1. Empezamos con la opción por defecto
+                let opcionesHTML = '<option value="">-- Seleccione Estado --</option>';
+
+                $.each(response.d.Data, function (i, row) {
+                    opcionesHTML += `<option value="${row.IdEstado}">${row.NombreEstado}</option>`;
+                });
+
+                // 3. Inyectamos todo al DOM en un solo movimiento
+                $("#cboEstPart").html(opcionesHTML);
+
+            } else {
+                $("#cboEstPart").html('<option value="">Error al cargar</option>');
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
+            $("#cboEstPart").html('<option value="">Error de conexión</option>');
+        }
+    });
+}
 
 // 1. CARGAR TABLA DE POSICIONES
 function cargarTablaPosiciones() {
@@ -207,9 +242,19 @@ function cargarFixture() {
                 "data": "NombreEstado",
                 "className": "text-center align-middle",
                 "render": function (data, type, row) {
-                    if (row.IdEstado === 1) return `<span class="badge bg-info bg-opacity-20 text-info px-2 py-1"><i class="fa fa-calendar me-1"></i>${data}</span>`;
-                    if (row.IdEstado === 2) return `<span class="badge bg-success bg-opacity-20 text-success px-2 py-1"><i class="fa fa-check me-1"></i>${data}</span>`;
-                    return `<span class="badge bg-warning bg-opacity-20 text-warning px-2 py-1">${data}</span>`;
+                    switch (row.IdEstado) {
+                        case 1: // Programado
+                            return `<span class="badge bg-info bg-opacity-20 text-info px-2 py-1"><i class="fa fa-calendar me-1"></i>${data}</span>`;
+                        case 2: // Finalizado
+                            return `<span class="badge bg-success bg-opacity-20 text-success px-2 py-1"><i class="fa fa-check me-1"></i>${data}</span>`;
+                        case 3: // W.O. Local
+                        case 4: // W.O. Visitante
+                            return `<span class="badge bg-danger bg-opacity-20 text-danger px-2 py-1"><i class="fa fa-times-circle me-1"></i>${data}</span>`;
+                        case 5: // Suspendido
+                            return `<span class="badge bg-warning bg-opacity-20 text-warning px-2 py-1"><i class="fa fa-exclamation-triangle me-1"></i>${data}</span>`;
+                        default:
+                            return `<span class="badge bg-secondary px-2 py-1">${data}</span>`;
+                    }
                 }
             },
             // Opciones (Botones dinámicos según el estado)
@@ -218,7 +263,7 @@ function cargarFixture() {
                 "className": "text-center align-middle",
                 "render": function (data, type, row) {
                     if (row.IdEstado === 1) {
-                        return `<button class="btn btn-lime btn-sm px-2 py-1 fw-bold btn-resultado" title="Mesa de Control / Resultados" data-id="${row.IdPartido}"><i class="fa fa-play me-1"></i>Iniciar</button>`;
+                        return `<button class="btn btn-lime btn-sm px-2 py-1 fw-bold btn-resultado" title="Mesa de Control / Resultados" data-id="${row.IdPartido}"><i class="fa fa-play me-1"></i>Resultado</button>`;
                     }
                     return `<button class="btn btn-white border btn-sm px-2 py-1 fw-bold text-gray-700 btn-detalles" title="Ver Acta" data-id="${row.IdPartido}"><i class="fa fa-file-alt me-1"></i>Acta</button>`;
                 }
@@ -527,6 +572,8 @@ $('#tbPartidos tbody').on('click', '.btn-resultado', function () {
 
     $("#txtIdPartidoRe").val(data.IdPartido);
 
+    $("#cboEstPart").val(data.IdEstado);
+
     $("#txtGolLocal").val("0");
     $("#txtGolVisitante").val("0");
 
@@ -549,10 +596,26 @@ $("#btnGuardarResultados").on("click", function () {
     // Bloqueo inmediato
     $('#btnGuardarResultados').prop('disabled', true);
 
+    let idEstado = $("#cboEstPart").val();
+
     let idPartido = $("#txtIdPartidoRe").val();
 
     if (idPartido === "" || idPartido === "0") {
         MensajeToast("Campo incompleto", "Por favor, seleccione un Partido.", "warning");
+        habilitarBoton();
+        return;
+    }
+
+    if (idEstado === "") {
+        MensajeToast("Campo incompleto", "Por favor, seleccione un Estado.", "warning");
+        $("#cboEstPart").focus();
+        habilitarBoton();
+        return;
+    }
+
+    if (idEstado === "1") {
+        MensajeToast("Advertencia", "El Estado No puede ser Programado.", "warning");
+        $("#cboEstPart").focus();
         habilitarBoton();
         return;
     }
@@ -602,7 +665,123 @@ $("#btnGuardarResultados").on("click", function () {
         GolesPenalesLocal: golPenalLocal,
         GolesPenalesVisitante: golPenalVisitante,
         PagoArbitrajeLocal: arbitrajePagoLocal,
-        PagoArbitrajeVisitante: arbitrajePagoVisitante
+        PagoArbitrajeVisitante: arbitrajePagoVisitante,
+        IdEstado: parseInt(idEstado)
+    };
+
+    $("#modalResultados").find("div.modal-content").LoadingOverlay("show");
+
+    $.ajax({
+        type: "POST",
+        url: "DetallesSerie.aspx/ResultadoPartido",
+        data: JSON.stringify({ objeto: objeto }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#modalResultados").find("div.modal-content").LoadingOverlay("hide");
+
+            alertaTimer(
+                response.d.Estado ? '¡Excelente!' : 'Atención',
+                response.d.Mensaje,
+                response.d.Valor
+            );
+
+            if (response.d.Estado) {
+                $("#modalResultados").modal("hide");
+
+                if (tablaPartidos) {
+                    tablaPartidos.ajax.reload(null, false);
+                } else {
+                    cargarFixture();
+                }
+            }
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+            $("#modalResultados").find("div.modal-content").LoadingOverlay("hide");
+            MensajeToast("¡Error Crítico!", "Fallo de comunicación con el servidor.", "error");
+        },
+        complete: function () {
+            habilitarBoton();
+        }
+    });
+});
+
+$("#btnGuardarResultadosPruebas").on("click", function () {
+    // Bloqueo inmediato
+    $('#btnGuardarResultados').prop('disabled', true);
+
+    let idEstado = $("#cboEstPart").val();
+
+    let idPartido = $("#txtIdPartidoRe").val();
+
+    if (idPartido === "" || idPartido === "0") {
+        MensajeToast("Campo incompleto", "Por favor, seleccione un Partido.", "warning");
+        habilitarBoton();
+        return;
+    }
+
+    if (idEstado === "") {
+        MensajeToast("Campo incompleto", "Por favor, seleccione un Estado.", "warning");
+        $("#cboEstPart").focus();
+        habilitarBoton();
+        return;
+    }
+
+    if (idEstado === "1") {
+        MensajeToast("Advertencia", "El Estado No puede ser Programado.", "warning");
+        $("#cboEstPart").focus();
+        habilitarBoton();
+        return;
+    }
+
+    const golLocal = parseInt($("#txtGolLocal").val()) || 0;
+    const golVisitante = parseInt($("#txtGolVisitante").val()) || 0;
+
+    const golPenalLocal = parseInt($("#txtGolPenalLocal").val()) || 0;
+    const golPenalVisitante = parseInt($("#txtGolPenalVisitante").val()) || 0;
+
+    if (golPenalLocal < 0) {
+        MensajeToast("Valor inválido", "Los goles de penal del equipo local no pueden ser números negativos.", "warning");
+        $("#txtGolPenalLocal").focus();
+        habilitarBoton();
+        return;
+    }
+
+    if (golPenalVisitante < 0) {
+        MensajeToast("Valor inválido", "Los goles de penal del equipo visitante no pueden ser números negativos.", "warning");
+        $("#txtGolPenalVisitante").focus();
+        habilitarBoton();
+        return;
+    }
+
+    if (golLocal < 0) {
+        MensajeToast("Valor inválido", "Los goles del equipo local no pueden ser números negativos.", "warning");
+        $("#txtGolLocal").focus();
+        habilitarBoton();
+        return;
+    }
+
+    if (golVisitante < 0) {
+        MensajeToast("Valor inválido", "Los goles del equipo visitante no pueden ser números negativos.", "warning");
+        $("#txtGolVisitante").focus();
+        habilitarBoton();
+        return;
+    }
+
+    let arbitrajePagoLocal = $("#chkPagadoLocal").is(":checked");
+    let arbitrajePagoVisitante = $("#chkPagadoVisitante").is(":checked");
+
+    // 2. ARMAR EL OBJETO
+    const objeto = {
+        IdPartido: parseInt(idPartido),
+        GolesLocal: golLocal,
+        GolesVisitante: golVisitante,
+        GolesPenalesLocal: golPenalLocal,
+        GolesPenalesVisitante: golPenalVisitante,
+        PagoArbitrajeLocal: arbitrajePagoLocal,
+        PagoArbitrajeVisitante: arbitrajePagoVisitante,
+        IdEstado: parseInt(idEstado)
     };
 
     console.log("Objeto a enviar:", objeto);

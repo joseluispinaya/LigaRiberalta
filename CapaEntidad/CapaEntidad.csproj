@@ -51,6 +51,7 @@
     <Compile Include="DTOs\PlantelJugadoresDTO.cs" />
     <Compile Include="DTOs\PosicionDTO.cs" />
     <Compile Include="DTOs\ProgramarPartidoDTO.cs" />
+    <Compile Include="DTOs\ResultadosPartidoDTO.cs" />
     <Compile Include="DTOs\ResumenSerieDTO.cs" />
     <Compile Include="Entidades\ECargosTec.cs" />
     <Compile Include="Entidades\ECategoria.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Entidades\EInscripcion.cs" />
     <Compile Include="Entidades\EJugador.cs" />
     <Compile Include="Entidades\ESerie.cs" />
+    <Compile Include="Entidades\EstadoPartido.cs" />
     <Compile Include="Entidades\ETorneo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses\Respuesta.cs" />

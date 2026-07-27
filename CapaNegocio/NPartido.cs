@@ -56,5 +56,15 @@ namespace CapaNegocio
         {
             return DPartido.GetInstance().ProgramarPartido(obj, FechaPartido, HoraPartido);
         }
+
+        public Respuesta<List<EstadoPartido>> ListaEstadosPartido()
+        {
+            return DPartido.GetInstance().ListaEstadosPartido();
+        }
+
+        public Respuesta<int> ResultadoPartido(ResultadosPartidoDTO obj)
+        {
+            return DPartido.GetInstance().ResultadoPartido(obj);
+        }
     }
 }

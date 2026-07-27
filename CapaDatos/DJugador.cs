@@ -46,6 +46,7 @@ namespace CapaDatos
                         cmd.Parameters.AddWithValue("@Genero", objeto.Genero);
                         cmd.Parameters.AddWithValue("@FechaNacimiento", FechaNacimiento);
                         cmd.Parameters.AddWithValue("@FotografiaUrl", string.IsNullOrEmpty(objeto.FotografiaUrl) ? "" : objeto.FotografiaUrl);
+                        cmd.Parameters.AddWithValue("@ClaveHash", string.IsNullOrEmpty(objeto.ClaveHash) ? "" : objeto.ClaveHash);
 
                         SqlParameter outputParam = new SqlParameter("@Resultado", SqlDbType.Int)
                         {
