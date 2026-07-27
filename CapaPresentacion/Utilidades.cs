@@ -37,9 +37,9 @@ namespace CapaPresentacion
             {
                 // 1. Configurar las credenciales (Lo ideal es leer esto del Web.config)
                 Account account = new Account(
-                    "dupdrwi6v",
-                    "187386244599952",
-                    "R7_JBor5u_7zJFBm1ULTWqLfA9E"
+                    "zcxczxczxczxc",
+                    "zxczxczxczxcz",
+                    "zczxczxczxc"
                 );
 
                 Cloudinary cloudinary = new Cloudinary(account);
