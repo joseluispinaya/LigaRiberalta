@@ -135,22 +135,54 @@
                                     <div class="menu-text">Categorias</div>
                                 </a>
                             </div>
-                            <%--<div class="menu-item">
-                                <a href="Partidos.aspx" class="menu-link">
-                                    <div class="menu-text">Partidos</div>
-                                </a>
-                            </div>--%>
                         </div>
                     </div>
 
-                    <div class="menu-item">
+                    <div class="menu-item has-sub">
+                        <a href="javascript:;" class="menu-link">
+                            <div class="menu-icon">
+                                <i class="fas fa-futbol"></i>
+                            </div>
+                            <div class="menu-text">Partidos</div>
+                            <div class="menu-caret"></div>
+                        </a>
+                        <div class="menu-submenu">
+                            <div class="menu-item">
+                                <a href="PartidosResult.aspx" class="menu-link">
+                                    <div class="menu-text">Fase de Grupos</div>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a href="PartidosCuartos.aspx" class="menu-link">
+                                    <div class="menu-text">Cuartos de Final</div>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a href="#" class="menu-link">
+                                    <div class="menu-text">Semifinal</div>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a href="#" class="menu-link">
+                                    <div class="menu-text">Final</div>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a href="Partidos.aspx" class="menu-link">
+                                    <div class="menu-text">Crear Partido</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <%--<div class="menu-item">
                         <a href="Partidos.aspx" class="menu-link">
                             <div class="menu-icon">
                                 <i class="fas fa-futbol"></i>
                             </div>
                             <div class="menu-text">Partidos </div>
                         </a>
-                    </div>
+                    </div>--%>
 
 
                     <div class="menu-item has-sub">

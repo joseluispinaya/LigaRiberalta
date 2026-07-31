@@ -66,5 +66,26 @@ namespace CapaNegocio
         {
             return DPartido.GetInstance().ResultadoPartido(obj);
         }
+
+        public Respuesta<List<ListaTokensDTO>> ListaTokensNoti()
+        {
+            return DPartido.GetInstance().ListaTokensNoti();
+        }
+
+        public Respuesta<PartidoSerieDTO> ObtenerDetallePartido(int IdPartido)
+        {
+            return DPartido.GetInstance().ObtenerDetallePartido(IdPartido);
+        }
+
+        public Respuesta<List<PlantillaJugadorEvDTO>> ObtenerPlantillaEquipo(int IdEquipo)
+        {
+            return DPartido.GetInstance().ObtenerPlantillaEquipo(IdEquipo);
+        }
+
+        public Respuesta<int> RegistrarEvento(EventoPartidoDTO obj)
+        {
+            return DPartido.GetInstance().RegistrarEvento(obj);
+        }
+
     }
 }

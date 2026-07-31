@@ -476,5 +476,230 @@ namespace CapaDatos
             return response;
         }
 
+        public Respuesta<List<ListaTokensDTO>> ListaTokensNoti()
+        {
+            try
+            {
+                List<ListaTokensDTO> rptLista = new List<ListaTokensDTO>();
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand comando = new SqlCommand("usp_ObtenerTodosTokensPush", con))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        using (SqlDataReader dr = comando.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                rptLista.Add(new ListaTokensDTO
+                                {
+                                    ExpoPushToken = dr["ExpoPushToken"].ToString()
+                                });
+                            }
+                        }
+                    }
+                }
+                return new Respuesta<List<ListaTokensDTO>>()
+                {
+                    Estado = true,
+                    Data = rptLista,
+                    Mensaje = "Lista obtenida correctamente"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<List<ListaTokensDTO>>()
+                {
+                    Estado = false,
+                    Data = null,
+                    Mensaje = $"Error al obtener la lista: {ex.Message}"
+                };
+            }
+        }
+
+        public Respuesta<PartidoSerieDTO> ObtenerDetallePartido(int IdPartido)
+        {
+            try
+            {
+                PartidoSerieDTO obj = null;
+
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand comando = new SqlCommand("usp_ObtenerDetallePartido", con))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("@IdPartido", IdPartido);
+
+                        con.Open();
+                        using (SqlDataReader dr = comando.ExecuteReader())
+                        {
+                            if (dr.Read())
+                            {
+                                obj = new PartidoSerieDTO
+                                {
+                                    IdPartido = Convert.ToInt32(dr["IdPartido"]),
+
+                                    // Formateo limpio de Fecha y Hora para el Frontend
+                                    Fecha = Convert.ToDateTime(dr["Fecha"]).ToString("dd/MM/yyyy"),
+                                    Hora = ((TimeSpan)dr["Hora"]).ToString(@"hh\:mm"),
+
+                                    Cancha = dr["Cancha"].ToString(),
+                                    NombreFase = dr["NombreFase"].ToString(),
+
+                                    IdEquipoLocal = Convert.ToInt32(dr["IdEquipoLocal"]),
+                                    ClubLocal = dr["ClubLocal"].ToString(),
+                                    LogoLocal = dr["LogoLocal"].ToString(),
+                                    GolesLocal = dr["GolesLocal"] != DBNull.Value ? Convert.ToInt32(dr["GolesLocal"]) : 0,
+
+                                    IdEquipoVisitante = Convert.ToInt32(dr["IdEquipoVisitante"]),
+                                    ClubVisitante = dr["ClubVisitante"].ToString(),
+                                    LogoVisitante = dr["LogoVisitante"].ToString(),
+                                    GolesVisitante = dr["GolesVisitante"] != DBNull.Value ? Convert.ToInt32(dr["GolesVisitante"]) : 0,
+
+                                    IdEstado = Convert.ToInt32(dr["IdEstado"]),
+                                    NombreEstado = dr["NombreEstado"].ToString()
+                                };
+                            }
+                        }
+                    }
+                }
+
+                // Si obj es null, es que el correo no existe
+                return new Respuesta<PartidoSerieDTO>
+                {
+                    Estado = obj != null,
+                    Data = obj,
+                    Mensaje = obj != null ? "Informacion encontrado" : "No se encontro resultados"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<PartidoSerieDTO>
+                {
+                    Estado = false,
+                    Mensaje = "Ocurrió un error: " + ex.Message,
+                    Data = null
+                };
+            }
+        }
+
+        public Respuesta<List<PlantillaJugadorEvDTO>> ObtenerPlantillaEquipo(int IdEquipo)
+        {
+            try
+            {
+                List<PlantillaJugadorEvDTO> rptLista = new List<PlantillaJugadorEvDTO>();
+
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand comando = new SqlCommand("usp_ObtenerPlantillaPorEquipo", con))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("@IdEquipo", IdEquipo);
+                        con.Open();
+
+                        using (SqlDataReader dr = comando.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                rptLista.Add(new PlantillaJugadorEvDTO
+                                {
+                                    IdJugador = Convert.ToInt32(dr["IdJugador"]),
+                                    Dorsal = Convert.ToInt32(dr["Dorsal"]),
+                                    Nombres = dr["Nombres"].ToString(),
+                                    Apellidos = dr["Apellidos"].ToString(),
+                                    CI = dr["CI"].ToString(),
+                                    FotografiaUrl = dr["FotografiaUrl"].ToString()
+                                });
+                            }
+                        }
+                    }
+                }
+                return new Respuesta<List<PlantillaJugadorEvDTO>>()
+                {
+                    Estado = true,
+                    Data = rptLista,
+                    Mensaje = "Lista obtenidos correctamente"
+                };
+            }
+            catch (Exception ex)
+            {
+                // Maneja cualquier error inesperado
+                return new Respuesta<List<PlantillaJugadorEvDTO>>()
+                {
+                    Estado = false,
+                    Mensaje = "Ocurrió un error: " + ex.Message,
+                    Data = null
+                };
+            }
+        }
+
+        public Respuesta<int> RegistrarEvento(EventoPartidoDTO obj)
+        {
+            Respuesta<int> response = new Respuesta<int>();
+            int resultadoCodigo = 0;
+
+            try
+            {
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_RegistrarEventoPartido", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        // Parámetros de entrada
+                        cmd.Parameters.AddWithValue("@IdPartido", obj.IdPartido);
+                        cmd.Parameters.AddWithValue("@IdJugador", obj.IdJugador);
+                        cmd.Parameters.AddWithValue("@IdTipoEvento", obj.IdTipoEvento);
+                        cmd.Parameters.AddWithValue("@Minuto", obj.Minuto);
+
+                        // Manejo seguro de nulos para las observaciones (opcional en SQL)
+                        cmd.Parameters.AddWithValue("@Observaciones", string.IsNullOrEmpty(obj.Observaciones) ? (object)DBNull.Value : obj.Observaciones);
+
+                        // Parámetro de salida
+                        SqlParameter outputParam = new SqlParameter("@Resultado", SqlDbType.Int)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outputParam);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+                        resultadoCodigo = Convert.ToInt32(outputParam.Value);
+                    }
+                }
+
+                response.Data = resultadoCodigo;
+
+                // Mapeo de las respuestas de tu SQL
+                switch (resultadoCodigo)
+                {
+                    case 1:
+                        response.Estado = true;
+                        response.Valor = "success";
+                        response.Mensaje = "El evento se registró correctamente.";
+                        break;
+                    case -1:
+                        response.Estado = false;
+                        response.Valor = "error";
+                        response.Mensaje = "Error crítico en la base de datos al registrar el evento.";
+                        break;
+                    default:
+                        response.Estado = false;
+                        response.Valor = "warning";
+                        response.Mensaje = "No se pudo registrar el evento. Verifique los datos.";
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Estado = false;
+                response.Valor = "error";
+                response.Mensaje = "Error interno: " + ex.Message;
+            }
+
+            return response;
+        }
+
     }
 }

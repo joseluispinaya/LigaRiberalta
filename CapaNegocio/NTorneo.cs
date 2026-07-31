@@ -1,4 +1,5 @@
 ﻿using CapaDatos;
+using CapaEntidad.DTOs;
 using CapaEntidad.Entidades;
 using CapaEntidad.Responses;
 using System;
@@ -37,6 +38,11 @@ namespace CapaNegocio
         public Respuesta<List<ESerie>> ListaSeries()
         {
             return DTorneo.GetInstance().ListaSeries();
+        }
+
+        public Respuesta<List<ClasificadosSerieDTO>> ObtenerClasificadosSerie(int idTorneo, int idCategoria, int idSerie)
+        {
+            return DTorneo.GetInstance().ObtenerClasificadosSerie(idTorneo, idCategoria, idSerie);
         }
     }
 }

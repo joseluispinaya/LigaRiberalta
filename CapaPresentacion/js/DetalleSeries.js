@@ -28,7 +28,7 @@ $(document).ready(function () {
     if (!idTorneoUrl || !idCategoriaUrl || !idSerieUrl || idTorneoUrl.trim() === "") {
         MensajeToast("Error de acceso", "Faltan parámetros para ver los detalles de la serie.", "error");
         setTimeout(function () {
-            window.location.href = 'Partidos.aspx';
+            window.location.href = 'PartidosResult.aspx';
         }, 2200);
     } else {
         // Los guardamos en las variables globales como enteros
@@ -43,52 +43,26 @@ $(document).ready(function () {
             autoclose: true
         });
 
+        $("#txtFechaEdi").datepicker({
+            todayHighlight: true,
+            language: "es",        // Activa el archivo de idioma que agregaste
+            format: "dd/mm/yyyy",   // Define el formato visual de la fecha
+            autoclose: true
+        });
+
         $("#txtFecha").val(ObtenerFecha());
+        $("#txtFechaEdi").val(ObtenerFecha());
 
         $('#txtHora').timepicker({ showMeridian: false });
+        $('#txtHoraEdi').timepicker({ showMeridian: false });
 
         // Cargamos ambas tablas inmediatamente
         cargarTablaPosiciones();
         cargarFixture();
         cargarCombosModal();
-        cargarEstadosPartido();
     }
     
 });
-
-function cargarEstadosPartido() {
-
-    $("#cboEstPart").html('<option value="">Cargando...</option>');
-
-    $.ajax({
-        url: "DetallesSerie.aspx/ListaEstadosPartido",
-        type: "POST",
-        data: "{}",
-        contentType: 'application/json; charset=utf-8',
-        dataType: "json",
-        success: function (response) {
-            if (response.d.Estado) {
-
-                // 1. Empezamos con la opción por defecto
-                let opcionesHTML = '<option value="">-- Seleccione Estado --</option>';
-
-                $.each(response.d.Data, function (i, row) {
-                    opcionesHTML += `<option value="${row.IdEstado}">${row.NombreEstado}</option>`;
-                });
-
-                // 3. Inyectamos todo al DOM en un solo movimiento
-                $("#cboEstPart").html(opcionesHTML);
-
-            } else {
-                $("#cboEstPart").html('<option value="">Error al cargar</option>');
-            }
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log(xhr.status + " \n" + xhr.responseText, "\n" + thrownError);
-            $("#cboEstPart").html('<option value="">Error de conexión</option>');
-        }
-    });
-}
 
 // 1. CARGAR TABLA DE POSICIONES
 function cargarTablaPosiciones() {
@@ -207,6 +181,8 @@ function cargarFixture() {
             {
                 "data": null,
                 "className": "text-end align-middle",
+                "orderable": false,
+                "searchable": false,
                 "render": function (data, type, row) {
                     let logo = row.LogoLocal ? row.LogoLocal : 'Logos/sinLogo.png';
                     return `<span class="fw-bold fs-13px me-2 text-dark">${row.ClubLocal}</span>
@@ -229,6 +205,8 @@ function cargarFixture() {
             {
                 "data": null,
                 "className": "text-start align-middle",
+                "orderable": false,
+                "searchable": false,
                 "render": function (data, type, row) {
                     let logo = row.LogoVisitante ? row.LogoVisitante : 'Logos/sinLogo.png';
                     return `<img src="${logo}" width="30" height="30" class="rounded-circle border shadow-sm me-2" style="object-fit: contain; background: white;">
@@ -261,9 +239,11 @@ function cargarFixture() {
             {
                 "data": null,
                 "className": "text-center align-middle",
+                "orderable": false,
+                "searchable": false,
                 "render": function (data, type, row) {
                     if (row.IdEstado === 1) {
-                        return `<button class="btn btn-lime btn-sm px-2 py-1 fw-bold btn-resultado" title="Mesa de Control / Resultados" data-id="${row.IdPartido}"><i class="fa fa-play me-1"></i>Resultado</button>`;
+                        return `<button class="btn btn-lime btn-sm px-2 py-1 fw-bold btn-editar" title="Editar Partido" data-id="${row.IdPartido}"><i class="fas fa-pencil-alt me-1"></i>Editar</button>`;
                     }
                     return `<button class="btn btn-white border btn-sm px-2 py-1 fw-bold text-gray-700 btn-detalles" title="Ver Acta" data-id="${row.IdPartido}"><i class="fa fa-file-alt me-1"></i>Acta</button>`;
                 }
@@ -283,13 +263,9 @@ function cargarCombosModal() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            let html = '<option value="">-- Seleccione Fase --</option>';
             if (response.d.Estado) {
-                response.d.Data.forEach(fase => {
-                    html += `<option value="${fase.IdFase}">${fase.NombreFase}</option>`;
-                });
+                console.log(response.d.Data);
             }
-            $("#cboFase").html(html);
         }
     });
 
@@ -394,7 +370,7 @@ $("#btnAbrirModalProgramar").on("click", function () {
 
     // 1. Resetear los Selects 
     // (Usamos .trigger('change') para que Select2 se entere de que lo vaciamos y actualice la UI)
-    $("#cboFase").val("");
+    //$("#cboFase").val("");
     $("#cboEquipoLocal").val("").trigger("change");
     $("#cboEquipoVisitante").val("").trigger("change");
 
@@ -409,14 +385,14 @@ $("#btnAbrirModalProgramar").on("click", function () {
     // Volvemos a poner la fecha de hoy usando tu excelente función
     $("#txtFecha").val(ObtenerFecha());
 
-    // Opcional: Poner el foco en el primer campo para que el usuario escriba más rápido
-    setTimeout(() => {
-        $("#cboFase").focus();
-    }, 500);
+    //setTimeout(() => {
+    //    $("#cboFase").focus();
+    //}, 500);
 
     // 4. Mostrar el Modal
     $("#modalProgramar").modal("show");
 });
+
 function habilitarBotonPartido() {
     $('#btnGuardarPartido').prop('disabled', false).html('<i class="fa fa-save me-1"></i>Confirmar Partido');
 }
@@ -426,7 +402,7 @@ $("#btnGuardarPartido").on("click", function () {
     let $btn = $(this);
 
     // 1. Recolección de datos
-    let idFase = $("#cboFase").val();
+    //let idFase = $("#cboFase").val();
     let fechaStr = $("#txtFecha").val().trim();
     let horaStr = $("#txtHora").val().trim();
     let canchaStr = $("#txtCancha").val().trim();
@@ -451,11 +427,11 @@ $("#btnGuardarPartido").on("click", function () {
     let ahora = new Date(); // Captura la fecha y hora de este mismo segundo
 
     // 2. Validaciones Fail-Fast Front-End
-    if (idFase === "") {
-        MensajeToast("Campo requerido", "Debe seleccionar la Fase del torneo.", "warning");
-        $("#cboFase").focus();
-        return;
-    }
+    //if (idFase === "") {
+    //    MensajeToast("Campo requerido", "Debe seleccionar la Fase del torneo.", "warning");
+    //    $("#cboFase").focus();
+    //    return;
+    //}
     if (fechaStr === "" || horaStr === "") {
         MensajeToast("Campo requerido", "La fecha y la hora son obligatorias.", "warning");
         return;
@@ -478,7 +454,7 @@ $("#btnGuardarPartido").on("click", function () {
     const objeto = {
         IdEquipoLocal: parseInt(idLocal),
         IdEquipoVisitante: parseInt(idVisitante),
-        IdFase: parseInt(idFase),
+        IdFase: 1,
         Fecha: fechaStr,
         Hora: horaStr,
         Cancha: canchaStr
@@ -519,6 +495,113 @@ $("#btnGuardarPartido").on("click", function () {
         ejecutarGuardadoAJAX(objeto);
     }
 });
+
+function ejecutarGuardadoAJAXNotifi(objeto) {
+    $("#modalProgramar").find("div.modal-content").LoadingOverlay("show");
+
+    // MAGIA JQUERY: Extraemos el texto visible de la opción seleccionada
+    let nombreLocal = $("#cboEquipoLocal option:selected").text().trim();
+    let nombreVisitante = $("#cboEquipoVisitante option:selected").text().trim();
+
+    $.ajax({
+        type: "POST",
+        url: "DetallesSerie.aspx/ProgramarPartidoPrueba",
+        data: JSON.stringify({ objeto: objeto }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            $("#modalProgramar").find("div.modal-content").LoadingOverlay("hide");
+
+            if (response.d.Estado) {
+                // 1. Cerramos modal y recargamos tabla
+                $("#modalProgramar").modal("hide");
+                $("#txtCancha").val("");
+
+                if (tablaPartidos) {
+                    tablaPartidos.ajax.reload(null, false);
+                } else {
+                    cargarFixture();
+                }
+
+                // 2. Preguntamos si desea notificar en lugar del alertaTimer tradicional
+                swal({
+                    title: "¡Partido Programado!",
+                    text: "¿Desea enviar una notificación PUSH informando sobre este nuevo encuentro?",
+                    icon: "success",
+                    buttons: {
+                        cancel: {
+                            text: 'No, gracias',
+                            value: false,
+                            visible: true,
+                            className: 'btn btn-danger',
+                            closeModal: true,
+                        },
+                        confirm: {
+                            text: 'Sí, notificar',
+                            value: true,
+                            visible: true,
+                            className: 'btn btn-indigo',
+                            closeModal: true
+                        }
+                    }
+                }).then((enviar) => {
+                    if (enviar) {
+                        // Construimos los textos dinámicos
+                        let titulo = "¡Nuevo Partido Programado!";
+                        let mensaje = `${nombreLocal} VS ${nombreVisitante}`;
+                        let informacion = `Fecha: ${objeto.Fecha}\n Hora: ${objeto.Hora}\n Cancha: ${objeto.Cancha}`;
+
+                        enviarNotificacion(titulo, mensaje, informacion);
+                    }
+                });
+
+            } else {
+                // Si hubo un error en la BD, mostramos la alerta normal
+                alertaTimer('Atención', response.d.Mensaje, response.d.Valor);
+            }
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+            $("#modalProgramar").find("div.modal-content").LoadingOverlay("hide");
+            MensajeToast("¡Error Crítico!", "Fallo de comunicación con el servidor.", "error");
+        },
+        complete: function () {
+            habilitarBotonPartido();
+        }
+    });
+}
+
+function enviarNotificacion(tituloParam, mensajeParam, informacionParam) {
+
+    // Armamos el request con las variables que recibe la función
+    const request = {
+        titulo: tituloParam,
+        mensaje: mensajeParam,
+        informacion: informacionParam
+    };
+
+    console.log(request);
+
+    $.ajax({
+        type: "POST",
+        url: "DetallesSerie.aspx/NotificacionNewPartido",
+        data: JSON.stringify(request),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            // Mostramos el resultado del envío de la notificación
+            alertaTimer(
+                response.d.Estado ? '¡Excelente!' : 'Atención',
+                response.d.Mensaje,
+                response.d.Valor
+            );
+        },
+        error: function (xhr) {
+            console.log(xhr.responseText);
+            MensajeToast("¡Error Crítico!", "Fallo de comunicación con el servidor de notificaciones.", "error");
+        }
+    });
+}
 
 function ejecutarGuardadoAJAX(objeto) {
     $("#modalProgramar").find("div.modal-content").LoadingOverlay("show");
@@ -561,7 +644,7 @@ function ejecutarGuardadoAJAX(objeto) {
 }
 
 
-$('#tbPartidos tbody').on('click', '.btn-resultado', function () {
+$('#tbPartidos tbody').on('click', '.btn-editar', function () {
 
     let fila = $(this).closest('tr');
     if (fila.hasClass('child')) {
@@ -570,115 +653,124 @@ $('#tbPartidos tbody').on('click', '.btn-resultado', function () {
 
     let data = tablaPartidos.row(fila).data();
 
-    $("#txtIdPartidoRe").val(data.IdPartido);
+    $("#txtIdPartidoEdit").val(data.IdPartido);
 
-    $("#cboEstPart").val(data.IdEstado);
+    $("#lblEquiposvs").text(`${data.ClubLocal} Vs ${data.ClubVisitante}`);
 
-    $("#txtGolLocal").val("0");
-    $("#txtGolVisitante").val("0");
+    $("#txtFechaEdi").val(data.Fecha);
+    $("#txtCanchaEdi").val(data.Cancha);
+    $("#txtHoraEdi").val(data.Hora);
 
-    $("#txtGolPenalLocal").val("0");
-    $("#txtGolPenalVisitante").val("0");
-
-    $("#lblEquipoLocal").text(data.ClubLocal);
-    $("#lblEquipoVisitante").text(data.ClubVisitante);
-
-    $("#imgLocalResu").attr("src", data.LogoLocal || "Logos/sinLogo.png");
-    $("#imgVisitanteResu").attr("src", data.LogoVisitante || "Logos/sinLogo.png");
-    $("#modalResultados").modal("show");
+    $("#mdEditarPartido").modal("show");
 });
 
 function habilitarBoton() {
-    $('#btnGuardarResultados').prop('disabled', false);
+    $('#btnGuardarCamEdit').prop('disabled', false);
 }
 
-$("#btnGuardarResultados").on("click", function () {
-    // Bloqueo inmediato
-    $('#btnGuardarResultados').prop('disabled', true);
+$("#btnGuardarCamEdit").on("click", function () {
 
-    let idEstado = $("#cboEstPart").val();
+    let $btn = $(this);
 
-    let idPartido = $("#txtIdPartidoRe").val();
+    let idPartido = $("#txtIdPartidoEdit").val().trim();
+    let fechaStr = $("#txtFechaEdi").val().trim();
+    let horaStr = $("#txtHoraEdi").val().trim();
+    let canchaStr = $("#txtCanchaEdi").val().trim();
+
+    let partesFecha = fechaStr.split('/');
+    let partesHora = horaStr.split(':');
+
+    // Date(Año, Mes (0-11), Día, Hora, Minuto, Segundo)
+    let fechaPartidoExacta = new Date(
+        partesFecha[2],
+        partesFecha[1] - 1,
+        partesFecha[0],
+        partesHora[0],
+        partesHora[1],
+        0
+    );
+
+    let ahora = new Date();
+
+    if (fechaStr === "" || horaStr === "") {
+        MensajeToast("Campo requerido", "La fecha y la hora son obligatorias.", "warning");
+        return;
+    }
+    if (canchaStr === "") {
+        MensajeToast("Campo requerido", "Debe especificar la cancha donde se jugará.", "warning");
+        $("#txtCanchaEdi").focus();
+        return;
+    }
 
     if (idPartido === "" || idPartido === "0") {
         MensajeToast("Campo incompleto", "Por favor, seleccione un Partido.", "warning");
-        habilitarBoton();
         return;
     }
 
-    if (idEstado === "") {
-        MensajeToast("Campo incompleto", "Por favor, seleccione un Estado.", "warning");
-        $("#cboEstPart").focus();
-        habilitarBoton();
-        return;
-    }
-
-    if (idEstado === "1") {
-        MensajeToast("Advertencia", "El Estado No puede ser Programado.", "warning");
-        $("#cboEstPart").focus();
-        habilitarBoton();
-        return;
-    }
-
-    const golLocal = parseInt($("#txtGolLocal").val()) || 0;
-    const golVisitante = parseInt($("#txtGolVisitante").val()) || 0;
-
-    const golPenalLocal = parseInt($("#txtGolPenalLocal").val()) || 0;
-    const golPenalVisitante = parseInt($("#txtGolPenalVisitante").val()) || 0;
-
-    if (golPenalLocal < 0) {
-        MensajeToast("Valor inválido", "Los goles de penal del equipo local no pueden ser números negativos.", "warning");
-        $("#txtGolPenalLocal").focus();
-        habilitarBoton();
-        return;
-    }
-
-    if (golPenalVisitante < 0) {
-        MensajeToast("Valor inválido", "Los goles de penal del equipo visitante no pueden ser números negativos.", "warning");
-        $("#txtGolPenalVisitante").focus();
-        habilitarBoton();
-        return;
-    }
-
-    if (golLocal < 0) {
-        MensajeToast("Valor inválido", "Los goles del equipo local no pueden ser números negativos.", "warning");
-        $("#txtGolLocal").focus();
-        habilitarBoton();
-        return;
-    }
-
-    if (golVisitante < 0) {
-        MensajeToast("Valor inválido", "Los goles del equipo visitante no pueden ser números negativos.", "warning");
-        $("#txtGolVisitante").focus();
-        habilitarBoton();
-        return;
-    }
-
-    let arbitrajePagoLocal = $("#chkPagadoLocal").is(":checked");
-    let arbitrajePagoVisitante = $("#chkPagadoVisitante").is(":checked");
-
-    // 2. ARMAR EL OBJETO
     const objeto = {
-        IdPartido: parseInt(idPartido),
-        GolesLocal: golLocal,
-        GolesVisitante: golVisitante,
-        GolesPenalesLocal: golPenalLocal,
-        GolesPenalesVisitante: golPenalVisitante,
-        PagoArbitrajeLocal: arbitrajePagoLocal,
-        PagoArbitrajeVisitante: arbitrajePagoVisitante,
-        IdEstado: parseInt(idEstado)
+        // uso IdFase como IdPartido
+        IdFase: parseInt(idPartido),
+        Fecha: fechaStr,
+        Hora: horaStr,
+        Cancha: canchaStr
     };
 
-    $("#modalResultados").find("div.modal-content").LoadingOverlay("show");
+    /* const objeto = {
+        IdPartido: parseInt(idPartido),
+        Fecha: fechaStr,
+        Hora: horaStr,
+        Cancha: canchaStr
+    }; */
+
+    if (fechaPartidoExacta < ahora) {
+        // En lugar de un Toast y un return, le preguntamos
+        swal({
+            title: "Fecha en el pasado",
+            text: "Está reprogramando un partido con una fecha u hora que ya pasó. ¿Es una actualizacion atrasado?",
+            icon: "warning",
+            buttons: {
+                cancel: {
+                    text: 'Cancelar',
+                    value: null,
+                    visible: true,
+                    className: 'btn btn-danger',
+                    closeModal: true,
+                },
+                confirm: {
+                    text: 'Sí, actualizar de todos modos',
+                    value: true,
+                    visible: true,
+                    className: 'btn btn-indigo',
+                    closeModal: true
+                }
+            }
+        }).then((willSave) => {
+            if (willSave) {
+                // 4. Bloquear botón usando la variable $btn
+                $btn.prop('disabled', true);
+                ejecutarEditAJAX(objeto);
+            }
+        });
+    } else {
+        // Bloquear botón usando la variable $btn
+        $btn.prop('disabled', true);
+        ejecutarEditAJAX(objeto);
+    }
+
+});
+
+
+function ejecutarEditAJAX(objeto) {
+    $("#mdEditarPartido").find("div.modal-content").LoadingOverlay("show");
 
     $.ajax({
         type: "POST",
-        url: "DetallesSerie.aspx/ResultadoPartido",
+        url: "DetallesSerie.aspx/EditarPartidoPrueba",
         data: JSON.stringify({ objeto: objeto }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            $("#modalResultados").find("div.modal-content").LoadingOverlay("hide");
+            $("#mdEditarPartido").find("div.modal-content").LoadingOverlay("hide");
 
             alertaTimer(
                 response.d.Estado ? '¡Excelente!' : 'Atención',
@@ -687,7 +779,9 @@ $("#btnGuardarResultados").on("click", function () {
             );
 
             if (response.d.Estado) {
-                $("#modalResultados").modal("hide");
+                $("#mdEditarPartido").modal("hide");
+                $("#txtIdPartidoEdit").val("0");
+                $("#txtCanchaEdi").val("");
 
                 if (tablaPartidos) {
                     tablaPartidos.ajax.reload(null, false);
@@ -698,105 +792,14 @@ $("#btnGuardarResultados").on("click", function () {
         },
         error: function (xhr) {
             console.log(xhr.responseText);
-            $("#modalResultados").find("div.modal-content").LoadingOverlay("hide");
+            $("#mdEditarPartido").find("div.modal-content").LoadingOverlay("hide");
             MensajeToast("¡Error Crítico!", "Fallo de comunicación con el servidor.", "error");
         },
         complete: function () {
             habilitarBoton();
         }
     });
-});
+}
 
-$("#btnGuardarResultadosPruebas").on("click", function () {
-    // Bloqueo inmediato
-    $('#btnGuardarResultados').prop('disabled', true);
-
-    let idEstado = $("#cboEstPart").val();
-
-    let idPartido = $("#txtIdPartidoRe").val();
-
-    if (idPartido === "" || idPartido === "0") {
-        MensajeToast("Campo incompleto", "Por favor, seleccione un Partido.", "warning");
-        habilitarBoton();
-        return;
-    }
-
-    if (idEstado === "") {
-        MensajeToast("Campo incompleto", "Por favor, seleccione un Estado.", "warning");
-        $("#cboEstPart").focus();
-        habilitarBoton();
-        return;
-    }
-
-    if (idEstado === "1") {
-        MensajeToast("Advertencia", "El Estado No puede ser Programado.", "warning");
-        $("#cboEstPart").focus();
-        habilitarBoton();
-        return;
-    }
-
-    const golLocal = parseInt($("#txtGolLocal").val()) || 0;
-    const golVisitante = parseInt($("#txtGolVisitante").val()) || 0;
-
-    const golPenalLocal = parseInt($("#txtGolPenalLocal").val()) || 0;
-    const golPenalVisitante = parseInt($("#txtGolPenalVisitante").val()) || 0;
-
-    if (golPenalLocal < 0) {
-        MensajeToast("Valor inválido", "Los goles de penal del equipo local no pueden ser números negativos.", "warning");
-        $("#txtGolPenalLocal").focus();
-        habilitarBoton();
-        return;
-    }
-
-    if (golPenalVisitante < 0) {
-        MensajeToast("Valor inválido", "Los goles de penal del equipo visitante no pueden ser números negativos.", "warning");
-        $("#txtGolPenalVisitante").focus();
-        habilitarBoton();
-        return;
-    }
-
-    if (golLocal < 0) {
-        MensajeToast("Valor inválido", "Los goles del equipo local no pueden ser números negativos.", "warning");
-        $("#txtGolLocal").focus();
-        habilitarBoton();
-        return;
-    }
-
-    if (golVisitante < 0) {
-        MensajeToast("Valor inválido", "Los goles del equipo visitante no pueden ser números negativos.", "warning");
-        $("#txtGolVisitante").focus();
-        habilitarBoton();
-        return;
-    }
-
-    let arbitrajePagoLocal = $("#chkPagadoLocal").is(":checked");
-    let arbitrajePagoVisitante = $("#chkPagadoVisitante").is(":checked");
-
-    // 2. ARMAR EL OBJETO
-    const objeto = {
-        IdPartido: parseInt(idPartido),
-        GolesLocal: golLocal,
-        GolesVisitante: golVisitante,
-        GolesPenalesLocal: golPenalLocal,
-        GolesPenalesVisitante: golPenalVisitante,
-        PagoArbitrajeLocal: arbitrajePagoLocal,
-        PagoArbitrajeVisitante: arbitrajePagoVisitante,
-        IdEstado: parseInt(idEstado)
-    };
-
-    console.log("Objeto a enviar:", objeto);
-
-    $("#modalResultados").find("div.modal-content").LoadingOverlay("show");
-
-    setTimeout(function () {
-        $("#modalResultados").find("div.modal-content").LoadingOverlay("hide");
-
-        $("#modalResultados").modal("hide");
-
-        MensajeToast("¡Atención!", "Prueba de datos.", "success", 2000);
-
-        habilitarBoton();
-    }, 2200);
-});
 
 // fin

@@ -81,26 +81,126 @@ namespace CapaPresentacion
         }
 
         [WebMethod]
-        public static Respuesta<int> ResultadoPartidoPrueba(ResultadosPartidoDTO objeto)
+        public static Respuesta<int> ResultadoPartidoPruebas(ResultadosPartidoDTO objeto)
         {
             try
             {
                 if (objeto == null)
                 {
-                    return new Respuesta<int> { Estado = false, Valor = "warning", Mensaje = "No puede ser vacio los datos" };
+                    return new Respuesta<int>
+                    {
+                        Estado = false,
+                        Valor = "warning",
+                        Mensaje = "No se encontro datos para el registro"
+                    };
                 }
+
+                System.Threading.Thread.Sleep(2000);
 
                 return new Respuesta<int>
                 {
                     Estado = true,
-                    Data = 1,
+                    Data = 2,
                     Valor = "success",
-                    Mensaje = "Prueba realiza con exito"
+                    Mensaje = "Prueba de simulacion exitosa"
                 };
             }
             catch (Exception ex)
             {
                 return new Respuesta<int> { Estado = false, Valor = "error", Mensaje = "Error en el servidor: " + ex.Message };
+            }
+        }
+
+        [WebMethod]
+        public static Respuesta<int> EditarPartidoPrueba(ProgramarPartidoDTO objeto)
+        {
+            try
+            {
+                // 1. Validar y convertir Fecha de forma segura
+                if (!DateTime.TryParseExact(objeto.Fecha, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaPartido))
+                {
+                    return new Respuesta<int> { Estado = false, Valor = "warning", Mensaje = "El formato de la fecha no es válido. Debe ser dd/MM/yyyy." };
+                }
+
+                // 2. Validar y convertir Hora de forma segura
+                if (!TimeSpan.TryParse(objeto.Hora, out TimeSpan horaPartido))
+                {
+                    return new Respuesta<int> { Estado = false, Valor = "warning", Mensaje = "El formato de la hora no es válido. Debe ser HH:mm." };
+                }
+
+                //return NPartido.GetInstance().EditarPartidoProgra(objeto, fechaPartido, horaPartido);
+
+                System.Threading.Thread.Sleep(2000);
+
+                Respuesta<int> response = new Respuesta<int>
+                {
+                    Estado = true,
+                    Valor = "success",
+                    Mensaje = "El Mensaje de edicion de partido Cuartos final. (Prueba Simulada)"
+                };
+
+                return response;
+            }
+            catch (Exception ex)
+            {
+                // Esto solo saltará si se cae la base de datos o hay un error grave en la memoria
+                return new Respuesta<int> { Estado = false, Valor = "error", Mensaje = "Error en el servidor: " + ex.Message };
+            }
+        }
+
+        [WebMethod]
+        public static Respuesta<bool> NotificacionNewPartido(string titulo, string mensaje, string informacion)
+        {
+            try
+            {
+
+                if (string.IsNullOrEmpty(titulo) || string.IsNullOrEmpty(mensaje) || string.IsNullOrEmpty(informacion))
+                {
+                    return new Respuesta<bool>
+                    {
+                        Estado = false,
+                        Valor = "warning",
+                        Mensaje = "Ingrese los datos requeridos (Título, Mensaje e Informacion)."
+                    };
+                }
+
+                var resp = NPartido.GetInstance().ListaTokensNoti();
+
+                if (!resp.Estado || resp.Data == null || resp.Data.Count == 0)
+                {
+                    return new Respuesta<bool>
+                    {
+                        Estado = false,
+                        Valor = "warning",
+                        Mensaje = "No hay usuarios para notificar."
+                    };
+                }
+
+                System.Threading.Thread.Sleep(2000);
+
+                // 2. Creamos la respuesta
+                Respuesta<bool> response = new Respuesta<bool>
+                {
+                    Estado = true,
+                    Valor = "success",
+                    Mensaje = "El Mensaje se envio correctamente. (Prueba Simulada)",
+                    Data = true
+                };
+
+                return response;
+
+                // bool exito = Helpers.GetInstance().NotificacionPartidos(resp.Data, titulo, mensaje, informacion);
+
+                // return new Respuesta<bool>
+                // {
+                //     Estado = exito,
+                //     Valor = exito ? "success" : "warning",
+                //     Mensaje = exito ? "Notificaciones enviadas correctamente" : "Hubo un problema al enviar algunas notificaciones."
+                // };
+            }
+            catch (Exception)
+            {
+                return new Respuesta<bool> { Estado = false, Valor = "error", Mensaje = "Error en el servidor" };
             }
         }
 

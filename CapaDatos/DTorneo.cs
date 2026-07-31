@@ -1,4 +1,5 @@
-﻿using CapaEntidad.Entidades;
+﻿using CapaEntidad.DTOs;
+using CapaEntidad.Entidades;
 using CapaEntidad.Responses;
 using System;
 using System.Collections.Generic;
@@ -189,5 +190,56 @@ namespace CapaDatos
                 };
             }
         }
+
+        public Respuesta<List<ClasificadosSerieDTO>> ObtenerClasificadosSerie(int idTorneo, int idCategoria, int idSerie)
+        {
+            try
+            {
+                List<ClasificadosSerieDTO> rptLista = new List<ClasificadosSerieDTO>();
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand comando = new SqlCommand("usp_ObtenerClasificadosSerie", con))
+                    {
+                        comando.CommandType = CommandType.StoredProcedure;
+                        comando.Parameters.AddWithValue("@IdTorneo", idTorneo);
+                        comando.Parameters.AddWithValue("@IdCategoria", idCategoria);
+                        comando.Parameters.AddWithValue("@IdSerie", idSerie);
+
+                        con.Open();
+                        using (SqlDataReader dr = comando.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                rptLista.Add(new ClasificadosSerieDTO
+                                {
+                                    PosicionClasificacion = Convert.ToInt32(dr["PosicionClasificacion"]),
+                                    IdEquipo = Convert.ToInt32(dr["IdEquipo"]),
+                                    NombreClub = dr["NombreClub"].ToString(),
+                                    LogoUrl = dr["LogoUrl"].ToString(),
+                                    DG = Convert.ToInt32(dr["DG"]),
+                                    Puntos = Convert.ToInt32(dr["Puntos"])
+                                });
+                            }
+                        }
+                    }
+                }
+                return new Respuesta<List<ClasificadosSerieDTO>>()
+                {
+                    Estado = true,
+                    Data = rptLista,
+                    Mensaje = "Clasificados obtenido correctamente"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<List<ClasificadosSerieDTO>>()
+                {
+                    Estado = false,
+                    Data = null,
+                    Mensaje = $"Error al obtener los Clasificados: {ex.Message}"
+                };
+            }
+        }
+
     }
 }
