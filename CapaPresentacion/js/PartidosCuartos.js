@@ -395,7 +395,7 @@ function ejecutarGuardadoAJAX(objeto) {
 
     $.ajax({
         type: "POST",
-        url: "DetallesSerie.aspx/EditarPartidoPrueba",
+        url: "DetallesSerie.aspx/ProgramarPartido",
         data: JSON.stringify({ objeto: objeto }),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -423,5 +423,29 @@ function ejecutarGuardadoAJAX(objeto) {
         }
     });
 }
+
+$("#btnResultCuartos").on("click", function () {
+
+    let t = $("#cboFiltroTorneo").val();
+    let c = $("#cboFiltroCategoria").val();
+    let s = 2;
+
+    if ($("#cboFiltroTorneo").val() === "") {
+        MensajeToast("Campo incompleto", "Debe seleccionar un torneo.", "warning");
+        $("#cboFiltroTorneo").focus();
+        return;
+    }
+
+    if ($("#cboFiltroCategoria").val() === "") {
+        MensajeToast("Campo incompleto", "Debe seleccionar una categoría.", "warning");
+        $("#cboFiltroCategoria").focus();
+        return;
+    }
+
+    // Armamos la URL para viajar a la Página 2
+    let urlDestino = `DetallesCuartos.aspx?idTorneo=${t}&idCategoria=${c}&idFase=${s}`;
+
+    window.location.href = urlDestino;
+});
 
 // fin

@@ -995,7 +995,11 @@
     <Content Include="assets\plugins\toastr\toastr.min.js" />
     <Content Include="Categorias.aspx" />
     <Content Include="Clubes.aspx" />
+    <Content Include="ControlInscripciones.aspx" />
+    <Content Include="ControlPagoArbitraje.aspx" />
+    <Content Include="ControlPagoTarjetas.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="DetallesCuartos.aspx" />
     <Content Include="DetallesSerie.aspx" />
     <Content Include="ExcelJugadores.aspx" />
     <Content Include="Imagen\sinimagen.png" />
@@ -1007,10 +1011,15 @@
     <Content Include="img\logo2.jpg" />
     <Content Include="img\logo3.jpg" />
     <Content Include="img\logo4.jpeg" />
+    <Content Include="img\logoPagos.jpg" />
     <Content Include="Inicio.aspx" />
     <Content Include="Inscripciones.aspx" />
     <Content Include="js\Categorias.js" />
     <Content Include="js\Clubes.js" />
+    <Content Include="js\ControlInscripciones.js" />
+    <Content Include="js\ControlPagoArbitraje.js" />
+    <Content Include="js\ControlPagoTarjetas.js" />
+    <Content Include="js\DetallesCuartos.js" />
     <Content Include="js\DetalleSeries.js" />
     <Content Include="js\ExcelJugadores.js" />
     <Content Include="js\Inscripciones.js" />
@@ -1051,12 +1060,40 @@
     <Compile Include="Clubes.aspx.designer.cs">
       <DependentUpon>Clubes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ControlInscripciones.aspx.cs">
+      <DependentUpon>ControlInscripciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlInscripciones.aspx.designer.cs">
+      <DependentUpon>ControlInscripciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlPagoArbitraje.aspx.cs">
+      <DependentUpon>ControlPagoArbitraje.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlPagoArbitraje.aspx.designer.cs">
+      <DependentUpon>ControlPagoArbitraje.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlPagoTarjetas.aspx.cs">
+      <DependentUpon>ControlPagoTarjetas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlPagoTarjetas.aspx.designer.cs">
+      <DependentUpon>ControlPagoTarjetas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DetallesCuartos.aspx.cs">
+      <DependentUpon>DetallesCuartos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetallesCuartos.aspx.designer.cs">
+      <DependentUpon>DetallesCuartos.aspx</DependentUpon>
     </Compile>
     <Compile Include="DetallesSerie.aspx.cs">
       <DependentUpon>DetallesSerie.aspx</DependentUpon>

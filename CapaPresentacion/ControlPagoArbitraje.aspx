@@ -1,15 +1,15 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PageMaster.Master" AutoEventWireup="true" CodeBehind="Partidos.aspx.cs" Inherits="CapaPresentacion.Partidos" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PageMaster.Master" AutoEventWireup="true" CodeBehind="ControlPagoArbitraje.aspx.cs" Inherits="CapaPresentacion.ControlPagoArbitraje" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
-    <h1 class="page-header">PANEL DE CONSULTAS <small>Y RESULTADOS POR FASE</small></h1>
+    <h1 class="page-header">CONTROL DE PAGOS <small>ARBITRAJE</small></h1>
 
     <div class="row">
         <div class="col-xl-12">
             <div class="panel panel-inverse shadow-sm border-0">
                 <!-- Cabecera del Panel -->
                 <div class="panel-heading">
-                    <h4 class="panel-title"><i class="fa fa-sitemap me-2"></i>Consulta de Partidos Programados por Fase</h4>
+                    <h4 class="panel-title"><i class="fa fa-sitemap me-2"></i>Control de Pago de Arbitraje</h4>
                 </div>
 
                 <div class="panel-body p-0">
@@ -71,9 +71,9 @@
                                 <i class="fa fa-table text-muted me-2"></i>Resultados de la Búsqueda
                             </h6>
 
-                            <!-- <button id="btnProgramarGrupos" type="button" class="btn btn-sm btn-primary fw-bold shadow-sm">
-                            <i class="fa fa-calendar-plus me-2"></i>Programar o Editar Partido (Grupos)
-                        </button> -->
+                            <button id="btnReporte" type="button" class="btn btn-sm btn-primary fw-bold shadow-sm">
+                                <i class="fa fa-file-alt me-1"></i>Generar Reporte
+                            </button>
                         </div>
 
                         <div class="table-responsive">
@@ -82,12 +82,11 @@
                                 <thead>
                                     <tr>
                                         <th>Fecha / Hora</th>
-                                        <%--<th>Fase</th>--%>
-                                        <th class="text-end">Equipo Local</th>
-                                        <th width="12%">Marcador</th>
-                                        <th class="text-start">Equipo Visitante</th>
+                                        <th>Fase</th>
+                                        <th>Equipos Deudores</th>
+                                        <th>Condicion</th>
                                         <th>Cancha</th>
-                                        <th>Estado</th>
+                                        <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -102,6 +101,5 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="footer" runat="server">
-    <script src="js/Partidos.js?v=<%= DateTime.Now.ToString("yyyyMMddHHmmss") %>" type="text/javascript"></script>
-
+    <script src="js/ControlPagoArbitraje.js?v=<%= DateTime.Now.ToString("yyyyMMddHHmmss") %>" type="text/javascript"></script>
 </asp:Content>

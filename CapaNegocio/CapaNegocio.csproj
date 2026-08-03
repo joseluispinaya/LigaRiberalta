@@ -46,6 +46,8 @@
     <Compile Include="NInscripcion.cs" />
     <Compile Include="NJugador.cs" />
     <Compile Include="NPartido.cs" />
+    <Compile Include="NResultados.cs" />
+    <Compile Include="NSancionesEconomica.cs" />
     <Compile Include="NTorneo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

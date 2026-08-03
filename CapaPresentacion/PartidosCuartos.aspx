@@ -120,7 +120,7 @@
             <div class="panel panel-inverse shadow-sm border-0">
                 <div class="panel-heading bg-dark text-white d-flex justify-content-between align-items-center">
                     <h4 class="panel-title"><i class="fa fa-sitemap me-2"></i>Llaves Generadas: Cuartos de Final</h4>
-                    <button id="btnProgramarCuartos" class="btn btn-success btn-sm fw-bold">
+                    <button id="btnResultCuartos" class="btn btn-success btn-sm fw-bold">
                         <i class="fa fa-calendar-check me-1"></i>Resultados y Eventos
                     </button>
                 </div>

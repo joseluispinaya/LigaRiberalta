@@ -35,5 +35,11 @@ namespace CapaPresentacion
         {
             return NPartido.GetInstance().ListaPartidosSerie(IdTorneo, IdCategoria, IdSerie);
         }
+
+        [WebMethod]
+        public static Respuesta<List<PartidoSerieDTO>> ObtenerPartidosFase(int IdTorneo, int IdCategoria, int IdFase)
+        {
+            return NResultados.GetInstance().ObtenerPartidosFase(IdTorneo, IdCategoria, IdFase);
+        }
     }
 }

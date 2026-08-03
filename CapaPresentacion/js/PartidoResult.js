@@ -257,7 +257,7 @@ function cargarFixturePartidos() {
                     if (row.IdEstado === 1) {
                         return `<button class="btn btn-lime btn-sm px-2 py-1 fw-bold btn-resultado" title="Mesa de Control / Resultados" data-id="${row.IdPartido}"><i class="fa fa-play me-1"></i>Resultado</button>`;
                     }
-                    return `<button class="btn btn-white border btn-sm px-2 py-1 fw-bold text-gray-700 btn-detalles" title="Ver Acta" data-id="${row.IdPartido}"><i class="fa fa-file-alt me-1"></i>Acta</button>`;
+                    return `<button class="btn btn-white border btn-sm px-2 py-1 fw-bold text-gray-700 btn-detalles" title="Ver Detalles" data-id="${row.IdPartido}"><i class="fa fa-file-alt me-1"></i>Ver Detalle</button>`;
                 }
             }
         ],
@@ -274,8 +274,19 @@ $('#tbPartidos tbody').on('click', '.btn-resultado', function () {
     }
 
     let data = tablaPartidos.row(fila).data();
-    var url = 'PanelResultados.aspx?idPartido=' + data.IdPartido;
-    window.location.href = url;
+    window.location.href = 'PanelResultados.aspx?idPartido=' + data.IdPartido + '&esDetalle=false';
+
+});
+
+$('#tbPartidos tbody').on('click', '.btn-detalles', function () {
+
+    let fila = $(this).closest('tr');
+    if (fila.hasClass('child')) {
+        fila = fila.prev();
+    }
+
+    let data = tablaPartidos.row(fila).data();
+    window.location.href = 'PanelResultados.aspx?idPartido=' + data.IdPartido + '&esDetalle=true';
 
 });
 

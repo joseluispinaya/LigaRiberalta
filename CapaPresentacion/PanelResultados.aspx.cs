@@ -43,6 +43,11 @@ namespace CapaPresentacion
             }
         }
 
+        [WebMethod]
+        public static Respuesta<List<EventoDetalleDTO>> ObtenerEventosPartido(int IdPartido)
+        {
+            return NResultados.GetInstance().ObtenerEventosPartido(IdPartido);
+        }
 
     }
 }

@@ -1,13 +1,14 @@
 ﻿
 let v_IdPartido = 0;
 let estadoPartido = 0;
+let esModoDetalle = false;
 
 $(document).ready(function () {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
-    // Capturamos los 3 parámetros
     const idPartidoUrl = urlParams.get('idPartido');
+    const esDetalleParam = urlParams.get('esDetalle');
 
     if (!idPartidoUrl || idPartidoUrl.trim() === "") {
         MensajeToast("Error de acceso", "Falta parámetro para ver los detalles del partido.", "error");
@@ -17,6 +18,7 @@ $(document).ready(function () {
     } else {
         // guardamos en la variable global como entero
         v_IdPartido = parseInt(idPartidoUrl);
+        esModoDetalle = (esDetalleParam === 'true');
         cargarDetallePartido();
         cargarEstadosPartido();
     }
@@ -99,6 +101,28 @@ function cargarDetallePartido() {
                 // Guardamos el IdEquipo en el botón
                 $("#btnPlantillaVisitante").attr("data-idequipo", data.IdEquipoVisitante).attr("data-nombre", data.ClubVisitante);
 
+                cargarEventosHistorial(data.IdEquipoLocal, data.IdEquipoVisitante);
+
+                // LÓGICA CONDICIONAL DE LA VISTA
+                if (esModoDetalle) {
+                    // Ocultamos botones de acción
+                    $("#btnFinalizarPartido").hide();
+                    $("#btnPlantillaLocal").hide();
+                    $("#btnPlantillaVisitante").hide();
+
+                    // Mostramos contenedores de eventos y los cargamos
+                    //$("#contenedorEventosLocal").removeClass("d-none");
+                    //$("#contenedorEventosVisitante").removeClass("d-none");
+
+                    // Pasamos los IDs de los equipos para saber en qué lado pintar cada evento
+                    //cargarEventosHistorial(data.IdEquipoLocal, data.IdEquipoVisitante);
+                } else {
+                    // Si es edición, nos aseguramos de que los botones estén visibles
+                    $("#btnFinalizarPartido").show();
+                    $("#btnPlantillaLocal").show();
+                    $("#btnPlantillaVisitante").show();
+                }
+
             } else {
                 MensajeToast("Error", response.d.Mensaje, "error");
                 setTimeout(function () { window.location.href = 'PartidosResult.aspx'; }, 3000);
@@ -107,6 +131,71 @@ function cargarDetallePartido() {
         error: function (xhr, ajaxOptions, thrownError) {
             console.log(xhr.responseText);
             MensajeToast("Error Crítico", "Error de comunicación con el servidor.", "error");
+        }
+    });
+}
+
+function cargarEventosHistorial(idLocal, idVisitante) {
+
+    // Mostramos un loader provisional
+    $("#contenedorEventosLocal, #contenedorEventosVisitante").html('<div class="text-center text-muted fs-12px"><i class="fa fa-spinner fa-spin me-1"></i>Cargando eventos...</div>');
+
+    $.ajax({
+        url: "PanelResultados.aspx/ObtenerEventosPartido",
+        type: "POST",
+        data: JSON.stringify({ IdPartido: v_IdPartido }),
+        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        success: function (response) {
+
+            $("#contenedorEventosLocal").empty();
+            $("#contenedorEventosVisitante").empty();
+
+            if (response.d.Estado) {
+                let lista = response.d.Data;
+
+                if (lista && lista.length > 0) {
+                    $.each(lista, function (i, evento) {
+
+                        // Determinamos el icono visual según el Tipo de Evento
+                        let iconoHtml = '';
+                        if (evento.IdTipoEvento === 1) iconoHtml = '<i class="fas fa-futbol text-dark me-2"></i>'; // Gol
+                        if (evento.IdTipoEvento === 2) iconoHtml = '<i class="fas fa-square text-warning me-2"></i>'; // Amarilla
+                        if (evento.IdTipoEvento === 3) iconoHtml = '<i class="fas fa-square text-danger me-2"></i>'; // Roja
+                        if (evento.IdTipoEvento === 4) iconoHtml = '<i class="fas fa-futbol text-danger me-2"></i> <span class="text-danger fs-10px fw-bold">(e/c)</span>'; // Autogol
+
+                        // Construimos el bloque HTML del evento INCLUYENDO EL DORSAL
+                        let eventoDiv = `
+                            <div class="d-flex align-items-center mb-2 border-bottom pb-2">
+                                <div class="fw-bold fs-13px text-muted me-2" style="width: 35px;">${evento.Minuto}'</div>
+                                <div>${iconoHtml}</div>
+                                <div class="fs-13px text-dark fw-semibold text-truncate" title="#${evento.Dorsal} ${evento.NombreJugador}">
+                                    <span class="text-muted fw-bold me-1">#${evento.Dorsal}</span>${evento.NombreJugador}
+                                </div>
+                            </div>
+                        `;
+
+                        // Inyectamos al contenedor correspondiente
+                        if (evento.IdEquipo === idLocal) {
+                            $("#contenedorEventosLocal").append(eventoDiv);
+                        } else if (evento.IdEquipo === idVisitante) {
+                            $("#contenedorEventosVisitante").append(eventoDiv);
+                        }
+                    });
+                }
+
+                // Si algún lado quedó vacío, ponemos un mensaje sutil
+                if ($("#contenedorEventosLocal").is(':empty')) {
+                    $("#contenedorEventosLocal").html('<div class="text-center text-muted fs-11px fst-italic">Sin eventos registrados</div>');
+                }
+                if ($("#contenedorEventosVisitante").is(':empty')) {
+                    $("#contenedorEventosVisitante").html('<div class="text-center text-muted fs-11px fst-italic">Sin eventos registrados</div>');
+                }
+
+            } else {
+                $("#contenedorEventosLocal").html('<div class="text-center text-danger fs-12px">Error al cargar</div>');
+                $("#contenedorEventosVisitante").html('<div class="text-center text-danger fs-12px">Error al cargar</div>');
+            }
         }
     });
 }
@@ -264,9 +353,10 @@ $("#btnGuardarEvento").on("click", function () {
             if (response.d.Estado) {
                 MensajeToast("¡Registrado!", "El evento se guardó correctamente en el partido.", "success");
                 $("#modalEvento").modal("hide");
+                $("#modalPlantilla").modal("hide");
 
                 // Opcional: Aquí podrías llamar a una función que recargue el marcador general
-                //cargarDetallePartido();
+                cargarDetallePartido();
             } else {
                 MensajeToast("Error", response.d.Mensaje, "error");
             }

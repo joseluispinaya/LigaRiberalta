@@ -245,7 +245,7 @@ function cargarFixture() {
                     if (row.IdEstado === 1) {
                         return `<button class="btn btn-lime btn-sm px-2 py-1 fw-bold btn-editar" title="Editar Partido" data-id="${row.IdPartido}"><i class="fas fa-pencil-alt me-1"></i>Editar</button>`;
                     }
-                    return `<button class="btn btn-white border btn-sm px-2 py-1 fw-bold text-gray-700 btn-detalles" title="Ver Acta" data-id="${row.IdPartido}"><i class="fa fa-file-alt me-1"></i>Acta</button>`;
+                    return `<button class="btn btn-white border btn-sm px-2 py-1 fw-bold text-gray-700 btn-acta" title="Ver Acta" data-id="${row.IdPartido}"><i class="fa fa-file-alt me-1"></i>Acta</button>`;
                 }
             }
         ],
@@ -708,19 +708,11 @@ $("#btnGuardarCamEdit").on("click", function () {
     }
 
     const objeto = {
-        // uso IdFase como IdPartido
-        IdFase: parseInt(idPartido),
-        Fecha: fechaStr,
-        Hora: horaStr,
-        Cancha: canchaStr
-    };
-
-    /* const objeto = {
         IdPartido: parseInt(idPartido),
         Fecha: fechaStr,
         Hora: horaStr,
         Cancha: canchaStr
-    }; */
+    };
 
     if (fechaPartidoExacta < ahora) {
         // En lugar de un Toast y un return, le preguntamos
@@ -765,8 +757,8 @@ function ejecutarEditAJAX(objeto) {
 
     $.ajax({
         type: "POST",
-        url: "DetallesSerie.aspx/EditarPartidoPrueba",
-        data: JSON.stringify({ objeto: objeto }),
+        url: "DetallesSerie.aspx/ActualizarFechaPartido",
+        data: JSON.stringify(objeto),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -801,5 +793,147 @@ function ejecutarEditAJAX(objeto) {
     });
 }
 
+$('#tbPartidos tbody').on('click', '.btn-acta', function () {
+
+    let fila = $(this).closest('tr');
+    if (fila.hasClass('child')) {
+        fila = fila.prev();
+    }
+
+    let data = tablaPartidos.row(fila).data();
+
+    $.ajax({
+        url: "DetallesSerie.aspx/DetallePartidoActa",
+        type: "POST",
+        data: JSON.stringify({ IdPartido: data.IdPartido }),
+        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        success: function (response) {
+            if (response.d.Estado) {
+                const data = response.d.Data;
+
+                // 1. Datos Generales del Partido
+                $("#lblFechaHora").text(`${data.Fecha} - ${data.Hora}`);
+                $("#lblCancha").text(data.Cancha);
+                $("#lblFase").text(data.NombreFase);
+
+                // Colores dinámicos para el estado
+                let claseEstado = "bg-info";
+                if (data.IdEstado === 2) claseEstado = "bg-success";
+                if (data.IdEstado >= 3) claseEstado = "bg-danger";
+
+                //$("#badgeEstadoPartido").removeClass().addClass(`badge ${claseEstado} fs-14px px-3 py-2 shadow-sm`).text(data.NombreEstado);
+
+                // 2. Datos Equipo Local
+                $("#lblClubLocal").text(data.ClubLocal);
+                $("#imgLogoLocal").attr("src", data.LogoLocal || 'Logos/sinLogo.png');
+                $("#lblGolesLocal").text(data.GolesLocal);
+
+                let textoArbitrjeLocal = "Arbitraje";
+                let iconoHtml = '';
+                if (data.PagoArbitrajeLocal) {
+                    textoArbitrjeLocal += " (PAGADO)";
+                    iconoHtml = '<i class="fa fa-money-bill-wave text-success me-1"></i>';
+                } else {
+                    textoArbitrjeLocal += " (NO PAGADO)";
+                    iconoHtml = '<i class="fas fa-hand-holding-dollar text-danger me-1"></i>';
+                }
+                $("#lblArbitrajeLocal").html(`${iconoHtml}${textoArbitrjeLocal}`);
+                //$("#lblArbitrajePrueba").html(`<i class="fa fa-money-bill-wave text-success me-1"></i>${textoArbitrjeLocal}`);
+
+                // 3. Datos Equipo Visitante
+                $("#lblClubVisitante").text(data.ClubVisitante);
+                $("#imgLogoVisitante").attr("src", data.LogoVisitante || 'Logos/sinLogo.png');
+                $("#lblGolesVisitante").text(data.GolesVisitante);
+
+                let textoArbitrjeVisitante = "Arbitraje";
+                let iconoHtmlVisi = '';
+                if (data.PagoArbitrajeVisitante) {
+                    textoArbitrjeVisitante += " (PAGADO)";
+                    iconoHtmlVisi = '<i class="fa fa-money-bill-wave text-success me-1"></i>';
+                } else {
+                    textoArbitrjeVisitante += " (NO PAGADO)";
+                    iconoHtmlVisi = '<i class="fas fa-hand-holding-dollar text-danger me-1"></i>';
+                }
+                $("#lblArbitrajeVisitante").html(`${iconoHtmlVisi}${textoArbitrjeVisitante}`);
+
+                cargarEventosHistorialActa(data.IdEquipoLocal, data.IdEquipoVisitante, data.IdPartido);
+                $("#modalDetalless").modal("show");
+
+            } else {
+                MensajeToast("Error", response.d.Mensaje, "error");
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log(xhr.responseText);
+            MensajeToast("Error Crítico", "Error de comunicación con el servidor.", "error");
+        }
+    });
+});
+
+function cargarEventosHistorialActa(idLocal, idVisitante, idPartido) {
+
+    // Mostramos un loader provisional
+    $("#contenedorEventosLocal, #contenedorEventosVisitante").html('<div class="text-center text-muted fs-12px"><i class="fa fa-spinner fa-spin me-1"></i>Cargando eventos...</div>');
+
+    $.ajax({
+        url: "PanelResultados.aspx/ObtenerEventosPartido",
+        type: "POST",
+        data: JSON.stringify({ IdPartido: idPartido }),
+        contentType: 'application/json; charset=utf-8',
+        dataType: "json",
+        success: function (response) {
+
+            $("#contenedorEventosLocal").empty();
+            $("#contenedorEventosVisitante").empty();
+
+            if (response.d.Estado) {
+                let lista = response.d.Data;
+
+                if (lista && lista.length > 0) {
+                    $.each(lista, function (i, evento) {
+
+                        // Determinamos el icono visual según el Tipo de Evento
+                        let iconoHtml = '';
+                        if (evento.IdTipoEvento === 1) iconoHtml = '<i class="fas fa-futbol text-dark me-2"></i>'; // Gol
+                        if (evento.IdTipoEvento === 2) iconoHtml = '<i class="fas fa-square text-warning me-2"></i>'; // Amarilla
+                        if (evento.IdTipoEvento === 3) iconoHtml = '<i class="fas fa-square text-danger me-2"></i>'; // Roja
+                        if (evento.IdTipoEvento === 4) iconoHtml = '<i class="fas fa-futbol text-danger me-2"></i> <span class="text-danger fs-10px fw-bold">(e/c)</span>'; // Autogol
+
+                        // Construimos el bloque HTML del evento INCLUYENDO EL DORSAL
+                        let eventoDiv = `
+                            <div class="d-flex align-items-center mb-2 border-bottom pb-2">
+                                <div class="fw-bold fs-13px text-muted me-2" style="width: 35px;">${evento.Minuto}'</div>
+                                <div>${iconoHtml}</div>
+                                <div class="fs-13px text-dark fw-semibold text-truncate" title="#${evento.Dorsal} ${evento.NombreJugador}">
+                                    <span class="text-muted fw-bold me-1">#${evento.Dorsal}</span>${evento.NombreJugador}
+                                </div>
+                            </div>
+                        `;
+
+                        // Inyectamos al contenedor correspondiente
+                        if (evento.IdEquipo === idLocal) {
+                            $("#contenedorEventosLocal").append(eventoDiv);
+                        } else if (evento.IdEquipo === idVisitante) {
+                            $("#contenedorEventosVisitante").append(eventoDiv);
+                        }
+                    });
+                }
+
+                // Si algún lado quedó vacío, ponemos un mensaje sutil
+                if ($("#contenedorEventosLocal").is(':empty')) {
+                    $("#contenedorEventosLocal").html('<div class="text-center text-muted fs-11px fst-italic">Sin eventos registrados</div>');
+                }
+                if ($("#contenedorEventosVisitante").is(':empty')) {
+                    $("#contenedorEventosVisitante").html('<div class="text-center text-muted fs-11px fst-italic">Sin eventos registrados</div>');
+                }
+
+            } else {
+                $("#contenedorEventosLocal").html('<div class="text-center text-danger fs-12px">Error al cargar</div>');
+                $("#contenedorEventosVisitante").html('<div class="text-center text-danger fs-12px">Error al cargar</div>');
+            }
+        }
+    });
+}
 
 // fin

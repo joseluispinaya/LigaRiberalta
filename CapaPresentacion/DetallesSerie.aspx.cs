@@ -81,6 +81,38 @@ namespace CapaPresentacion
         }
 
         [WebMethod]
+        public static Respuesta<PartidoActaDTO> DetallePartidoActa(int IdPartido)
+        {
+            return NResultados.GetInstance().DetallePartidoActa(IdPartido);
+        }
+
+        [WebMethod]
+        public static Respuesta<int> ActualizarFechaPartido(int IdPartido, string Fecha, string Hora, string Cancha)
+        {
+            try
+            {
+                // 1. Validar y convertir Fecha de forma segura
+                if (!DateTime.TryParseExact(Fecha, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaPartido))
+                {
+                    return new Respuesta<int> { Estado = false, Valor = "warning", Mensaje = "El formato de la fecha no es válido. Debe ser dd/MM/yyyy." };
+                }
+
+                // 2. Validar y convertir Hora de forma segura
+                if (!TimeSpan.TryParse(Hora, out TimeSpan horaPartido))
+                {
+                    return new Respuesta<int> { Estado = false, Valor = "warning", Mensaje = "El formato de la hora no es válido. Debe ser HH:mm." };
+                }
+
+                return NResultados.GetInstance().ActualizarFechaPartido(IdPartido, fechaPartido, horaPartido, Cancha);
+            }
+            catch (Exception ex)
+            {
+                // Esto solo saltará si se cae la base de datos o hay un error grave en la memoria
+                return new Respuesta<int> { Estado = false, Valor = "error", Mensaje = "Error en el servidor: " + ex.Message };
+            }
+        }
+
+        [WebMethod]
         public static Respuesta<int> ResultadoPartidoPruebas(ResultadosPartidoDTO objeto)
         {
             try

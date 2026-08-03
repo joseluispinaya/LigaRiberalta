@@ -70,6 +70,9 @@
                                 <button id="btnPlantillaLocal" class="btn btn-outline-primary fw-bold w-100 rounded-pill" data-idequipo="0">
                                     <i class="fa fa-users me-1"></i>Ver Plantilla
                                 </button>
+                                <div id="contenedorEventosLocal" class="mt-3 text-start w-100"></div>
+                                <!-- NUEVO CONTENEDOR PARA EVENTOS -->
+                                <%--<div id="contenedorEventosLocal" class="mt-3 text-start w-100 d-none"></div>--%>
                             </div>
                         </div>
 
@@ -98,6 +101,9 @@
                                 <button id="btnPlantillaVisitante" class="btn btn-outline-info fw-bold w-100 rounded-pill" data-idequipo="0">
                                     <i class="fa fa-users me-1"></i>Ver Plantilla
                                 </button>
+                                <div id="contenedorEventosVisitante" class="mt-3 text-start w-100"></div>
+                                <!-- NUEVO CONTENEDOR PARA EVENTOS -->
+                                <%--<div id="contenedorEventosVisitante" class="mt-3 text-start w-100 d-none"></div>--%>
                             </div>
                         </div>
 
