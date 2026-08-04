@@ -49,6 +49,7 @@
     <Compile Include="NResultados.cs" />
     <Compile Include="NSancionesEconomica.cs" />
     <Compile Include="NTorneo.cs" />
+    <Compile Include="NUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

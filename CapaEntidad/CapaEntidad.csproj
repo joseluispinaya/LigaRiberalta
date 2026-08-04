@@ -69,9 +69,11 @@
     <Compile Include="Entidades\EFasesTorneo.cs" />
     <Compile Include="Entidades\EInscripcion.cs" />
     <Compile Include="Entidades\EJugador.cs" />
+    <Compile Include="Entidades\ERol.cs" />
     <Compile Include="Entidades\ESerie.cs" />
     <Compile Include="Entidades\EstadoPartido.cs" />
     <Compile Include="Entidades\ETorneo.cs" />
+    <Compile Include="Entidades\EUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses\Respuesta.cs" />
   </ItemGroup>

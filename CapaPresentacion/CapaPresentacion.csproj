@@ -151,6 +151,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\cardzero.css" />
     <Content Include="assets\css\defaultpage.css" />
     <Content Include="assets\css\default\app-rtl.min.css" />
     <Content Include="assets\css\default\app.min.css" />
@@ -995,6 +996,7 @@
     <Content Include="assets\plugins\toastr\toastr.min.js" />
     <Content Include="Categorias.aspx" />
     <Content Include="Clubes.aspx" />
+    <Content Include="ConsultaInscritos.aspx" />
     <Content Include="ControlInscripciones.aspx" />
     <Content Include="ControlPagoArbitraje.aspx" />
     <Content Include="ControlPagoTarjetas.aspx" />
@@ -1016,6 +1018,7 @@
     <Content Include="Inscripciones.aspx" />
     <Content Include="js\Categorias.js" />
     <Content Include="js\Clubes.js" />
+    <Content Include="js\ConsultaInscritos.js" />
     <Content Include="js\ControlInscripciones.js" />
     <Content Include="js\ControlPagoArbitraje.js" />
     <Content Include="js\ControlPagoTarjetas.js" />
@@ -1027,6 +1030,7 @@
     <Content Include="js\Login.js" />
     <Content Include="js\Masterpa.js" />
     <Content Include="js\PanelResultados.js" />
+    <Content Include="js\PanelUsuarios.js" />
     <Content Include="js\PartidoResult.js" />
     <Content Include="js\Partidos.js" />
     <Content Include="js\PartidosCuartos.js" />
@@ -1037,6 +1041,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Logos\sinLogo.png" />
     <Content Include="PanelResultados.aspx" />
+    <Content Include="PanelUsuarios.aspx" />
     <Content Include="Partidos.aspx" />
     <Content Include="PartidosCuartos.aspx" />
     <Content Include="PartidosResult.aspx" />
@@ -1059,6 +1064,13 @@
     </Compile>
     <Compile Include="Clubes.aspx.designer.cs">
       <DependentUpon>Clubes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultaInscritos.aspx.cs">
+      <DependentUpon>ConsultaInscritos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConsultaInscritos.aspx.designer.cs">
+      <DependentUpon>ConsultaInscritos.aspx</DependentUpon>
     </Compile>
     <Compile Include="ControlInscripciones.aspx.cs">
       <DependentUpon>ControlInscripciones.aspx</DependentUpon>
@@ -1151,6 +1163,13 @@
     </Compile>
     <Compile Include="PanelResultados.aspx.designer.cs">
       <DependentUpon>PanelResultados.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PanelUsuarios.aspx.cs">
+      <DependentUpon>PanelUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PanelUsuarios.aspx.designer.cs">
+      <DependentUpon>PanelUsuarios.aspx</DependentUpon>
     </Compile>
     <Compile Include="Partidos.aspx.cs">
       <DependentUpon>Partidos.aspx</DependentUpon>

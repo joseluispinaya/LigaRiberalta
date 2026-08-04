@@ -50,6 +50,7 @@
     <Compile Include="DResultados.cs" />
     <Compile Include="DSancionesEconomica.cs" />
     <Compile Include="DTorneo.cs" />
+    <Compile Include="DUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

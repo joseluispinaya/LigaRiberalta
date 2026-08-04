@@ -1,0 +1,182 @@
+﻿
+
+/*=============== VARIABLES CSS PARA CARDS ===============*/
+:root {
+    --first-color: #348fe2; /* Azul primary de Color Admin */
+    --title-color: #2d353c; /* Dark text */
+    --container-color: #ffffff;
+}
+
+/*=============== PROFILE CARD ===============*/
+.profile__card {
+    position: relative;
+    width: 290px;
+    height: 95px;
+    display: flex;
+    align-items: center;
+    margin: 1.5rem auto; /* Centrado en la columna */
+    z-index: 1;
+}
+
+    /* Cuando se abre el menú, aseguramos que este card esté por encima de los demás */
+    .profile__card.active-card {
+        z-index: 10;
+    }
+
+.profile__content {
+    width: 100%;
+    height: 100%;
+    background-color: var(--container-color);
+    border-radius: 4rem .5rem .5rem 4rem;
+    box-shadow: 0 8px 24px rgba(45, 53, 60, 0.2), inset 0 2px 16px rgba(45, 53, 60, 0.3);
+    display: flex;
+    align-items: center;
+    column-gap: .5rem;
+    z-index: 10;
+    /*border: 1px solid rgba(0,0,0,0.05);*/
+}
+
+.profile__img {
+    width: 95px !important;
+    height: 95px !important;
+    min-width: 95px;
+    flex-shrink: 0; /* Prohíbe que el contenedor padre deforme la imagen */
+    border-radius: 50%;
+    border: 4px solid var(--container-color);
+    /* Comportamiento interno de la imagen */
+    object-fit: contain;
+    object-position: center;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 4px; /* Opcional: Evita que el logo toque el borde del círculo */
+}
+
+/*.profile__img {
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    border: 4px solid var(--container-color);
+    object-fit: contain;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}*/
+
+.profile__data {
+    flex-grow: 1;
+    padding-left: 5px;
+}
+
+.profile__name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--title-color);
+    margin-bottom: 0.1rem;
+    line-height: 1.2;
+}
+
+.profile__profession {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.profile__button {
+    width: 40px;
+    height: 40px;
+    background-color: var(--first-color);
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(52, 143, 226, 0.4);
+    display: grid;
+    place-items: center;
+    margin-right: 0.75rem;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.profile__menu,
+.profile__close {
+    color: #fff;
+    font-size: 1.2rem;
+    position: absolute;
+    transition: opacity .1s, transform .4s;
+}
+
+.profile__close {
+    opacity: 0;
+}
+
+.profile__social {
+    position: absolute;
+    right: -2rem;
+    width: 125px;
+    height: 125px;
+    background-color: var(--container-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity .4s;
+    pointer-events: none; /* Evita clics cuando está oculto */
+}
+
+.profile__link {
+    position: absolute;
+    transition: transform .3s;
+}
+
+    .profile__link span {
+        width: 40px;
+        height: 40px;
+        background-color: var(--container-color);
+        box-shadow: 0 8px 24px rgba(45, 53, 60, 0.2), inset 0 2px 16px rgba(45, 53, 60, 0.3);
+        /*box-shadow: 0 2px 8px rgba(0,0,0, 0.1), inset 0 4px 8px rgba(0,0,0, 0.05);*/
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        color: var(--first-color);
+        font-size: 1.1rem;
+        transition: background-color .3s, color .3s;
+    }
+
+        .profile__link span:hover {
+            background-color: var(--first-color);
+            color: #fff;
+        }
+
+/* ======================================= */
+/* ANIMACIONES Y POSICIONES (3 BOTONES)    */
+/* ======================================= */
+
+.show-social {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+    /* Botón 1: Detalle (Ángulo Superior) */
+    .show-social .profile__link:nth-child(1) {
+        transform: rotate(-45deg) translateX(85px) rotate(45deg);
+        transition-delay: 0s;
+    }
+
+    /* Botón 2: Equipo (Medio) */
+    .show-social .profile__link:nth-child(2) {
+        transform: rotate(0deg) translateX(85px) rotate(0deg);
+        transition-delay: .1s;
+    }
+
+    /* Botón 3: Técnicos (Ángulo Inferior) */
+    .show-social .profile__link:nth-child(3) {
+        transform: rotate(45deg) translateX(85px) rotate(-45deg);
+        transition-delay: .2s;
+    }
+
+/* Transición del botón principal (Hamburguesa a X) */
+.show-icon .profile__menu {
+    opacity: 0;
+    transform: rotate(-90deg);
+}
+
+.show-icon .profile__close {
+    opacity: 1;
+    transform: rotate(-90deg);
+}
